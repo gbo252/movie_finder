@@ -18,6 +18,17 @@ class GenreList extends React.Component {
         event.preventDefault();
     }
 
+    renderButton() {
+        if (this.props.loading) {
+            return <button className="btn btn-danger" type="button" disabled>
+                <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+                Loading...
+            </button>
+        } else {
+            return <button onClick={this.handleSearch} className="btn btn-danger">Find Movie</button>
+        }
+    }
+
     render() {
         return (
             <form className="col-3 mx-auto">
@@ -27,10 +38,11 @@ class GenreList extends React.Component {
                         <option value="">Choose genre...</option>
                         <option value="6548">Comedy</option>
                         <option value="8933">Thriller</option>
-                        <option value="8711">Horror Movies</option>
+                        <option value="8711">Horror</option>
+                        <option value="13335">Musicals</option>
                     </select>
                 </div>
-                <button onClick={this.handleSearch} className="btn btn-danger">Find Movie</button>
+                {this.renderButton()}
             </form>
         )
     }

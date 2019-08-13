@@ -9,7 +9,8 @@ class App extends React.Component {
     super(props);
     this.state = {
       searchResults: {},
-      movie: ''
+      movie: {},
+      loading: false
     };
     this.search = this.search.bind(this);
     this.randomizeMovie = this.randomizeMovie.bind(this);
@@ -17,21 +18,27 @@ class App extends React.Component {
 
   search(genre) {
     if (this.state.searchResults[genre]) {
-      console.log(`No search needed for genre: ${genre}`);
-      this.setState({ movie: this.randomizeMovie(genre) });
+      this.setState({ loading: true }, () => {
+        setTimeout(() => {
+          this.setState({ movie: this.randomizeMovie(genre), loading: false });
+        }, 1000);
+      });
     } else {
-      console.log(`Search performed for genre: ${genre}`);
-      Unogs.search(genre).then(response => {
-        let searchObj = this.state.searchResults;
-        searchObj[genre] = response;
-        this.setState({ searchResults: searchObj });
-      }).then(() => this.setState({ movie: this.randomizeMovie(genre) }));
+      this.setState({ loading: true }, () => {
+        Unogs.search(genre).then(response => {
+          let searchObj = this.state.searchResults;
+          searchObj[genre] = response;
+          this.setState({ searchResults: searchObj }, () => {
+            this.setState({ movie: this.randomizeMovie(genre), loading: false });
+          });
+        });
+      });
     }
   }
 
   randomizeMovie(genre) {
     let moviesArr = this.state.searchResults[genre];
-    return moviesArr[Math.floor(Math.random() * moviesArr.length)].title;
+    return moviesArr[Math.floor(Math.random() * moviesArr.length)];
   }
 
   render() {
@@ -39,7 +46,9 @@ class App extends React.Component {
       <div className="App">
         <h1>Netflix Random Movie Generator</h1>
         <img src={require('./logo.png')} alt="logo" />
-        <GenreList onSearch={this.search} />
+        <GenreList
+          onSearch={this.search}
+          loading={this.state.loading} />
         <SearchResults movie={this.state.movie} />
       </div>
     )
