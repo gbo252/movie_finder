@@ -18,7 +18,7 @@ class App extends React.Component {
 
   search(genre) {
     if (this.state.searchResults[genre]) {
-      this.setState({ loading: true }, () => {
+      this.setState({ movie: {}, loading: true }, () => {
         setTimeout(() => {
           this.setState({ movie: this.randomizeMovie(genre), loading: false });
         }, 1000);
