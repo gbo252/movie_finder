@@ -1,10 +1,9 @@
 import React from 'react';
-import './GenreList.css';
 
 class GenreList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { genre: "" };
+        this.state = { genre: "X" };
         this.genres = {
             "Comedy": "1009,10256,10375,105,10778,11559,11755,1208951,1333288,1402,1747,17648,2030,2700,31694,3300,34157,3519,3996,4058,4195,43040,4426,4906,52104,52140,52847,5286,5475,5610,56174,58905,59169,61132,61330,6197,63092,63115,6548,711366,7120,72407,7539,77599,77907,78163,78655,79871,7992,852492,869,89585,9302,9434,9702,9736",
             "Thriller": "10306,10499,10504,10719,11014,11140,1138506,1321,1774,3269,43048,46588,5505,58798,65558,6867,75390,78507,799,852488,8933,89811,9147,972",
@@ -30,13 +29,15 @@ class GenreList extends React.Component {
     }
 
     renderButton() {
+        let atts = {};
+        if (this.state.genre === "X") { atts.disabled = true }
         if (this.props.loading) {
             return <button className="btn btn-danger" type="button" disabled>
                 <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Loading...
             </button>
         } else {
-            return <button onClick={this.handleSearch} className="btn btn-danger">Find Movie</button>
+            return <button onClick={this.handleSearch} className="btn btn-danger" {...atts}>Find Movie</button>
         }
     }
 
@@ -53,9 +54,9 @@ class GenreList extends React.Component {
         return (
             <form className="col-3 mx-auto">
                 <div className="form-group">
-                    <label htmlFor="exampleFormControlSelect1">Select a Genre</label>
-                    <select onChange={this.handleGenreChange} className="form-control">
-                        <option value="">Choose genre...</option>
+                    <label htmlFor="genre-list">Select a Genre</label>
+                    <select onChange={this.handleGenreChange} id="genre-list" className="form-control">
+                        <option value="X">Choose genre...</option>
                         {this.renderGenres()}
                     </select>
                 </div>
