@@ -1,6 +1,7 @@
 import React from 'react';
 import './App.css';
 import GenreList from '../GenreList/GenreList';
+import RecentSearch from '../RecentSearch/RecentSearch';
 import CountryList from '../CountryList/CountryList';
 import SearchResults from '../SearchResults/SearchResults';
 import Unogs from '../../util/Unogs';
@@ -17,6 +18,7 @@ class App extends React.Component {
       countryPicked: false
     };
     this.search = this.search.bind(this);
+    this.searchRecent = this.searchRecent.bind(this);
     this.randomizeMovie = this.randomizeMovie.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.toggleCountryPicked = this.toggleCountryPicked.bind(this);
@@ -31,7 +33,7 @@ class App extends React.Component {
       });
     } else {
       this.setState({ loading: true }, () => {
-        Unogs.search(genre, this.state.country).then(response => {
+        Unogs.search(this.state.country, genre).then(response => {
           let searchObj = this.state.searchResults;
           searchObj[genre] = response;
           this.setState({ searchResults: searchObj }, () => {
@@ -42,8 +44,29 @@ class App extends React.Component {
     }
   }
 
-  randomizeMovie(genre) {
-    let moviesArr = this.state.searchResults[genre];
+  searchRecent() {
+    if (this.state.searchResults[this.state.countryName]) {
+      this.setState({ movie: {}, loading: true }, () => {
+        setTimeout(() => {
+          this.setState({ movie: this.randomizeMovie(this.state.countryName), loading: false });
+        }, 1000);
+      });
+    } else {
+      this.setState({ loading: true }, () => {
+        Unogs.search(this.state.country).then(response => {
+          let searchObj = this.state.searchResults;
+          searchObj[this.state.countryName] = response;
+          console.log(response.length);
+          this.setState({ searchResults: searchObj }, () => {
+            this.setState({ movie: this.randomizeMovie(this.state.countryName), loading: false });
+          });
+        });
+      });
+    }
+  }
+
+  randomizeMovie(input) {
+    let moviesArr = this.state.searchResults[input];
     return moviesArr[Math.floor(Math.random() * moviesArr.length)];
   }
 
@@ -63,9 +86,12 @@ class App extends React.Component {
         onCountry={this.handleCountryChange} />
     } else {
       return <div>
-        <h2>{this.state.countryName}</h2>
+        <h3>{this.state.countryName}</h3>
         <GenreList
           onSearch={this.search}
+          loading={this.state.loading} />
+        <RecentSearch
+          onSearch={this.searchRecent}
           loading={this.state.loading} />
         <SearchResults movie={this.state.movie} />
       </div>
@@ -75,7 +101,7 @@ class App extends React.Component {
   render() {
     return (
       <div className="App">
-        <h1>Netflix Random Movie Generator</h1>
+        <h1>Netflix Movie Finder</h1>
         <img src={require('./logo.png')} alt="logo" />
         {this.renderPage()}
       </div>
