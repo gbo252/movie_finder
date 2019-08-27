@@ -36,14 +36,16 @@ class CountryList extends React.Component {
 
     renderButton() {
         let atts = {};
-        if (this.props.country === "X") { atts.disabled = true }
+        if (this.props.country === "X") { atts.disabled = true; atts.title = "Select a country" }
         if (this.state.loading) {
             return <button className="btn btn-danger" type="button" disabled>
                 <span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                 Loading...
             </button>
         } else {
-            return <button onClick={this.chooseCountry} className="btn btn-danger" {...atts}>Continue</button>
+            return <span {...atts}>
+                <button onClick={this.chooseCountry} className="btn btn-danger" {...atts}>Continue</button>
+            </span>
         }
     }
 
