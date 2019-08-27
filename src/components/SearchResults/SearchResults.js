@@ -19,7 +19,7 @@ class SearchResults extends React.Component {
                     <h5 style={{display: this.props.movie.rating ? 'block' : 'none'}}>Rating:</h5><p>{this.props.movie.rating}</p>
                 </div>
                 <div className="col-3">
-                    <img src={this.props.movie.image} alt={this.props.movie.title}></img>
+                    <img src={this.props.movie.image} alt={this.props.movie.title} width="250px"></img>
                 </div>
             </div>
         )
