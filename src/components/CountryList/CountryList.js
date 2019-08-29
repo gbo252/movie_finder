@@ -6,26 +6,33 @@ class CountryList extends React.Component {
         super(props);
         this.state = {
             countries: [],
-            loading: false
+            loading: false,
+            requestLoading: false
         };
         this.chooseCountry = this.chooseCountry.bind(this);
     }
 
     componentDidMount() {
-        Unogs.getData("country").then(response => {
-            this.setState({ countries: response });
-        }).catch(e => console.log(e));
+        this.setState({ requestLoading: true }, () => {
+            Unogs.getData("country").then(response => {
+                this.setState({ countries: response, requestLoading: false });
+            }).catch(e => console.log(e));
+        });
+    }
+
+    loadingGenres() {
+        return <option value={"loading"} key={"loading"}>Loading...</option>
     }
 
     renderCountries() {
         if (this.state.countries.length === 0) {
-            return <option value={"Error"} key={"Error"}>Internal Error</option>
+            return [<option value="X" key="X">Choose country...</option>, <option value={"Error"} key={"Error"}>Server Error</option>];
         } else {
-            return this.state.countries.map(country => {
+            return [<option value="X" key="X">Choose country...</option>].concat(this.state.countries.map(country => {
                 return <option value={country[0]} key={country[0]}>
                     {country[2]}
                 </option>
-            });
+            }));
         }
     }
 
@@ -59,8 +66,7 @@ class CountryList extends React.Component {
                 <div className="form-group">
                     <label htmlFor="country-list">Select a Country</label>
                     <select onChange={this.props.onCountry} id="country-list" className="form-control">
-                        <option value="X">Choose country...</option>
-                        {this.renderCountries()}
+                        {this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
                     </select>
                 </div>
                 {this.renderButton()}

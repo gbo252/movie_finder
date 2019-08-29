@@ -12,10 +12,10 @@ class App extends React.Component {
     this.state = {
       searchResults: {},
       movie: {},
-      country: "46",
-      countryName: "United Kingdom",
+      country: "X",
+      countryName: "",
       loading: false,
-      countryPicked: true
+      countryPicked: false
     };
     this.search = this.search.bind(this);
     this.randomizeMovie = this.randomizeMovie.bind(this);

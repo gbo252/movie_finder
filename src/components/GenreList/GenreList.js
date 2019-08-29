@@ -6,7 +6,8 @@ class GenreList extends React.Component {
         super(props);
         this.state = {
             genre: "X",
-            genreResults: []
+            genreResults: [],
+            requestLoading: false
         };
         this.genresArray = [
             "All Action",
@@ -39,9 +40,11 @@ class GenreList extends React.Component {
     }
 
     componentDidMount() {
-        Unogs.getData("genre").then(response => {
-            this.setState({ genreResults: response });
-        }).catch(e => console.log(e));
+        this.setState({ requestLoading: true }, () => {
+            Unogs.getData("genre").then(response => {
+                this.setState({ genreResults: response, requestLoading: false });
+            }).catch(e => console.log(e));
+        });
     }
 
     handleGenreChange(event) {
@@ -68,11 +71,16 @@ class GenreList extends React.Component {
         }
     }
 
+    loadingGenres() {
+        return <option value={"loading"} key={"loading"}>Loading...</option>
+    }
+
     renderGenres() {
         if (this.state.genreResults.length === 0) {
-            return <option value={"Error"} key={"Error"}>Internal Error</option>
+            return [<option value="X" key="X">Choose genre...</option>, <option value={"Error"} key={"Error"}>Server Error</option>];
         } else {
             let optionsArr = [];
+            optionsArr.push(<option value="X" key="X">Choose genre...</option>);
             for (let genre of this.genresArray) {
                 for (let genreObj of this.state.genreResults) {
                     if (genreObj.hasOwnProperty(genre)) {
@@ -93,8 +101,7 @@ class GenreList extends React.Component {
                 <div className="form-group">
                     <label htmlFor="genre-list">Select a Genre</label>
                     <select onChange={this.handleGenreChange} id="genre-list" className="form-control">
-                        <option value="X">Choose genre...</option>
-                        {this.renderGenres()}
+                        {this.state.requestLoading ? this.loadingGenres() : this.renderGenres()}
                     </select>
                 </div>
                 {this.renderButton()}
