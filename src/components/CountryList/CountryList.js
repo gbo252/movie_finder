@@ -18,11 +18,15 @@ class CountryList extends React.Component {
     }
 
     renderCountries() {
-        return this.state.countries.map(country => {
-            return <option value={country[0]} key={country[0]}>
-                {country[2]}
-            </option>
-        });
+        if (this.state.countries.length === 0) {
+            return <option value={"Error"} key={"Error"}>Internal Error</option>
+        } else {
+            return this.state.countries.map(country => {
+                return <option value={country[0]} key={country[0]}>
+                    {country[2]}
+                </option>
+            });
+        }
     }
 
     chooseCountry(event) {

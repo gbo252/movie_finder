@@ -18,51 +18,38 @@ class App extends React.Component {
       countryPicked: false
     };
     this.search = this.search.bind(this);
-    this.searchRecent = this.searchRecent.bind(this);
     this.randomizeMovie = this.randomizeMovie.bind(this);
     this.handleCountryChange = this.handleCountryChange.bind(this);
     this.toggleCountryPicked = this.toggleCountryPicked.bind(this);
   }
 
   search(genre) {
-    if (this.state.searchResults[genre]) {
-      this.setState({ movie: {}, loading: true }, () => {
-        setTimeout(() => {
-          this.setState({ movie: this.randomizeMovie(genre), loading: false });
-        }, 1000);
-      });
-    } else {
-      this.setState({ loading: true }, () => {
-        Unogs.search(this.state.country, genre).then(response => {
-          let searchObj = this.state.searchResults;
-          searchObj[genre] = response;
-          this.setState({ searchResults: searchObj }, () => {
-            this.setState({ movie: this.randomizeMovie(genre), loading: false });
-          });
-        });
-      });
-    }
-  }
+    let input = genre ? genre : this.state.countryName;
 
-  searchRecent() {
-    if (this.state.searchResults[this.state.countryName]) {
-      this.setState({ movie: {}, loading: true }, () => {
+    const setMovieState = () => {
+      if (this.state.searchResults[input].length === 0) {
+        this.setState({ movie: { empty: true }, loading: false });
+      } else {
+        this.setState({ movie: this.randomizeMovie(input), loading: false });
+      }
+    }
+
+    this.setState({ movie: {}, loading: true }, () => {
+      if (this.state.searchResults[input]) {
         setTimeout(() => {
-          this.setState({ movie: this.randomizeMovie(this.state.countryName), loading: false });
+          setMovieState();
         }, 1000);
-      });
-    } else {
-      this.setState({ loading: true }, () => {
-        Unogs.search(this.state.country).then(response => {
+      } else {
+        Unogs.search(this.state.country, genre ? genre : null).then(response => {
           let searchObj = this.state.searchResults;
-          searchObj[this.state.countryName] = response;
-          console.log(response.length);
+          searchObj[input] = response;
+          console.log(`Found: ${response.length} ${genre ? "" : "recent"} movies ${genre ? "for this genre" : ""}`);
           this.setState({ searchResults: searchObj }, () => {
-            this.setState({ movie: this.randomizeMovie(this.state.countryName), loading: false });
+            setMovieState();
           });
         });
-      });
-    }
+      }
+    });
   }
 
   randomizeMovie(input) {
@@ -78,32 +65,36 @@ class App extends React.Component {
     this.setState({ countryPicked: true });
   }
 
-  renderPage() {
-    if (!this.state.countryPicked) {
-      return <CountryList
-        country={this.state.country}
-        toggleCountryPicked={this.toggleCountryPicked}
-        onCountry={this.handleCountryChange} />
-    } else {
-      return <div>
-        <h3>{this.state.countryName}</h3>
-        <GenreList
-          onSearch={this.search}
-          loading={this.state.loading} />
-        <RecentSearch
-          onSearch={this.searchRecent}
-          loading={this.state.loading} />
-        <SearchResults movie={this.state.movie} />
-      </div>
-    }
-  }
-
   render() {
+    let page;
+
+    if (!this.state.countryPicked) {
+      page = (
+        <CountryList
+          country={this.state.country}
+          toggleCountryPicked={this.toggleCountryPicked}
+          onCountry={this.handleCountryChange} />
+      )
+    } else {
+      page = (
+        <div>
+          <h3>{this.state.countryName}</h3>
+          <GenreList
+            onSearch={this.search}
+            loading={this.state.loading} />
+          <RecentSearch
+            onSearch={this.search}
+            loading={this.state.loading} />
+          <SearchResults movie={this.state.movie} />
+        </div>
+      )
+    }
+
     return (
       <div className="App">
         <h1>Netflix Movie Finder</h1>
         <img src={require('./logo.png')} alt="logo" />
-        {this.renderPage()}
+        {page}
       </div>
     )
   }
