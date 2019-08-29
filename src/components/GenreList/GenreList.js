@@ -86,7 +86,7 @@ class GenreList extends React.Component {
                     if (genreObj.hasOwnProperty(genre)) {
                         let genreCode = genreObj[genre];
                         optionsArr.push(<option value={genreCode} key={genreCode}>
-                            {genre.replace(/^All\s/, "")}
+                            {genre.replace(/^All\s/, "").replace(/\sFilms$/, "").replace(/\sMovies$/, "").replace(/ies$/, "y").replace(/s$/, "")}
                         </option>);
                     }
                 }
