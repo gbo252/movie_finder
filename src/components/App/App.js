@@ -47,7 +47,7 @@ class App extends React.Component {
           this.setState({ searchResults: searchObj }, () => {
             setMovieState();
           });
-        });
+        }).catch(e => console.log(e));
       }
     });
   }
