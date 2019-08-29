@@ -12,7 +12,7 @@ class CountryList extends React.Component {
     }
 
     componentDidMount() {
-        Unogs.getCountries().then(response => {
+        Unogs.getData("country").then(response => {
             this.setState({ countries: response });
         }).catch(e => console.log(e));
     }

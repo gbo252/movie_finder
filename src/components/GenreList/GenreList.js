@@ -1,22 +1,47 @@
 import React from 'react';
+import Unogs from '../../util/Unogs';
 
 class GenreList extends React.Component {
     constructor(props) {
         super(props);
-        this.state = { genre: "X" };
-        this.genres = {
-            "Comedy": "1009,10256,10375,105,10778,11559,11755,1208951,1333288,1402,1747,17648,2030,2700,31694,3300,34157,3519,3996,4058,4195,43040,4426,4906,52104,52140,52847,5286,5475,5610,56174,58905,59169,61132,61330,6197,63092,63115,6548,711366,7120,72407,7539,77599,77907,78163,78655,79871,7992,852492,869,89585,9302,9434,9702,9736",
-            "Thriller": "10306,10499,10504,10719,11014,11140,1138506,1321,1774,3269,43048,46588,5505,58798,65558,6867,75390,78507,799,852488,8933,89811,9147,972",
-            "Horror": "10695,10944,1694,42023,45028,48303,61546,75405,75804,75930,8195,83059,8711,89585",
-            "Music & Musicals": "13335,13573,32392,52852,55774,59433,84488,88635",
-            "Action": "10673,10702,11804,11828,1192487,1365,1568,2125,2653,43040,43048,4344,46576,75418,76501,77232,788212,801362,852490,899,9584",
-            "Romance": "29281,36103,502675",
-            "Sci-Fi": "108533,11014,1372,1492,1568,1694,2595,2729,3327,3916,47147,4734,49110,50232,52780,52849,5903,6000,6926,852491",
-            "Children": "10056,27480,27950,28034,28083,28233,48586,5455,561,6218,6796,6962,78120,783,89513",
-            "Documentaries": "10005,10105,10599,1159,15456,180,2595,26126,2760,28269,3652,3675,4006,4720,48768,49110,49547,50232,5161,5349,55087,56178,58710,60026,6839,7018,72384,77245,852494,90361,9875"
-        }
+        this.state = {
+            genre: "X",
+            genreResults: []
+        };
+        this.genresArray = [
+            "All Action",
+            "Adventures",
+            "All Anime",
+            "All Childrens",
+            "All Classics",
+            "All Comedies",
+            "Crime Documentaries",
+            "Crime Films",
+            "All Cult",
+            "All Documentaries",
+            "All Dramas",
+            "All Faith and Spirituality",
+            "Fantasy Movies",
+            "All Gay and Lesbian",
+            "All Horror",
+            "All Independent",
+            "All International",
+            "All Music",
+            "All Musicals",
+            "Mysteries",
+            "All Romance",
+            "All Sci-Fi",
+            "All Sports",
+            "Stand-up Comedy",
+            "All Thrillers"];
         this.handleGenreChange = this.handleGenreChange.bind(this);
         this.handleSearch = this.handleSearch.bind(this);
+    }
+
+    componentDidMount() {
+        Unogs.getData("genre").then(response => {
+            this.setState({ genreResults: response });
+        }).catch(e => console.log(e));
     }
 
     handleGenreChange(event) {
@@ -44,12 +69,22 @@ class GenreList extends React.Component {
     }
 
     renderGenres() {
-        return Object.keys(this.genres).sort().map(genre => {
-            let genreCode = this.genres[genre];
-            return <option value={genreCode} key={genreCode}>
-                {genre}
-            </option>
-        });
+        if (this.state.genreResults.length === 0) {
+            return <option value={"Error"} key={"Error"}>Internal Error</option>
+        } else {
+            let optionsArr = [];
+            for (let genre of this.genresArray) {
+                for (let genreObj of this.state.genreResults) {
+                    if (genreObj.hasOwnProperty(genre)) {
+                        let genreCode = genreObj[genre];
+                        optionsArr.push(<option value={genreCode} key={genreCode}>
+                            {genre.replace(/^All\s/, "")}
+                        </option>);
+                    }
+                }
+            }
+            return optionsArr;
+        }
     }
 
     render() {
@@ -69,7 +104,6 @@ class GenreList extends React.Component {
 }
 
 export default GenreList;
-
 
 
 
