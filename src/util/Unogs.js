@@ -1,5 +1,3 @@
-import Key from './Key';
-
 let count = 0;
 
 const Unogs = {
@@ -10,7 +8,7 @@ const Unogs = {
             {
                 headers: {
                     "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-                    "x-rapidapi-key": Key.getKey()
+                    "x-rapidapi-key": process.env.REACT_APP_UNOGS_API_KEY
                 }
             })
             .then(Unogs.handleErrors)
@@ -57,7 +55,7 @@ const Unogs = {
             {
                 headers: {
                     "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-                    "x-rapidapi-key": Key.getKey()
+                    "x-rapidapi-key": process.env.REACT_APP_UNOGS_API_KEY
                 }
             })
             .then(Unogs.handleErrors)

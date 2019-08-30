@@ -13,6 +13,7 @@
 
 # API key
 Key.js
+.env
 
 # misc
 .DS_Store
