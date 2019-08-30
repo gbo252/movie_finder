@@ -77,7 +77,7 @@ class GenreList extends React.Component {
 
     renderGenres() {
         if (this.state.genreResults.length === 0) {
-            return [<option value="X" key="X">Choose genre...</option>, <option value={"Error"} key={"Error"}>Server Error</option>];
+            return <option value={"Error"} key={"Error"}>Server Error</option>;
         } else {
             let optionsArr = [];
             optionsArr.push(<option value="X" key="X">Choose genre...</option>);

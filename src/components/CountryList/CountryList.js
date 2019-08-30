@@ -26,7 +26,7 @@ class CountryList extends React.Component {
 
     renderCountries() {
         if (this.state.countries.length === 0) {
-            return [<option value="X" key="X">Choose country...</option>, <option value={"Error"} key={"Error"}>Server Error</option>];
+            return <option value={"Error"} key={"Error"}>Server Error</option>;
         } else {
             return [<option value="X" key="X">Choose country...</option>].concat(this.state.countries.map(country => {
                 return <option value={country[0]} key={country[0]}>
