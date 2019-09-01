@@ -15,7 +15,7 @@ class CountryList extends React.Component {
     componentDidMount() {
         this.setState({ requestLoading: true }, () => {
             Unogs.getData("country").then(response => {
-                this.setState({ countries: response, requestLoading: false });
+                this.setState({ countries: response.ITEMS, requestLoading: false });
             }).catch(e => console.log(e));
         });
     }

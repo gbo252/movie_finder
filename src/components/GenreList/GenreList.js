@@ -42,7 +42,7 @@ class GenreList extends React.Component {
     componentDidMount() {
         this.setState({ requestLoading: true }, () => {
             Unogs.getData("genre").then(response => {
-                this.setState({ genreResults: response, requestLoading: false });
+                this.setState({ genreResults: response.ITEMS, requestLoading: false });
             }).catch(e => console.log(e));
         });
     }

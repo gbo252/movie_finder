@@ -1,10 +1,15 @@
 let count = 0;
 
 const Unogs = {
-    getMovies(recent, genre, gt, country, i) {
-        let today = new Date();
-        let year = today.getFullYear();
-        return fetch(`https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=${recent}-!1900,${year}-!0,5-!0,10-!${genre}-!Movie-!English-!English-!gt${gt}-!&t=ns&cl=${country}&st=adv&ob=Relevance&p=${i}&sa=or`,
+    handleErrors(response) {
+        if (!response.ok) {
+            console.log(`Bad Request: ${response.statusText}`);
+        }
+        return response;
+    },
+
+    fetch(url) {
+        return fetch(url,
             {
                 headers: {
                     "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
@@ -22,6 +27,13 @@ const Unogs = {
                     return jsonResponse;
                 }
             }).catch(e => console.log(e));
+    },
+
+    getMovies(recent, genre, gt, country, i) {
+        let today = new Date();
+        let year = today.getFullYear();
+        let url = `https://unogs-unogs-v1.p.rapidapi.com/aaapi.cgi?q=${recent}-!1900,${year}-!0,5-!0,10-!${genre}-!Movie-!English-!English-!gt${gt}-!&t=ns&cl=${country}&st=adv&ob=Relevance&p=${i}&sa=or`;
+        return Unogs.fetch(url);
     },
 
     search(country, genre) {
@@ -49,33 +61,10 @@ const Unogs = {
         } else if (option === "country") {
             input = "aaapi.cgi?t=lc&q=available";
         } else {
-            console.log("No data request specified in getData function")
+            console.log("No data request specified in getData function");
         }
-        return fetch(`https://unogs-unogs-v1.p.rapidapi.com/${input}`,
-            {
-                headers: {
-                    "x-rapidapi-host": "unogs-unogs-v1.p.rapidapi.com",
-                    "x-rapidapi-key": process.env.REACT_APP_UNOGS_API_KEY
-                }
-            })
-            .then(Unogs.handleErrors)
-            .then(response => response.json())
-            .then(jsonResponse => {
-                count++;
-                console.log(count);
-                if (!jsonResponse.ITEMS) {
-                    return [];
-                } else {
-                    return jsonResponse.ITEMS;
-                }
-            }).catch(e => console.log(e));
-    },
-
-    handleErrors(response) {
-        if (!response.ok) {
-            console.log(`Bad Request: ${response.statusText}`);
-        }
-        return response;
+        let url = `https://unogs-unogs-v1.p.rapidapi.com/${input}`;
+        return Unogs.fetch(url);
     }
 }
 

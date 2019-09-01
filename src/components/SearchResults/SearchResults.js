@@ -2,6 +2,17 @@ import React from 'react';
 
 class SearchResults extends React.Component {
 
+    componentDidUpdate(prevProps) {
+        if (this.props.movie !== prevProps.movie) {
+            let image = document.images[1];
+            let moviePoster = new Image();
+            moviePoster.onload = function () {
+                image.src = this.src;
+            }
+            moviePoster.src = this.props.movie.image;
+        }
+    }
+
     decodeHtml(html) {
         var txt = document.createElement("textarea");
         txt.innerHTML = html;
@@ -21,7 +32,7 @@ class SearchResults extends React.Component {
                         <h5 style={{ display: this.props.movie.rating ? 'block' : 'none' }}>Rating:</h5><p>{this.props.movie.rating}</p>
                     </div>
                     <div className="col-3">
-                        <img src={this.props.movie.image} alt={this.props.movie.title} width="250px"></img>
+                        <img src={require('./loading.png')} alt={this.props.movie.title} width="250px"></img>
                     </div>
                 </div>
             )
@@ -35,3 +46,5 @@ class SearchResults extends React.Component {
 }
 
 export default SearchResults;
+
+
