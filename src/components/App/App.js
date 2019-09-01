@@ -12,10 +12,10 @@ class App extends React.Component {
     this.state = {
       searchResults: {},
       movie: {},
-      country: "46",
-      countryName: "United Kingdom",
+      country: "X",
+      countryName: "",
       loading: false,
-      countryPicked: true
+      countryPicked: false
     };
     this.search = this.search.bind(this);
     this.randomizeMovie = this.randomizeMovie.bind(this);
@@ -27,9 +27,10 @@ class App extends React.Component {
     let input = genre ? genre : this.state.countryName;
 
     const setMovieState = () => {
-      if (this.state.searchResults[input].length === 0) {
+      if (!this.state.searchResults[input] || !this.state.searchResults[input].length) {
         this.setState({ movie: { empty: true }, loading: false });
       } else {
+        console.log(`Found: ${this.state.searchResults[input].length} ${genre ? "" : "recent"} movies ${genre ? "for this genre" : ""}`);
         this.setState({ movie: this.randomizeMovie(input), loading: false });
       }
     }
@@ -43,7 +44,6 @@ class App extends React.Component {
         Unogs.search(this.state.country, genre ? genre : null).then(response => {
           let searchObj = this.state.searchResults;
           searchObj[input] = response;
-          console.log(`Found: ${response.length} ${genre ? "" : "recent"} movies ${genre ? "for this genre" : ""}`);
           this.setState({ searchResults: searchObj }, () => {
             setMovieState();
           });

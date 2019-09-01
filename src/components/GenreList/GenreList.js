@@ -76,7 +76,7 @@ class GenreList extends React.Component {
     }
 
     renderGenres() {
-        if (this.state.genreResults.length === 0) {
+        if (!this.state.genreResults || !this.state.genreResults.length) {
             return <option value={"Error"} key={"Error"}>Server Error</option>;
         } else {
             let optionsArr = [];
