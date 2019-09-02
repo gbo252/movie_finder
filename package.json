@@ -1,5 +1,5 @@
 {
-  "name": "movie_finder",
+  "name": "netflix_movie_finder",
   "version": "0.1.0",
   "private": true,
   "engines": {
@@ -35,7 +35,6 @@
     ]
   },
   "devDependencies": {
-    "babel-eslint": "^10.0.3",
     "eslint": "^6.3.0",
     "eslint-plugin-react": "^7.14.3"
   }
