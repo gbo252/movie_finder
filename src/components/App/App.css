@@ -1,3 +1,35 @@
+/* Universal Styles */
+
+html {
+  font-size: 18px;
+}
+
+body {
+  background-image: url("background_tiles.jpg");
+  -webkit-background-size: cover;
+  -moz-background-size: cover;
+  -o-background-size: cover;
+  background-size: cover;
+  background-repeat: no-repeat;
+  background-attachment: fixed;
+}
+
+@media only screen and (max-width: 560px) {
+  html {
+    font-size: 15px;
+  }
+}
+
+/* App Styles */
+
 .App {
-  text-align: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  font-family: 'Roboto', sans-serif;
+}
+
+.overlay {
+  background-color: rgba(0, 0, 0, 0.5);
 }

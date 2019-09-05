@@ -1,6 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Unogs from "../../util/Unogs";
+import "./CountryList.css";
 
 class CountryList extends React.Component {
 	constructor(props) {

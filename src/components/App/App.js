@@ -1,6 +1,6 @@
 import React from "react";
 import "./App.css";
-import GenreList from "../GenreList/GenreList";
+import GenreSearch from "../GenreSearch/GenreSearch";
 import RecentSearch from "../RecentSearch/RecentSearch";
 import CountryList from "../CountryList/CountryList";
 import SearchResults from "../SearchResults/SearchResults";
@@ -79,7 +79,7 @@ class App extends React.Component {
 			page = (
 				<div>
 					<h3>{this.state.countryName}</h3>
-					<GenreList
+					<GenreSearch
 						onSearch={this.search}
 						loading={this.state.loading} />
 					<RecentSearch
@@ -91,10 +91,14 @@ class App extends React.Component {
 		}
 
 		return (
-			<div className="App">
-				<h1>Netflix Movie Finder</h1>
-				<img src={require("./logo.png")} alt="logo" />
-				{page}
+			<div>
+				<div className="App overlay text-white position-absolute text-center d-flex justify-content-center align-items-center">
+					<div className="d-flex flex-column p-4 justify-content-center align-items-center" style={{backgroundColor:"rgba(0, 0, 0, 0.7)"}}>
+						<img src={require("./netflix_logo.png")} alt="netflix logo" width="175px" />
+						<h1>Random Movie Generator</h1>
+						{page}
+					</div>
+				</div>
 			</div>
 		);
 	}

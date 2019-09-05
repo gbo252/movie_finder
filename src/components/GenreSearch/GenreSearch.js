@@ -2,7 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import Unogs from "../../util/Unogs";
 
-class GenreList extends React.Component {
+class GenreSearch extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -113,12 +113,12 @@ class GenreList extends React.Component {
 	}
 }
 
-GenreList.propTypes = {
+GenreSearch.propTypes = {
 	onSearch: PropTypes.func,
 	loading: PropTypes.bool
 };
 
-export default GenreList;
+export default GenreSearch;
 
 
 
