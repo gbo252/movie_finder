@@ -14,21 +14,21 @@ class RecentSearch extends React.Component {
 
 	renderButton() {
 		if (this.props.loading) {
-			return <button className="btn btn-primary" type="button" disabled>
+			return <button className="btn" type="button" disabled>
 				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
+				Loading...
 			</button>;
 		} else {
-			return <button onClick={this.handleSearch} className="btn btn-primary">Find Recent Movie</button>;
+			return <button onClick={this.handleSearch} className="btn">Find Recent Movie</button>;
 		}
 	}
 
 	render() {
 		return (
-			<div className="mt-3">
+			<form className="mt-3">
 				<p>Click here to search recently added movies ONLY (all genres)</p>
 				{this.renderButton()}
-			</div>
+			</form>
 		);
 	}
 }

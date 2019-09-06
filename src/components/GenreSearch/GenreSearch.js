@@ -57,28 +57,13 @@ class GenreSearch extends React.Component {
 		event.preventDefault();
 	}
 
-	renderButton() {
-		let atts = {};
-		if (this.state.genre === "X") { atts.disabled = true; atts.title = "Select a genre"; }
-		if (this.props.loading) {
-			return <button className="btn btn-danger" type="button" disabled>
-				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
-			</button>;
-		} else {
-			return <span {...atts}>
-				<button onClick={this.handleSearch} className="btn btn-danger" {...atts}>Find Movie</button>
-			</span>;
-		}
-	}
-
 	loadingGenres() {
 		return <option value={"loading"} key={"loading"}>Loading...</option>;
 	}
 
 	renderGenres() {
 		if (!this.state.genreResults || !this.state.genreResults.length) {
-			return <option value={"Error"} key={"Error"}>Server Error</option>;
+			return <option value="Error" key="Error">Server Error</option>;
 		} else {
 			let optionsArr = [];
 			optionsArr.push(<option value="X" key="X">Choose genre...</option>);
@@ -98,12 +83,27 @@ class GenreSearch extends React.Component {
 		}
 	}
 
+	renderButton() {
+		let atts = {};
+		if (this.state.genre === "X") { atts.disabled = true; atts.title = "Select a genre"; }
+		if (this.props.loading) {
+			return <button className="btn" type="button" disabled>
+				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+				Loading...
+			</button>;
+		} else {
+			return <span {...atts}>
+				<button onClick={this.handleSearch} className="btn" {...atts}>Find Movie</button>
+			</span>;
+		}
+	}
+
 	render() {
 		return (
-			<form className="col-3 mx-auto">
+			<form>
 				<div className="form-group">
 					<label htmlFor="genre-list">Select a Genre</label>
-					<select onChange={this.handleGenreChange} id="genre-list" className="form-control">
+					<select onChange={this.handleGenreChange} id="genre-list" className="custom-select">
 						{this.state.requestLoading ? this.loadingGenres() : this.renderGenres()}
 					</select>
 				</div>
@@ -123,7 +123,9 @@ export default GenreSearch;
 
 
 
-
+// let randomGenreObj = this.state.genreResults[Math.floor(Math.random() * this.state.genreResults.length)];
+// let code = randomGenreObj[Object.keys(randomGenreObj)[0]];
+// console.log(code);
 
 
 

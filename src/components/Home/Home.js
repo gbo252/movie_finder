@@ -1,9 +1,9 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Unogs from "../../util/Unogs";
-import "./CountryList.css";
+import "./Home.css";
 
-class CountryList extends React.Component {
+class Home extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
@@ -28,7 +28,7 @@ class CountryList extends React.Component {
 
 	renderCountries() {
 		if (!this.state.countries || !this.state.countries.length) {
-			return <option value={"Error"} key={"Error"}>Server Error</option>;
+			return <option value="Error" key="Error">Server Error</option>;
 		} else {
 			return [<option value="X" key="X">Choose country...</option>].concat(this.state.countries.map(country => {
 				return <option value={country[0]} key={country[0]}>
@@ -51,36 +51,40 @@ class CountryList extends React.Component {
 		let atts = {};
 		if (this.props.country === "X") { atts.disabled = true; atts.title = "Select a country"; }
 		if (this.state.loading) {
-			return <button className="btn btn-danger" type="button" disabled>
+			return <button className="btn" type="button" disabled>
 				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-                Loading...
+				Loading...
 			</button>;
 		} else {
 			return <span {...atts}>
-				<button onClick={this.chooseCountry} className="btn btn-danger" {...atts}>Continue</button>
+				<button onClick={this.chooseCountry} className="btn" {...atts}>Continue</button>
 			</span>;
 		}
 	}
 
 	render() {
 		return (
-			<form className="col-3 mx-auto">
-				<div className="form-group">
-					<label htmlFor="country-list">Select a Country</label>
-					<select onChange={this.props.onCountry} id="country-list" className="form-control">
-						{this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
-					</select>
-				</div>
-				{this.renderButton()}
-			</form>
+			<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+				<img src={require("./netflix_logo.png")} alt="netflix logo" width="175px" />
+				<h1 className="pt-1 pb-2">Random Movie Generator</h1>
+				<form>
+					<div className="form-group pb-2">
+						<label htmlFor="country-list">Select a Country</label>
+						<select onChange={this.props.onCountry} id="country-list" className="custom-select">
+							{this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
+						</select>
+					</div>
+					{this.renderButton()}
+				</form>
+			</div>
 		);
 	}
 }
 
-CountryList.propTypes = {
+Home.propTypes = {
 	toggleCountryPicked: PropTypes.func,
 	country: PropTypes.string,
 	onCountry: PropTypes.func
 };
 
-export default CountryList;
+export default Home;

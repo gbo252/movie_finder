@@ -12,6 +12,17 @@ body {
   background-size: cover;
   background-repeat: no-repeat;
   background-attachment: fixed;
+  overflow-x: hidden;
+}
+
+form button.btn {
+  background-color: rgb(229, 9, 20);
+  color: white;
+}
+
+form button.btn:disabled {
+  background-color: rgb(229, 9, 20);
+  color: black;
 }
 
 @media only screen and (max-width: 560px) {
@@ -28,8 +39,5 @@ body {
   right: 0;
   left: 0;
   font-family: 'Roboto', sans-serif;
-}
-
-.overlay {
   background-color: rgba(0, 0, 0, 0.5);
 }
