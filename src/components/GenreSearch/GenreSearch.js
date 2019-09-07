@@ -36,6 +36,7 @@ class GenreSearch extends React.Component {
 			"All Sports",
 			"Stand-up Comedy",
 			"All Thrillers"];
+		this.allGenreCodes = [];
 		this.handleGenreChange = this.handleGenreChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 	}
@@ -53,26 +54,37 @@ class GenreSearch extends React.Component {
 	}
 
 	handleSearch(event) {
-		this.props.onSearch(this.state.genre);
-		event.preventDefault();
+		if (this.state.genre === "random") {
+			let code = this.randomGenreCode();
+			console.log(code);
+			this.props.onSearch(code);
+			event.preventDefault();
+		} else {
+			this.props.onSearch(this.state.genre);
+			event.preventDefault();
+		}
 	}
 
 	loadingGenres() {
-		return <option value={"loading"} key={"loading"}>Loading...</option>;
+		return <option value="loading" key="loading">Loading...</option>;
+	}
+
+	randomGenreCode() {
+		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
 	}
 
 	renderGenres() {
 		if (!this.state.genreResults || !this.state.genreResults.length) {
 			return <option value="Error" key="Error">Server Error</option>;
 		} else {
-			let optionsArr = [];
-			optionsArr.push(<option value="X" key="X">Choose genre...</option>);
+			let optionsArr = [<option value="X" key="X">Choose genre...</option>, <option value="random" key="random">All Genres</option>];
 			// eslint-disable-next-line no-unused-vars
 			for (let genre of this.genresArray) {
 				// eslint-disable-next-line no-unused-vars
 				for (let genreObj of this.state.genreResults) {
 					if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
 						let genreCode = genreObj[genre];
+						this.allGenreCodes.push(genreCode);
 						optionsArr.push(<option value={genreCode} key={genreCode}>
 							{genre.replace(/^All\s/, "").replace(/\sFilms$/, "").replace(/\sMovies$/, "").replace(/ies$/, "y").replace(/s$/, "")}
 						</option>);
@@ -119,15 +131,3 @@ GenreSearch.propTypes = {
 };
 
 export default GenreSearch;
-
-
-
-
-// let randomGenreObj = this.state.genreResults[Math.floor(Math.random() * this.state.genreResults.length)];
-// let code = randomGenreObj[Object.keys(randomGenreObj)[0]];
-// console.log(code);
-
-
-
-
-

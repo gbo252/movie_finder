@@ -23,7 +23,7 @@ class Home extends React.Component {
 	}
 
 	loadingGenres() {
-		return <option value={"loading"} key={"loading"}>Loading...</option>;
+		return <option value="loading" key="loading">Loading...</option>;
 	}
 
 	renderCountries() {
