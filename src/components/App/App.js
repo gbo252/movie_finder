@@ -1,9 +1,7 @@
 import React from "react";
 import "./App.css";
-import GenreSearch from "../GenreSearch/GenreSearch";
-import RecentSearch from "../RecentSearch/RecentSearch";
+import Search from "../Search/Search";
 import Home from "../Home/Home";
-import SearchResults from "../SearchResults/SearchResults";
 import Unogs from "../../util/Unogs";
 
 class App extends React.Component {
@@ -12,10 +10,10 @@ class App extends React.Component {
 		this.state = {
 			searchResults: {},
 			movie: {},
-			country: "46",
-			countryName: "United Kingdom",
+			country: "X",
+			countryName: "",
 			loading: false,
-			countryPicked: true
+			countryPicked: false
 		};
 		this.search = this.search.bind(this);
 		this.randomizeMovie = this.randomizeMovie.bind(this);
@@ -66,34 +64,20 @@ class App extends React.Component {
 	}
 
 	render() {
-		let page;
-
-		if (!this.state.countryPicked) {
-			page = (
-				<Home
-					country={this.state.country}
-					toggleCountryPicked={this.toggleCountryPicked}
-					onCountry={this.handleCountryChange} />
-			);
-		} else {
-			page = (
-				<div>
-					<h3>{this.state.countryName}</h3>
-					<GenreSearch
-						onSearch={this.search}
-						loading={this.state.loading} />
-					<RecentSearch
-						onSearch={this.search}
-						loading={this.state.loading} />
-					<SearchResults movie={this.state.movie} />
-				</div>
-			);
-		}
-
 		return (
 			<div className="container">
 				<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
-					{page}
+					<Home
+						country={this.state.country}
+						countryPicked={this.state.countryPicked}
+						toggleCountryPicked={this.toggleCountryPicked}
+						onCountry={this.handleCountryChange} />
+					<Search
+						onSearch={this.search}
+						countryPicked={this.state.countryPicked}
+						loading={this.state.loading}
+						countryName={this.state.countryName}
+						movie={this.state.movie} />
 				</div>
 			</div>
 		);

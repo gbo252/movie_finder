@@ -9,7 +9,8 @@ class Home extends React.Component {
 		this.state = {
 			countries: [],
 			loading: false,
-			requestLoading: false
+			requestLoading: false,
+			animate: false
 		};
 		this.chooseCountry = this.chooseCountry.bind(this);
 	}
@@ -41,8 +42,11 @@ class Home extends React.Component {
 	chooseCountry(event) {
 		this.setState({ loading: true }, () => {
 			setTimeout(() => {
-				this.props.toggleCountryPicked();
+				this.setState({ animate: true });
 			}, 1500);
+			setTimeout(() => {
+				this.props.toggleCountryPicked();
+			}, 2500);
 		});
 		event.preventDefault();
 	}
@@ -63,8 +67,8 @@ class Home extends React.Component {
 	}
 
 	render() {
-		return (
-			<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+		return !this.props.countryPicked && (
+			<div className={"col-4 d-flex flex-column p-4 justify-content-center align-items-center" + (this.state.animate ? " animate" : "")} style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 				<img src={require("./netflix_logo.png")} alt="netflix logo" width="175px" />
 				<h1 className="pt-1 pb-2">Random Movie Generator</h1>
 				<form>
@@ -84,7 +88,8 @@ class Home extends React.Component {
 Home.propTypes = {
 	toggleCountryPicked: PropTypes.func,
 	country: PropTypes.string,
-	onCountry: PropTypes.func
+	onCountry: PropTypes.func,
+	countryPicked: PropTypes.bool
 };
 
 export default Home;

@@ -41,3 +41,10 @@ form button.btn:disabled {
   font-family: 'Roboto', sans-serif;
   background-color: rgba(0, 0, 0, 0.5);
 }
+
+/* Animations */
+
+.animate {
+  transform: translateX(2000px);
+  transition: all 1000ms linear;
+}
