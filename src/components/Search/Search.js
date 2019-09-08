@@ -1,34 +1,91 @@
 import React from "react";
 import PropTypes from "prop-types";
-import GenreSearch from "../GenreSearch/GenreSearch";
-import RecentSearch from "../RecentSearch/RecentSearch";
+import GenreList from "../GenreList/GenreList";
 import SearchResults from "../SearchResults/SearchResults";
+import "./Search.css";
 
 class Search extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = { 
+			searchBy: "genre",
+			genre: "X"
+		};
+		this.allGenreCodes = [];
+		this.handleSearchByChange = this.handleSearchByChange.bind(this);
+		this.handleGenreChange = this.handleGenreChange.bind(this);
+		this.handleSearch = this.handleSearch.bind(this);
+	}
+
+	handleSearchByChange(event) {
+		this.setState({ searchBy: event.target.value });
+	}
+
+	handleGenreChange(event) {
+		this.setState({ genre: event.target.value });
+	}
+
+	randomGenreCode() {
+		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
+	}
+    
+	handleSearch(event) {
+		if (this.state.searchBy === "genre") {
+			if (this.state.genre === "random") {
+				let code = this.randomGenreCode();
+				this.props.onSearch(code);
+			} else {
+				this.props.onSearch(this.state.genre);
+			}
+		} else if (this.state.searchBy === "recent") {
+			this.props.onSearch();
+		}
+		event.preventDefault();
+	}
+    
+	renderButton() {
+		let atts = {};
+		if (this.state.genre === "X" && this.state.searchBy === "genre") { atts.disabled = true; }
+		if (this.props.loading) {
+			return <button className="btn" type="button" disabled>
+				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+				Loading...
+			</button>;
+		} else {
+			return <span {...atts}>
+				<button onClick={this.handleSearch} className="btn" {...atts}>Search Netflix</button>
+			</span>;
+		}
+	}
+
 	render() {
 		return this.props.countryPicked && (
-			<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
-				<h3>{this.props.countryName}</h3>
-				<h5>Search by:</h5>
-				<ul className="nav nav-pills" id="pills-tab" role="tablist">
-					<li className="nav-item">
-						<a className="nav-link active" id="pills-genre-tab" data-toggle="pill" href="#pills-genre" role="tab" aria-controls="pills-genre" aria-selected="true">Genre</a>
-					</li>
-					<li className="nav-item">
-						<a className="nav-link" id="pills-recent-tab" data-toggle="pill" href="#pills-recent" role="tab" aria-controls="pills-recent" aria-selected="false">Recently Added</a>
-					</li>
-				</ul>
-				<div className="tab-content" id="pills-tabContent">
-					<div className="tab-pane fade show active" id="pills-genre" role="tabpanel" aria-labelledby="pills-genre-tab">
-						<GenreSearch
-							onSearch={this.props.onSearch}
-							loading={this.props.loading} />
-						<SearchResults movie={this.props.movie} />
+			<div>
+				<div className="row text-white ml-1 mt-3">
+					<div className="col-2 text-center py-3 animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+						<img src={require("../App/netflix_logo.png")} alt="netflix logo" width="175px" />
+						<h5 className="mt-1 mb-0">{this.props.countryName}</h5>
 					</div>
-					<div className="tab-pane fade" id="pills-recent" role="tabpanel" aria-labelledby="pills-recent-tab">
-						<RecentSearch
-							onSearch={this.props.onSearch}
-							loading={this.props.loading} />
+				</div>
+				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
+					<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+						<form>
+							<div className="form-group-row">
+								<label htmlFor="search-method" className="col-sm-12 col-form-label col-form-label-sm">Search by Genre or Recently Added</label>
+								<div className="col-sm-8 mx-auto">
+									<select onChange={this.handleSearchByChange} id="search-method" className="custom-select custom-select-sm">
+										<option value="genre" key="genre">Genre</option>
+										<option value="recent" key="recent">Recently Added</option>
+									</select>
+								</div>
+							</div>
+							<GenreList
+								searchBy={this.state.searchBy}
+								onSearch={this.props.onSearch}
+								allGenreCodes={this.allGenreCodes}
+								handleGenreChange={this.handleGenreChange} />
+							{this.renderButton()}
+						</form>
 						<SearchResults movie={this.props.movie} />
 					</div>
 				</div>

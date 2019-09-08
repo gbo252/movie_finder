@@ -24,7 +24,7 @@ class Home extends React.Component {
 	}
 
 	loadingGenres() {
-		return <option value="loading" key="loading">Loading...</option>;
+		return [<option value="loading" key="loading">Loading...</option>, <option value="sizer" key="sizer">Czech eepublica..</option>];
 	}
 
 	renderCountries() {
@@ -68,18 +68,20 @@ class Home extends React.Component {
 
 	render() {
 		return !this.props.countryPicked && (
-			<div className={"col-4 d-flex flex-column p-4 justify-content-center align-items-center" + (this.state.animate ? " animate" : "")} style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
-				<img src={require("./netflix_logo.png")} alt="netflix logo" width="175px" />
-				<h1 className="pt-1 pb-2">Random Movie Generator</h1>
-				<form>
-					<div className="form-group pb-2">
-						<label htmlFor="country-list">Select a Country</label>
-						<select onChange={this.props.onCountry} id="country-list" className="custom-select">
-							{this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
-						</select>
-					</div>
-					{this.renderButton()}
-				</form>
+			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
+				<div className={"col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen" + (this.state.animate ? " animate-off-screen" : "")} style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+					<img src={require("../App/netflix_logo.png")} alt="netflix logo" width="175px" />
+					<h1 className="pt-1 pb-2">Random Movie Generator</h1>
+					<form>
+						<div className="form-group pb-2">
+							<label htmlFor="country-list">Select a Country</label>
+							<select onChange={this.props.onCountry} id="country-list" className="custom-select">
+								{this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
+							</select>
+						</div>
+						{this.renderButton()}
+					</form>
+				</div>
 			</div>
 		);
 	}

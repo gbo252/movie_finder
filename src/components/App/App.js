@@ -65,20 +65,18 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div className="container">
-				<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
-					<Home
-						country={this.state.country}
-						countryPicked={this.state.countryPicked}
-						toggleCountryPicked={this.toggleCountryPicked}
-						onCountry={this.handleCountryChange} />
-					<Search
-						onSearch={this.search}
-						countryPicked={this.state.countryPicked}
-						loading={this.state.loading}
-						countryName={this.state.countryName}
-						movie={this.state.movie} />
-				</div>
+			<div>
+				<Home
+					country={this.state.country}
+					countryPicked={this.state.countryPicked}
+					toggleCountryPicked={this.toggleCountryPicked}
+					onCountry={this.handleCountryChange} />
+				<Search
+					onSearch={this.search}
+					countryPicked={this.state.countryPicked}
+					loading={this.state.loading}
+					countryName={this.state.countryName}
+					movie={this.state.movie} />
 			</div>
 		);
 	}

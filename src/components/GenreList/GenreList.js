@@ -2,11 +2,10 @@ import React from "react";
 import PropTypes from "prop-types";
 import Unogs from "../../util/Unogs";
 
-class GenreSearch extends React.Component {
+class GenreList extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			genre: "X",
 			genreResults: [],
 			requestLoading: false
 		};
@@ -36,9 +35,6 @@ class GenreSearch extends React.Component {
 			"All Sports",
 			"Stand-up Comedy",
 			"All Thrillers"];
-		this.allGenreCodes = [];
-		this.handleGenreChange = this.handleGenreChange.bind(this);
-		this.handleSearch = this.handleSearch.bind(this);
 	}
 
 	componentDidMount() {
@@ -49,28 +45,8 @@ class GenreSearch extends React.Component {
 		});
 	}
 
-	handleGenreChange(event) {
-		this.setState({ genre: event.target.value });
-	}
-
-	handleSearch(event) {
-		if (this.state.genre === "random") {
-			let code = this.randomGenreCode();
-			console.log(code);
-			this.props.onSearch(code);
-			event.preventDefault();
-		} else {
-			this.props.onSearch(this.state.genre);
-			event.preventDefault();
-		}
-	}
-
 	loadingGenres() {
-		return <option value="loading" key="loading">Loading...</option>;
-	}
-
-	randomGenreCode() {
-		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
+		return [<option value="loading" key="loading">Loading...</option>, <option value="sizer" key="sizer">Faith and Spirituality</option>];
 	}
 
 	renderGenres() {
@@ -84,7 +60,7 @@ class GenreSearch extends React.Component {
 				for (let genreObj of this.state.genreResults) {
 					if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
 						let genreCode = genreObj[genre];
-						this.allGenreCodes.push(genreCode);
+						this.props.allGenreCodes.push(genreCode);
 						optionsArr.push(<option value={genreCode} key={genreCode}>
 							{genre.replace(/^All\s/, "").replace(/\sFilms$/, "").replace(/\sMovies$/, "").replace(/ies$/, "y").replace(/s$/, "")}
 						</option>);
@@ -95,39 +71,27 @@ class GenreSearch extends React.Component {
 		}
 	}
 
-	renderButton() {
-		let atts = {};
-		if (this.state.genre === "X") { atts.disabled = true; atts.title = "Select a genre"; }
-		if (this.props.loading) {
-			return <button className="btn" type="button" disabled>
-				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-				Loading...
-			</button>;
-		} else {
-			return <span {...atts}>
-				<button onClick={this.handleSearch} className="btn" {...atts}>Find Movie</button>
-			</span>;
-		}
-	}
-
 	render() {
+		let atts = {};
+		let atts2 = {};
+		if (this.props.searchBy === "recent") { atts.disabled = true; atts.style = {backgroundColor: "rgb(66, 66, 66)", borderColor: "rgba(255, 0, 0, 0.5)", color: "rgba(0, 0, 0, 0.3)"}; atts2.style = {opacity: "0.2"}; }
 		return (
-			<form>
-				<div className="form-group">
-					<label htmlFor="genre-list">Select a Genre</label>
-					<select onChange={this.handleGenreChange} id="genre-list" className="custom-select">
+			<div className="form-group-row">
+				<label htmlFor="genre-list" className="col-sm-12 col-form-label col-form-label-sm" {...atts2}>Select a Genre</label>
+				<div className="col-sm-12 mx-auto mb-3">
+					<select onChange={this.props.handleGenreChange} id="genre-list" className="custom-select custom-select-sm" {...atts}>
 						{this.state.requestLoading ? this.loadingGenres() : this.renderGenres()}
 					</select>
 				</div>
-				{this.renderButton()}
-			</form>
+			</div>
 		);
 	}
 }
 
-GenreSearch.propTypes = {
-	onSearch: PropTypes.func,
-	loading: PropTypes.bool
+GenreList.propTypes = {
+	handleGenreChange: PropTypes.func,
+	searchBy: PropTypes.string,
+	allGenreCodes: PropTypes.array
 };
 
-export default GenreSearch;
+export default GenreList;

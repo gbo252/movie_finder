@@ -1,0 +1,21 @@
+/* Animations */
+
+@keyframes zoomIn {
+    0% {
+        opacity: 0;
+        transform: scale(0.5);
+    }
+    100% {
+        opacity: 1;
+        transform: scale(1);
+    }
+  }
+
+.animate-on-screen {
+    animation: 2000ms ease-in-out 0s 1 zoomIn;
+}
+
+.animate-off-screen {
+    transform: translateX(2000px);
+    transition: all 1000ms ease-out;
+  }

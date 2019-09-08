@@ -5,7 +5,7 @@ class SearchResults extends React.Component {
 
 	componentDidUpdate(prevProps) {
 		if (this.props.movie !== prevProps.movie) {
-			let image = document.images[0];
+			let image = document.images[1];
 			let moviePoster = new Image();
 			moviePoster.onload = function () {
 				image.src = this.src;

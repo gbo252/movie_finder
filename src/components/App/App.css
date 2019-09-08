@@ -38,13 +38,6 @@ form button.btn:disabled {
   bottom: 0;
   right: 0;
   left: 0;
-  font-family: 'Roboto', sans-serif;
+  z-index: -1;
   background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Animations */
-
-.animate {
-  transform: translateX(2000px);
-  transition: all 1000ms linear;
 }
