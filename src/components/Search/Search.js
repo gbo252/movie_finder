@@ -8,9 +8,13 @@ import "./Search.css";
 class Search extends React.Component {
 	constructor(props) {
 		super(props);
-		this.state = { 
+		this.state = {
 			searchBy: "genre",
 			genre: "X"
+		};
+		this.searchByOptions = {
+			"Genre": "genre",
+			"Recently Added": "recent"
 		};
 		this.allGenreCodes = [];
 		this.handleSearchByChange = this.handleSearchByChange.bind(this);
@@ -18,8 +22,16 @@ class Search extends React.Component {
 		this.handleSearch = this.handleSearch.bind(this);
 	}
 
-	handleSearchByChange(event) {
-		this.setState({ searchBy: event.target.value });
+	getSearchByClass(searchByOption) {
+		if (this.state.searchBy === searchByOption) {
+			return " active";
+		} else {
+			return "";
+		}
+	}
+
+	handleSearchByChange(searchByOption) {
+		this.setState({ searchBy: searchByOption });
 	}
 
 	handleGenreChange(event) {
@@ -29,7 +41,7 @@ class Search extends React.Component {
 	randomGenreCode() {
 		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
 	}
-    
+
 	handleSearch(event) {
 		if (this.state.searchBy === "genre") {
 			if (this.state.genre === "random") {
@@ -43,7 +55,20 @@ class Search extends React.Component {
 		}
 		event.preventDefault();
 	}
-    
+
+	renderSearchByOptions() {
+		return Object.keys(this.searchByOptions).map(searchByOption => {
+			let searchByOptionValue = this.searchByOptions[searchByOption];
+			return <li
+				key={searchByOptionValue}
+				className={"search-by list-group-item" + this.getSearchByClass(searchByOptionValue)}
+				onClick={this.handleSearchByChange.bind(this, searchByOptionValue)}
+			>
+				{searchByOption}
+			</li>;
+		});
+	}
+
 	renderButton() {
 		let atts = {};
 		if (this.state.genre === "X" && this.state.searchBy === "genre") { atts.disabled = true; }
@@ -66,15 +91,10 @@ class Search extends React.Component {
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
 					<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 						<form>
-							<div className="form-group-row">
-								<label htmlFor="search-method" className="col-sm-12 col-form-label col-form-label-sm">Search by Genre or Recently Added</label>
-								<div className="col-sm-8 mx-auto">
-									<select onChange={this.handleSearchByChange} id="search-method" className="custom-select custom-select-sm">
-										<option value="genre" key="genre">Genre</option>
-										<option value="recent" key="recent">Recently Added</option>
-									</select>
-								</div>
-							</div>
+							<label className="col-sm-12 col-form-label col-form-label-sm">Search By...</label>
+							<ul className="list-group list-group-horizontal">
+								{this.renderSearchByOptions()}
+							</ul>
 							<GenreList
 								searchBy={this.state.searchBy}
 								onSearch={this.props.onSearch}

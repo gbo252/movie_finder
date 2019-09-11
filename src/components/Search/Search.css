@@ -1,3 +1,18 @@
+.search-by {
+  background-color: rgb(161, 161, 161);
+  color: black;
+}
+
+.search-by:hover {
+  cursor: pointer;
+  color: white;
+}
+
+ul.list-group li.active {
+  background-color: rgb(228, 52, 60);
+  border-color: rgb(228, 52, 60);
+}
+
 /* Animations */
 
 @keyframes fadeIn {
