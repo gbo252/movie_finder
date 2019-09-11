@@ -1,0 +1,7 @@
+button.change {
+    color: rgb(100, 100, 100);
+}
+
+button.change:hover {
+    color: rgb(229, 9, 20)
+}

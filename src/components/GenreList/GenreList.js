@@ -74,7 +74,7 @@ class GenreList extends React.Component {
 	render() {
 		let atts = {};
 		let atts2 = {};
-		if (this.props.searchBy === "recent") { atts.disabled = true; atts.style = {backgroundColor: "rgb(66, 66, 66)", borderColor: "rgb(66, 66, 66)", color: "rgba(0, 0, 0, 0.3)"}; atts2.style = {opacity: "0.2"}; }
+		if (this.props.searchBy === "recent") { atts.disabled = true; atts.style = { backgroundColor: "rgb(66, 66, 66)", borderColor: "rgb(66, 66, 66)", color: "rgba(0, 0, 0, 0.3)" }; atts2.style = { opacity: "0.2" }; }
 		return (
 			<div className="form-group-row">
 				<label htmlFor="genre-list" className="col-sm-12 col-form-label col-form-label-sm" {...atts2}>Select a Genre</label>

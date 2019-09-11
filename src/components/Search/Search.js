@@ -87,7 +87,9 @@ class Search extends React.Component {
 	render() {
 		return this.props.countryPicked && (
 			<div>
-				<CountryLogo countryName={this.props.countryName} />
+				<CountryLogo
+					toggleCountryPicked={this.props.toggleCountryPicked}
+					countryName={this.props.countryName} />
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
 					<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 						<form>
@@ -97,7 +99,6 @@ class Search extends React.Component {
 							</ul>
 							<GenreList
 								searchBy={this.state.searchBy}
-								onSearch={this.props.onSearch}
 								allGenreCodes={this.allGenreCodes}
 								handleGenreChange={this.handleGenreChange} />
 							{this.renderButton()}
@@ -115,7 +116,8 @@ Search.propTypes = {
 	loading: PropTypes.bool,
 	countryName: PropTypes.string,
 	movie: PropTypes.object,
-	countryPicked: PropTypes.bool
+	countryPicked: PropTypes.bool,
+	toggleCountryPicked: PropTypes.func
 };
 
 export default Search;

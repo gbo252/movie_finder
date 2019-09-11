@@ -1,5 +1,5 @@
 .search-by {
-  background-color: rgb(161, 161, 161);
+  background-color: rgb(63, 63, 63);
   color: black;
 }
 
@@ -9,8 +9,9 @@
 }
 
 ul.list-group li.active {
-  background-color: rgb(228, 52, 60);
-  border-color: rgb(228, 52, 60);
+  background-color: white;
+  border-color: white;
+  color: black;
 }
 
 /* Animations */

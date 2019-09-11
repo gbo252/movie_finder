@@ -60,7 +60,7 @@ class App extends React.Component {
 	}
 
 	toggleCountryPicked() {
-		this.setState({ countryPicked: true });
+		this.setState({ countryPicked: !this.state.countryPicked });
 	}
 
 	render() {
@@ -76,6 +76,7 @@ class App extends React.Component {
 					countryPicked={this.state.countryPicked}
 					loading={this.state.loading}
 					countryName={this.state.countryName}
+					toggleCountryPicked={this.toggleCountryPicked}
 					movie={this.state.movie} />
 			</div>
 		);
