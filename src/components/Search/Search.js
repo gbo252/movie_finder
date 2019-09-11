@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import CountryLogo from "../CountryLogo/CountryLogo";
 import GenreList from "../GenreList/GenreList";
 import SearchResults from "../SearchResults/SearchResults";
+import Unogs from "../../util/Unogs";
 import "./Search.css";
 
 class Search extends React.Component {
@@ -10,16 +11,52 @@ class Search extends React.Component {
 		super(props);
 		this.state = {
 			searchBy: "genre",
-			genre: "X"
+			genre: "X",
+			genreResults: [],
+			requestLoading: false
 		};
 		this.searchByOptions = {
 			"Genre": "genre",
 			"Recently Added": "recent"
 		};
+		this.genresArray = [
+			"All Action",
+			"Adventures",
+			"All Anime",
+			"All Childrens",
+			"All Classics",
+			"All Comedies",
+			"Crime Documentaries",
+			"Crime Films",
+			"All Cult",
+			"All Documentaries",
+			"All Dramas",
+			"All Faith and Spirituality",
+			"Fantasy Movies",
+			"All Gay and Lesbian",
+			"All Horror",
+			"All Independent",
+			"All International",
+			"All Music",
+			"All Musicals",
+			"Mysteries",
+			"All Romance",
+			"All Sci-Fi",
+			"All Sports",
+			"Stand-up Comedy",
+			"All Thrillers"];
 		this.allGenreCodes = [];
 		this.handleSearchByChange = this.handleSearchByChange.bind(this);
 		this.handleGenreChange = this.handleGenreChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
+	}
+
+	componentDidMount() {
+		this.setState({ requestLoading: true }, () => {
+			Unogs.getData("genre").then(response => {
+				this.setState({ genreResults: response.ITEMS, requestLoading: false });
+			}).catch(e => console.log(e));
+		});
 	}
 
 	getSearchByClass(searchByOption) {
@@ -100,7 +137,10 @@ class Search extends React.Component {
 							<GenreList
 								searchBy={this.state.searchBy}
 								allGenreCodes={this.allGenreCodes}
-								handleGenreChange={this.handleGenreChange} />
+								handleGenreChange={this.handleGenreChange}
+								requestLoading={this.state.requestLoading}
+								genresArray={this.genresArray}
+								genreResults={this.state.genreResults} />
 							{this.renderButton()}
 						</form>
 						<SearchResults movie={this.props.movie} />

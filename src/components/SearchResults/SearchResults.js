@@ -3,7 +3,6 @@ import PropTypes from "prop-types";
 import loading from "./loading.png";
 
 class SearchResults extends React.Component {
-
 	componentDidUpdate(prevProps) {
 		if (this.props.movie !== prevProps.movie) {
 			// change this to be more exact..................................
