@@ -131,7 +131,7 @@ class Search extends React.Component {
 					<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 						<form>
 							<label className="col-sm-12 col-form-label col-form-label-sm">Search By...</label>
-							<ul className="list-group list-group-horizontal">
+							<ul className="list-group list-group-horizontal mb-1">
 								{this.renderSearchByOptions()}
 							</ul>
 							<GenreList

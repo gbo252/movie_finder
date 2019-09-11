@@ -1,17 +1,25 @@
 .search-by {
-  background-color: rgb(63, 63, 63);
-  color: black;
+  border-color: rgb(63, 63, 63);
+  border-width: 2px;
+  background-color: transparent;
+  color: rgb(124, 124, 124);
 }
 
 .search-by:hover {
   cursor: pointer;
   color: white;
+  border-color: white;
+}
+
+ul.list-group li {
+  align-self: center;
 }
 
 ul.list-group li.active {
-  background-color: white;
+  background-color: transparent;
   border-color: white;
-  color: black;
+  color: white;
+  font-size: 1.3rem;
 }
 
 /* Animations */

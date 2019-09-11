@@ -7,10 +7,9 @@ class CountryLogo extends React.Component {
 	render() {
 		return (
 			<div className="row text-white ml-1 mt-3">
-				<div className="col-2 text-center pt-3 pb-2 animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+				<div className="col-2 text-center py-3 animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 					<img src={netflixLogo} alt="netflix logo" width="175px" />
-					<h5 className="mt-1 mb-0">{this.props.countryName}</h5>
-					<button type="button" onClick={this.props.toggleCountryPicked} className="change btn btn-link btn-sm">change</button>
+					<h5 className="mt-1 mb-0" onClick={this.props.toggleCountryPicked} title="Click to change Country">{this.props.countryName}</h5>
 				</div>
 			</div>
 		);
