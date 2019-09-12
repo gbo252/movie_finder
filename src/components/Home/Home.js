@@ -47,7 +47,7 @@ class Home extends React.Component {
 			}, 1500);
 			setTimeout(() => {
 				this.props.toggleCountryPicked();
-				this.setState({ loading: false });
+				this.setState({ loading: false, animate: false });
 			}, 2500);
 		});
 		event.preventDefault();

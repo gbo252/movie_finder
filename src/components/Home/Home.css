@@ -9,13 +9,21 @@
         opacity: 1;
         transform: scale(1);
     }
-  }
+}
 
 .animate-on-screen {
-    animation: zoomIn 1000ms ease-out 0s 1 normal forwards;
+    animation: zoomIn 1000ms ease-out 0s 1 normal;
+}
+
+@keyframes slideOff {
+    0% {
+        transform: translateX(0px);
+    }
+    100% {
+        transform: translateX(2000px);
+    }
 }
 
 .animate-off-screen {
-    transform: translateX(2000px);
-    transition: all 1000ms ease-out;
-  }
+    animation: slideOff 1000ms ease-out 0s 1 normal;
+}
