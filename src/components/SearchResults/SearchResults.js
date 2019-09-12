@@ -33,13 +33,13 @@ class SearchResults extends React.Component {
 					<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
 						<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center">
 							<div className="row justify-content-center">
-								<div className="col-7 overlay movie-info d-flex flex-column justify-content-around">
+								<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
 									<h2>{this.decodeHtml(this.props.movie.title || "")}</h2>
 									<div>
 										<h5 style={{ display: this.props.movie.synopsis ? "block" : "none" }}>Synopsis</h5>
 										<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
 									</div>
-									<div className="row d-flex justify-content-center">
+									<div className="row d-flex justify-content-between">
 										<div className="col-4">
 											<h5 style={{ display: this.props.movie.runtime ? "block" : "none" }}>Runtime</h5>
 											<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
