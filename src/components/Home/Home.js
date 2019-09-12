@@ -71,7 +71,7 @@ class Home extends React.Component {
 	render() {
 		return !this.props.countryPicked && (
 			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
-				<div className={"col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen" + (this.state.animate ? " animate-off-screen" : "")} style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+				<div className={"col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen" + (this.state.animate ? " animate-off-screen" : "")}>
 					<img src={netflixLogo} alt="netflix logo" width="175px" />
 					<h2 className="pt-1 pb-2">Random Movie Generator</h2>
 					<form>

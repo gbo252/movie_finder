@@ -2,7 +2,6 @@ import React from "react";
 import PropTypes from "prop-types";
 import CountryLogo from "../CountryLogo/CountryLogo";
 import GenreList from "../GenreList/GenreList";
-import SearchResults from "../SearchResults/SearchResults";
 import Unogs from "../../util/Unogs";
 import "./Search.css";
 
@@ -60,11 +59,14 @@ class Search extends React.Component {
 	}
 
 	getSearchByClass(searchByOption) {
+		let searchClass = "";
 		if (this.state.searchBy === searchByOption) {
-			return " active";
-		} else {
-			return "";
+			searchClass += " active";
 		}
+		if (searchByOption === "genre") {
+			searchClass += " genre-search";
+		}
+		return searchClass;
 	}
 
 	handleSearchByChange(searchByOption) {
@@ -108,7 +110,7 @@ class Search extends React.Component {
 
 	renderButton() {
 		let atts = {};
-		if (this.state.genre === "X" && this.state.searchBy === "genre") { atts.disabled = true; }
+		if (this.state.genre === "X" && this.state.searchBy === "genre") { atts.disabled = true; atts.title = "Choose genre"; }
 		if (this.props.loading) {
 			return <button className="btn" type="button" disabled>
 				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
@@ -122,13 +124,13 @@ class Search extends React.Component {
 	}
 
 	render() {
-		return this.props.countryPicked && (
-			<div>
+		return this.props.countryPicked && !this.props.movie.title && (
+			<div id="Search">
 				<CountryLogo
 					toggleCountryPicked={this.props.toggleCountryPicked}
 					countryName={this.props.countryName} />
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-					<div className="col-4 d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
+					<div className="col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 						<form>
 							<label className="col-sm-12 col-form-label col-form-label-sm">Search By...</label>
 							<ul className="list-group list-group-horizontal mb-1">
@@ -143,7 +145,6 @@ class Search extends React.Component {
 								genreResults={this.state.genreResults} />
 							{this.renderButton()}
 						</form>
-						<SearchResults movie={this.props.movie} />
 					</div>
 				</div>
 			</div>

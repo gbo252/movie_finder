@@ -1,4 +1,4 @@
-h5:hover {
+#country-name:hover {
     color: rgb(63, 63, 63);
     cursor: pointer;
 }

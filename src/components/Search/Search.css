@@ -3,6 +3,7 @@
   border-width: 2px;
   background-color: transparent;
   color: rgb(124, 124, 124);
+  transition: all 100ms linear; 
 }
 
 .search-by:hover {
@@ -22,6 +23,12 @@ ul.list-group li.active {
   font-size: 1.3rem;
 }
 
+ul.list-group .genre-search.active {
+  font-size: 1.3rem;
+  padding-right: 34px;
+  padding-left: 34px;
+}
+
 /* Animations */
 
 @keyframes fadeIn {
@@ -33,6 +40,6 @@ ul.list-group li.active {
     }
   }
   
-  .animate-fade-in {
+  #Search .animate-fade-in {
     animation: 1500ms linear 0s 1 fadeIn;
   }

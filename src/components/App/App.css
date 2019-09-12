@@ -25,6 +25,10 @@ form button.btn:disabled {
   color: black;
 }
 
+.overlay {
+  background-color: rgba(0, 0, 0, 0.7);
+}
+
 @media only screen and (max-width: 560px) {
   html {
     font-size: 15px;
