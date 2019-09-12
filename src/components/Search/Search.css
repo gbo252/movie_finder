@@ -28,18 +28,3 @@ ul.list-group .genre-search.active {
   padding-right: 34px;
   padding-left: 34px;
 }
-
-/* Animations */
-
-@keyframes fadeIn {
-    0% {
-        opacity: 0;
-    }
-    100% {
-        opacity: 1;
-    }
-  }
-  
-  #Search .animate-fade-in {
-    animation: 1500ms linear 0s 1 fadeIn;
-  }

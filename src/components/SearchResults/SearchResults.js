@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CountryLogo from "../CountryLogo/CountryLogo";
 import loading from "./loading.png";
 import "./SearchResults.css";
 
@@ -26,15 +25,12 @@ class SearchResults extends React.Component {
 		let results;
 		if (this.props.movie.title) {
 			results = (
-				<div>
-					<CountryLogo
-						toggleCountryPicked={this.props.toggleCountryPicked}
-						countryName={this.props.countryName} />
+				<div id="Search-Results">
 					<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-						<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center">
+						<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 							<div className="row justify-content-center">
 								<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
-									<h2>{this.decodeHtml(this.props.movie.title || "")}</h2>
+									<h2 className="text-center">{this.decodeHtml(this.props.movie.title || "")}</h2>
 									<div>
 										<h5 style={{ display: this.props.movie.synopsis ? "block" : "none" }}>Synopsis</h5>
 										<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
@@ -68,9 +64,7 @@ class SearchResults extends React.Component {
 }
 
 SearchResults.propTypes = {
-	movie: PropTypes.object,
-	toggleCountryPicked: PropTypes.func,
-	countryName: PropTypes.string
+	movie: PropTypes.object
 };
 
 export default SearchResults;

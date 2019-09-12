@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import CountryLogo from "../CountryLogo/CountryLogo";
 import GenreList from "../GenreList/GenreList";
 import Unogs from "../../util/Unogs";
 import "./Search.css";
@@ -125,10 +124,7 @@ class Search extends React.Component {
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div id="Search">
-				<CountryLogo
-					toggleCountryPicked={this.props.toggleCountryPicked}
-					countryName={this.props.countryName} />
+			<div>
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
 					<div className="col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 						<form>
@@ -155,10 +151,8 @@ class Search extends React.Component {
 Search.propTypes = {
 	onSearch: PropTypes.func,
 	loading: PropTypes.bool,
-	countryName: PropTypes.string,
 	movie: PropTypes.object,
-	countryPicked: PropTypes.bool,
-	toggleCountryPicked: PropTypes.func
+	countryPicked: PropTypes.bool
 };
 
 export default Search;

@@ -2,6 +2,7 @@ import React from "react";
 import "./App.css";
 import Search from "../Search/Search";
 import Home from "../Home/Home";
+import CountryLogo from "../CountryLogo/CountryLogo";
 import SearchResults from "../SearchResults/SearchResults";
 import Unogs from "../../util/Unogs";
 
@@ -92,12 +93,12 @@ class App extends React.Component {
 					onSearch={this.search}
 					countryPicked={this.state.countryPicked}
 					loading={this.state.loading}
-					countryName={this.state.countryName}
-					toggleCountryPicked={this.toggleCountryPicked}
 					movie={this.state.movie} />
-				<SearchResults movie={this.state.movie}
-					countryName={this.state.countryName}
-					toggleCountryPicked={this.toggleCountryPicked} />
+				<CountryLogo
+					toggleCountryPicked={this.toggleCountryPicked}
+					countryPicked={this.state.countryPicked}
+					countryName={this.state.countryName} />
+				<SearchResults movie={this.state.movie} />
 			</div>
 		);
 	}
