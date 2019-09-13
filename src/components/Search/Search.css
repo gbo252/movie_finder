@@ -3,7 +3,7 @@
   border-width: 2px;
   background-color: transparent;
   color: rgb(124, 124, 124);
-  transition: all 100ms linear; 
+  transition: all 100ms linear;
 }
 
 .search-by:hover {
@@ -20,11 +20,23 @@ ul.list-group li.active {
   background-color: transparent;
   border-color: white;
   color: white;
-  font-size: 1.3rem;
+  font-size: 1.1rem;
 }
 
-ul.list-group .genre-search.active {
-  font-size: 1.3rem;
-  padding-right: 34px;
-  padding-left: 34px;
+/* Animations */
+
+@keyframes slideOffHold {
+  0% {
+    transform: translateX(0px);
+  }
+  10% {
+    transform: translateX(2000px);
+  }
+  100% {
+    transform: translateX(2000px);
+  }
+}
+
+.animate-off-screen-hold {
+  animation: slideOffHold 10s ease-out 0s 1 normal;
 }

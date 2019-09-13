@@ -11,6 +11,7 @@ class App extends React.Component {
 		super(props);
 		this.state = {
 			searchResults: {},
+
 			movie: {
 				// download: "0",
 				// image: "https://occ-0-2773-2774.1.nflxso.net/dnm/api/v6/XsrytRUxks8BtTRf9HNlZkW2tvY/AAAABfOwM141kECAfjwSsXkXuVNSoNbJRAMaSddjH6b15acGMt4-sPQlmmE99tsPa6dabje-RXz28A0lODn3l6cj0QFeAEl3Ay0.jpg?r=aed",
@@ -25,7 +26,9 @@ class App extends React.Component {
 				// type: "movie",
 				// unogsdate: "2019-08-21"
 			},
-			loading: false,
+
+			loadingResults: false,
+
 			// country: "46",
 			// countryName: "United Kingdom",
 			// countryPicked: true
@@ -44,14 +47,14 @@ class App extends React.Component {
 
 		const setMovieState = () => {
 			if (!this.state.searchResults[input] || !this.state.searchResults[input].length) {
-				this.setState({ movie: { empty: true }, loading: false });
+				this.setState({ movie: { empty: true }, loadingResults: false });
 			} else {
 				console.log(`Found: ${this.state.searchResults[input].length} ${genre ? "" : "recent"} movies ${genre ? "for this genre" : ""}`);
-				this.setState({ movie: this.randomizeMovie(input), loading: false });
+				this.setState({ movie: this.randomizeMovie(input), loadingResults: false });
 			}
 		};
 
-		this.setState({ movie: {}, loading: true }, () => {
+		this.setState({ movie: {}, loadingResults: true }, () => {
 			if (this.state.searchResults[input]) {
 				setTimeout(() => {
 					setMovieState();
@@ -92,7 +95,7 @@ class App extends React.Component {
 				<Search
 					onSearch={this.search}
 					countryPicked={this.state.countryPicked}
-					loading={this.state.loading}
+					loadingResults={this.state.loadingResults}
 					movie={this.state.movie} />
 				<CountryLogo
 					toggleCountryPicked={this.toggleCountryPicked}

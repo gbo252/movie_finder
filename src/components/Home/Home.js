@@ -9,45 +9,45 @@ class Home extends React.Component {
 		super(props);
 		this.state = {
 			countries: [],
-			loading: false,
-			requestLoading: false,
+			loadingSearchScreen: false,
+			loadingCountries: false,
 			animate: false
 		};
 		this.chooseCountry = this.chooseCountry.bind(this);
 	}
 
 	componentDidMount() {
-		this.setState({ requestLoading: true }, () => {
+		this.setState({ loadingCountries: true }, () => {
 			Unogs.getData("country").then(response => {
-				this.setState({ countries: response.ITEMS, requestLoading: false });
+				this.setState({ countries: response.ITEMS, loadingCountries: false });
 			}).catch(e => console.log(e));
 		});
 	}
 
-	loadingGenres() {
-		return [<option value="loading" key="loading">Loading...</option>, <option value="sizer" key="sizer">Czech eepublica..</option>];
-	}
-
 	renderCountries() {
-		if (!this.state.countries || !this.state.countries.length) {
-			return <option value="Error" key="Error">Server Error</option>;
+		if (this.state.loadingCountries) {
+			return [<option value="loading" key="loading">Loading...</option>, <option value="sizer" key="sizer">Czech eepublica..</option>];
 		} else {
-			return [<option value="X" key="X">Choose country...</option>].concat(this.state.countries.map(country => {
-				return <option value={country[0]} key={country[0]}>
-					{country[2]}
-				</option>;
-			}));
+			if (!this.state.countries || !this.state.countries.length) {
+				return <option value="Error" key="Error">Server Error</option>;
+			} else {
+				return [<option value="X" key="X">Choose country...</option>].concat(this.state.countries.map(country => {
+					return <option value={country[0]} key={country[0]}>
+						{country[2]}
+					</option>;
+				}));
+			}
 		}
 	}
 
 	chooseCountry(event) {
-		this.setState({ loading: true }, () => {
+		this.setState({ loadingSearchScreen: true }, () => {
 			setTimeout(() => {
 				this.setState({ animate: true });
 			}, 1500);
 			setTimeout(() => {
 				this.props.toggleCountryPicked();
-				this.setState({ loading: false, animate: false });
+				this.setState({ loadingSearchScreen: false, animate: false });
 			}, 2500);
 		});
 		event.preventDefault();
@@ -56,7 +56,7 @@ class Home extends React.Component {
 	renderButton() {
 		let atts = {};
 		if (this.props.country === "X") { atts.disabled = true; atts.title = "Select a country"; }
-		if (this.state.loading) {
+		if (this.state.loadingSearchScreen) {
 			return <button className="btn" type="button" disabled>
 				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 				Loading...
@@ -78,7 +78,7 @@ class Home extends React.Component {
 						<div className="form-group pb-2">
 							<label htmlFor="country-list">Select a Country</label>
 							<select onChange={this.props.onCountry} id="country-list" className="custom-select">
-								{this.state.requestLoading ? this.loadingGenres() : this.renderCountries()}
+								{this.renderCountries()}
 							</select>
 						</div>
 						{this.renderButton()}
