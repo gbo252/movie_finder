@@ -29,12 +29,12 @@ class App extends React.Component {
 
 			loadingResults: false,
 
-			// country: "46",
-			// countryName: "United Kingdom",
-			// countryPicked: true
-			country: "X",
-			countryName: "",
-			countryPicked: false
+			country: "46",
+			countryName: "United Kingdom",
+			countryPicked: true
+			// country: "X",
+			// countryName: "",
+			// countryPicked: false
 		};
 		this.search = this.search.bind(this);
 		this.randomizeMovie = this.randomizeMovie.bind(this);
