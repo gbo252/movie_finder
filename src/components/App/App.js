@@ -28,18 +28,25 @@ class App extends React.Component {
 			},
 
 			loadingResults: false,
+			genreName: "",
+			searchBy: "genre",
+			genre: "X",
 
-			country: "46",
-			countryName: "United Kingdom",
-			countryPicked: true
-			// country: "X",
-			// countryName: "",
-			// countryPicked: false
+			// country: "46",
+			// countryName: "United Kingdom",
+			// countryPicked: true
+			country: "X",
+			countryName: "",
+			countryPicked: false
 		};
+		this.allGenreCodes = [];
 		this.search = this.search.bind(this);
 		this.randomizeMovie = this.randomizeMovie.bind(this);
 		this.handleCountryChange = this.handleCountryChange.bind(this);
 		this.toggleCountryPicked = this.toggleCountryPicked.bind(this);
+		this.handleSearchByChange = this.handleSearchByChange.bind(this);
+		this.handleSearch = this.handleSearch.bind(this);
+		this.handleGenreChange = this.handleGenreChange.bind(this);
 	}
 
 	search(genre) {
@@ -71,6 +78,28 @@ class App extends React.Component {
 		});
 	}
 
+	handleSearch(event) {
+		if (this.state.searchBy === "genre") {
+			if (this.state.genre === "random") {
+				let code = this.randomGenreCode();
+				this.search(code);
+			} else {
+				this.search(this.state.genre);
+			}
+		} else if (this.state.searchBy === "recent") {
+			this.search();
+		}
+		event.preventDefault();
+	}
+
+	randomGenreCode() {
+		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
+	}
+
+	handleGenreChange(event) {
+		this.setState({ genre: event.target.value, genreName: event.target.options[event.target.selectedIndex].text });
+	}
+
 	randomizeMovie(input) {
 		let moviesArr = this.state.searchResults[input];
 		return moviesArr[Math.floor(Math.random() * moviesArr.length)];
@@ -84,6 +113,10 @@ class App extends React.Component {
 		this.setState({ countryPicked: !this.state.countryPicked });
 	}
 
+	handleSearchByChange(searchByOption) {
+		this.setState({ searchBy: searchByOption });
+	}
+
 	render() {
 		return (
 			<div>
@@ -93,15 +126,23 @@ class App extends React.Component {
 					toggleCountryPicked={this.toggleCountryPicked}
 					onCountry={this.handleCountryChange} />
 				<Search
-					onSearch={this.search}
 					countryPicked={this.state.countryPicked}
 					loadingResults={this.state.loadingResults}
-					movie={this.state.movie} />
+					movie={this.state.movie}
+					changeSearchBy={this.handleSearchByChange}
+					searchBy={this.state.searchBy}
+					genre={this.state.genre}
+					handleSearch={this.handleSearch}
+					handleGenreChange={this.handleGenreChange}
+					allGenreCodes={this.allGenreCodes} />
 				<CountryLogo
 					toggleCountryPicked={this.toggleCountryPicked}
 					countryPicked={this.state.countryPicked}
 					countryName={this.state.countryName} />
-				<SearchResults movie={this.state.movie} />
+				<SearchResults
+					movie={this.state.movie}
+					genreName={this.state.genreName}
+					searchBy={this.state.searchBy} />
 			</div>
 		);
 	}

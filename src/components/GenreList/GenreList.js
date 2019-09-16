@@ -3,28 +3,24 @@ import PropTypes from "prop-types";
 
 class GenreList extends React.Component {
 	renderGenres() {
-		if (this.props.loadingGenres) {
-			return [<option value="loading" key="loading">Loading...</option>, <option value="sizer" key="sizer">Faith and Spirituality</option>];
+		if (!this.props.genreResults || !this.props.genreResults.length) {
+			return <option value="Error" key="Error">Server Error</option>;
 		} else {
-			if (!this.props.genreResults || !this.props.genreResults.length) {
-				return <option value="Error" key="Error">Server Error</option>;
-			} else {
-				let optionsArr = [<option value="X" key="X">Choose genre...</option>, <option value="random" key="random">All Genres</option>];
+			let optionsArr = [<option value="X" key="X">Choose genre...</option>, <option value="random" key="random">All Genres</option>];
+			// eslint-disable-next-line no-unused-vars
+			for (let genre of this.props.genresArray) {
 				// eslint-disable-next-line no-unused-vars
-				for (let genre of this.props.genresArray) {
-					// eslint-disable-next-line no-unused-vars
-					for (let genreObj of this.props.genreResults) {
-						if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
-							let genreCode = genreObj[genre];
-							this.props.allGenreCodes.push(genreCode);
-							optionsArr.push(<option value={genreCode} key={genreCode}>
-								{genre.replace(/^All\s/, "").replace(/\sFilms$/, "").replace(/\sMovies$/, "").replace(/ies$/, "y").replace(/s$/, "")}
-							</option>);
-						}
+				for (let genreObj of this.props.genreResults) {
+					if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
+						let genreCode = genreObj[genre];
+						this.props.allGenreCodes.push(genreCode);
+						optionsArr.push(<option value={genreCode} key={genreCode}>
+							{genre.replace(/^All\s/, "").replace(/\sFilms$/, "").replace(/\sMovies$/, "").replace(/ies$/, "y").replace(/s$/, "")}
+						</option>);
 					}
 				}
-				return optionsArr;
 			}
+			return optionsArr;
 		}
 	}
 
@@ -49,7 +45,6 @@ GenreList.propTypes = {
 	handleGenreChange: PropTypes.func,
 	searchBy: PropTypes.string,
 	allGenreCodes: PropTypes.array,
-	loadingGenres: PropTypes.bool,
 	genresArray: PropTypes.array,
 	genreResults: PropTypes.array
 };

@@ -8,12 +8,7 @@ class Search extends React.Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			searchBy: "genre",
-			genre: "X",
-			genreResults: [],
-			loadingGenres: false,
-			loadingSearchResults: false,
-			animate: false
+			genreResults: []
 		};
 		this.searchByOptions = {
 			"Genre": "genre",
@@ -45,58 +40,16 @@ class Search extends React.Component {
 			"All Sports",
 			"Stand-up Comedy",
 			"All Thrillers"];
-		this.allGenreCodes = [];
-		this.handleSearchByChange = this.handleSearchByChange.bind(this);
-		this.handleGenreChange = this.handleGenreChange.bind(this);
-		this.handleSearch = this.handleSearch.bind(this);
 	}
 
 	componentDidMount() {
-		this.setState({ loadingGenres: true }, () => {
-			Unogs.getData("genre").then(response => {
-				this.setState({ genreResults: response.ITEMS, loadingGenres: false });
-			}).catch(e => console.log(e));
-		});
+		Unogs.getData("genre").then(response => {
+			this.setState({ genreResults: response.ITEMS });
+		}).catch(e => console.log(e));
 	}
 
 	getSearchByClass(searchByOption) {
-		return this.state.searchBy === searchByOption ? " active" : "";
-	}
-
-	handleSearchByChange(searchByOption) {
-		this.setState({ searchBy: searchByOption });
-	}
-
-	handleGenreChange(event) {
-		this.setState({ genre: event.target.value });
-	}
-
-	randomGenreCode() {
-		return this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
-	}
-
-	handleSearch(event) {
-		this.setState({ loadingSearchResults: true }, () => {
-			setTimeout(() => {
-				if (this.state.searchBy === "genre") {
-					if (this.state.genre === "random") {
-						let code = this.randomGenreCode();
-						this.props.onSearch(code);
-					} else {
-						this.props.onSearch(this.state.genre);
-					}
-				} else if (this.state.searchBy === "recent") {
-					this.props.onSearch();
-				}
-			}, 1000);
-			setTimeout(() => {
-				this.setState({ animate: true });
-			}, 2000);
-			setTimeout(() => {
-				this.setState({ loadingSearchResults: false, animate: false });
-			}, 12000);
-		});
-		event.preventDefault();
+		return this.props.searchBy === searchByOption ? " active" : "";
 	}
 
 	renderSearchByOptions() {
@@ -105,7 +58,7 @@ class Search extends React.Component {
 			return <li
 				key={searchByOptionValue}
 				className={"search-by list-group-item w-100" + this.getSearchByClass(searchByOptionValue)}
-				onClick={this.handleSearchByChange.bind(this, searchByOptionValue)}
+				onClick={this.props.changeSearchBy.bind(this, searchByOptionValue)}
 			>
 				{searchByOption}
 			</li>;
@@ -114,39 +67,36 @@ class Search extends React.Component {
 
 	renderButton() {
 		let atts = {};
-		if (this.state.genre === "X" && this.state.searchBy === "genre") { atts.disabled = true; atts.title = "Choose genre"; }
-		if (this.state.loadingSearchResults) {
+		if (this.props.genre === "X" && this.props.searchBy === "genre") { atts.disabled = true; atts.title = "Choose genre"; }
+		if (this.props.loadingResults) {
 			return <button className="btn" type="button" disabled>
 				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
 				Loading...
 			</button>;
 		} else {
 			return <span {...atts}>
-				<button onClick={this.handleSearch} className="btn" {...atts}>Search Netflix</button>
+				<button onClick={this.props.handleSearch} className="btn" {...atts}>Search Netflix</button>
 			</span>;
 		}
 	}
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div>
-				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-					<div className="col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
-						<form className="w-100">
-							<label className="col-form-label col-form-label-sm">Search By...</label>
-							<ul className="col-9 list-group list-group-horizontal mx-auto mb-1">
-								{this.renderSearchByOptions()}
-							</ul>
-							<GenreList
-								searchBy={this.state.searchBy}
-								allGenreCodes={this.allGenreCodes}
-								handleGenreChange={this.handleGenreChange}
-								loadingGenres={this.state.loadingGenres}
-								genresArray={this.genresArray}
-								genreResults={this.state.genreResults} />
-							{this.renderButton()}
-						</form>
-					</div>
+			<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
+				<div className="col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+					<form className="w-100">
+						<label className="col-form-label col-form-label-sm">Search By...</label>
+						<ul className="col-9 list-group list-group-horizontal mx-auto mb-1">
+							{this.renderSearchByOptions()}
+						</ul>
+						<GenreList
+							searchBy={this.props.searchBy}
+							allGenreCodes={this.props.allGenreCodes}
+							handleGenreChange={this.props.handleGenreChange}
+							genresArray={this.genresArray}
+							genreResults={this.state.genreResults} />
+						{this.renderButton()}
+					</form>
 				</div>
 			</div>
 		);
@@ -154,10 +104,15 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-	onSearch: PropTypes.func,
 	loadingResults: PropTypes.bool,
 	movie: PropTypes.object,
-	countryPicked: PropTypes.bool
+	countryPicked: PropTypes.bool,
+	changeSearchBy: PropTypes.func,
+	searchBy: PropTypes.string,
+	handleSearch: PropTypes.func,
+	handleGenreChange: PropTypes.func,
+	allGenreCodes: PropTypes.array,
+	genre: PropTypes.string
 };
 
 export default Search;

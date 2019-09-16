@@ -25,30 +25,29 @@ class SearchResults extends React.Component {
 		let results;
 		if (this.props.movie.title) {
 			results = (
-				<div id="Search-Results">
-					<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-						<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
-							<div className="row justify-content-center">
-								<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
-									<h2 className="text-center">{this.decodeHtml(this.props.movie.title || "")}</h2>
-									<div>
-										<h5 style={{ display: this.props.movie.synopsis ? "block" : "none" }}>Synopsis</h5>
-										<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
+				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
+					<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+						<div className="row justify-content-center">
+							<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
+								<h2 className="text-center">{this.decodeHtml(this.props.movie.title || "")}</h2>
+								<div>
+									<h5 style={{ display: this.props.movie.synopsis ? "block" : "none" }}>Synopsis</h5>
+									<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
+								</div>
+								<div className="row d-flex justify-content-between">
+									<div className="col-4">
+										<h5 style={{ display: this.props.movie.runtime ? "block" : "none" }}>Runtime</h5>
+										<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
 									</div>
-									<div className="row d-flex justify-content-between">
-										<div className="col-4">
-											<h5 style={{ display: this.props.movie.runtime ? "block" : "none" }}>Runtime</h5>
-											<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
-										</div>
-										<div className="col-4">
-											<h5 style={{ display: this.props.movie.released ? "block" : "none" }}>Released</h5>
-											<p>{this.props.movie.released}</p>
-										</div>
+									<div className="col-4">
+										<h5 style={{ display: this.props.movie.released ? "block" : "none" }}>Released</h5>
+										<p>{this.props.movie.released}</p>
 									</div>
 								</div>
-								<div className="col-5">
-									<img id="loading" src={loading} alt={this.props.movie.title} width="250px"></img>
-								</div>
+								<button className="btn btn-light">SEARCH {(this.props.searchBy === "genre" ? this.props.genreName : "Recently Added").toUpperCase()} AGAIN</button>
+							</div>
+							<div className="col-5">
+								<img id="loading" src={loading} alt={this.props.movie.title} width="250px"></img>
 							</div>
 						</div>
 					</div>
@@ -64,7 +63,9 @@ class SearchResults extends React.Component {
 }
 
 SearchResults.propTypes = {
-	movie: PropTypes.object
+	movie: PropTypes.object,
+	genreName: PropTypes.string,
+	searchBy: PropTypes.string
 };
 
 export default SearchResults;
