@@ -1,6 +1,5 @@
 import React from "react";
 import PropTypes from "prop-types";
-import loading from "./loading.png";
 import "./SearchResults.css";
 
 class SearchResults extends React.Component {
@@ -12,6 +11,7 @@ class SearchResults extends React.Component {
 				image.src = this.src;
 			};
 			moviePoster.src = this.props.movie.image;
+			moviePoster.alt = this.props.movie.title;
 		}
 	}
 
@@ -44,10 +44,17 @@ class SearchResults extends React.Component {
 										<p>{this.props.movie.released}</p>
 									</div>
 								</div>
-								<button className="btn btn-light">SEARCH {(this.props.searchBy === "genre" ? this.props.genreName : "Recently Added").toUpperCase()} AGAIN</button>
+								<button onClick={this.props.handleSearch} className="btn btn-light search-again">SEARCH {(this.props.searchBy === "genre" ? this.props.genreName : "Recently Added").toUpperCase()} AGAIN</button>
 							</div>
-							<div className="col-5">
-								<img id="loading" src={loading} alt={this.props.movie.title} width="250px"></img>
+							<div className="col-5 d-flex justify-content-center align-items-center">
+								<div className="image-spinner position-absolute d-flex justify-content-center align-items-center" width="250px" height="351px">
+									<div className="spinner-border" role="status">
+										<span className="sr-only">Loading...</span>
+									</div>
+								</div>
+								<div className="position-absolute">
+									<img id="loading" src="" alt="" width="250px"></img>
+								</div>
 							</div>
 						</div>
 					</div>
@@ -65,6 +72,7 @@ class SearchResults extends React.Component {
 SearchResults.propTypes = {
 	movie: PropTypes.object,
 	genreName: PropTypes.string,
+	handleSearch: PropTypes.func,
 	searchBy: PropTypes.string
 };
 

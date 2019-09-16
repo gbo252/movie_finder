@@ -22,6 +22,9 @@
     0% {
         transform: translateX(0px);
     }
+    90% {
+        transform: translateX(2000px);
+    }
     100% {
         transform: translateX(2000px);
     }

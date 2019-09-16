@@ -32,16 +32,15 @@ class App extends React.Component {
 			searchBy: "genre",
 			genre: "X",
 
-			// country: "46",
-			// countryName: "United Kingdom",
-			// countryPicked: true
-			country: "X",
-			countryName: "",
-			countryPicked: false
+			country: "46",
+			countryName: "United Kingdom",
+			countryPicked: true
+			// country: "X",
+			// countryName: "",
+			// countryPicked: false
 		};
 		this.allGenreCodes = [];
 		this.search = this.search.bind(this);
-		this.randomizeMovie = this.randomizeMovie.bind(this);
 		this.handleCountryChange = this.handleCountryChange.bind(this);
 		this.toggleCountryPicked = this.toggleCountryPicked.bind(this);
 		this.handleSearchByChange = this.handleSearchByChange.bind(this);
@@ -142,7 +141,8 @@ class App extends React.Component {
 				<SearchResults
 					movie={this.state.movie}
 					genreName={this.state.genreName}
-					searchBy={this.state.searchBy} />
+					searchBy={this.state.searchBy}
+					handleSearch={this.handleSearch} />
 			</div>
 		);
 	}
