@@ -46,6 +46,7 @@ class App extends React.Component {
 		this.handleSearchByChange = this.handleSearchByChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleGenreChange = this.handleGenreChange.bind(this);
+		this.goBackToSearch = this.goBackToSearch.bind(this);
 	}
 
 	search(genre) {
@@ -117,6 +118,10 @@ class App extends React.Component {
 		this.setState({ searchBy: searchByOption });
 	}
 
+	goBackToSearch() {
+		this.setState({ movie: {} });
+	}
+
 	render() {
 		return (
 			<div>
@@ -143,7 +148,8 @@ class App extends React.Component {
 					genreName={this.state.genreName}
 					searchBy={this.state.searchBy}
 					handleSearch={this.handleSearch}
-					loadingResults={this.state.loadingResults} />
+					loadingResults={this.state.loadingResults}
+					goBackToSearch={this.goBackToSearch} />
 			</div>
 		);
 	}

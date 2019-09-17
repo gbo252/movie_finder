@@ -23,33 +23,40 @@ class SearchResults extends React.Component {
 
 	renderAll() {
 		if (!this.props.loadingResults) {
-			return <div className="row justify-content-center">
-				<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
-					<h2 className="text-center">{this.decodeHtml(this.props.movie.title || "")}</h2>
-					<div>
-						<h5 style={{ display: this.props.movie.synopsis ? "block" : "none" }}>Synopsis</h5>
-						<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
-					</div>
-					<div className="row d-flex justify-content-between">
-						<div className="col-4">
-							<h5 style={{ display: this.props.movie.runtime ? "block" : "none" }}>Runtime</h5>
-							<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
-						</div>
-						<div className="col-4">
-							<h5 style={{ display: this.props.movie.released ? "block" : "none" }}>Released</h5>
-							<p>{this.props.movie.released}</p>
-						</div>
-					</div>
-					<button onClick={this.props.handleSearch} className="btn btn-light search-again">SEARCH {(this.props.searchBy === "genre" ? this.props.genreName : "Recently Added").toUpperCase()} AGAIN</button>
+			return <div>
+				<div className="row">
+					<button type="button" onClick={this.props.goBackToSearch} className="btn btn-link ml-n3 back-button netflix-color font-weight-bold">BACK</button>
 				</div>
-				<div className="col-5 d-flex justify-content-center align-items-center">
-					<div className="image-spinner position-absolute d-flex justify-content-center align-items-center" width="250px" height="351px">
-						<div className="spinner-border netflix-color" role="status">
-							<span className="sr-only">Loading...</span>
+				<div className="row justify-content-center">
+					<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
+						<h3 className="text-center">{this.decodeHtml(this.props.movie.title || "")}</h3>
+						<div>
+							<h5>Synopsis</h5>
+							<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
 						</div>
+						<div className="row d-flex justify-content-center">
+							<div className="col-4">
+								<h5>Runtime</h5>
+								<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
+							</div>
+							<div className="col-4">
+								<h5>Released</h5>
+								<p>{this.props.movie.released}</p>
+							</div>
+						</div>
+						<form className="mx-auto">
+							<button onClick={this.props.handleSearch} className="btn search-again">search {(this.props.searchBy === "genre" ? this.props.genreName : "recently added").toLowerCase()} again</button>
+						</form>
 					</div>
-					<div className="position-absolute">
-						<img id="loading" src="" alt="" width="250px"></img>
+					<div className="col-5 d-flex justify-content-center align-items-center">
+						<div className="image-spinner position-absolute d-flex justify-content-center align-items-center" width="250px" height="351px">
+							<div className="spinner-border netflix-color" role="status">
+								<span className="sr-only">Loading...</span>
+							</div>
+						</div>
+						<div className="position-absolute">
+							<img id="loading" src="" alt="" width="250px"></img>
+						</div>
 					</div>
 				</div>
 			</div>;
@@ -72,7 +79,7 @@ class SearchResults extends React.Component {
 		if (this.props.movie.title) {
 			results = (
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-					<div className="col-5 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						{this.renderAll()}
 					</div>
 				</div>
@@ -91,7 +98,8 @@ SearchResults.propTypes = {
 	genreName: PropTypes.string,
 	handleSearch: PropTypes.func,
 	searchBy: PropTypes.string,
-	loadingResults: PropTypes.bool
+	loadingResults: PropTypes.bool,
+	goBackToSearch: PropTypes.func
 };
 
 export default SearchResults;

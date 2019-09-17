@@ -41,7 +41,7 @@ form button.btn:disabled {
 }
 
 .animate-fade-in {
-  animation: 1000ms linear 0s 1 fadeIn;
+  animation: 500ms linear 0s 1 fadeIn;
 }
 
 /* Media Queries */

@@ -9,7 +9,7 @@ class CountryLogo extends React.Component {
 			<div className="row text-white ml-1 mt-3">
 				<div className="col-2 text-center py-3 animate-fade-in" style={{ backgroundColor: "rgba(0, 0, 0, 0.7)" }}>
 					<img src={netflixLogo} alt="netflix logo" width="175px" />
-					<h5 id="country-name" className="mt-1 mb-0" onClick={this.props.toggleCountryPicked} title="Click to change Country">{this.props.countryName}</h5>
+					<h5 id="country-name" className="mt-1 mb-0" onClick={this.props.toggleCountryPicked} title="click to change Country">{this.props.countryName}</h5>
 				</div>
 			</div>
 		);
