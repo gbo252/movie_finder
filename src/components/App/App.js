@@ -123,7 +123,7 @@ class App extends React.Component {
 	}
 
 	clearCurrentMovie() {
-		this.setState({ movie: {} });
+		this.setState({ movie: {}, genre: "X" });
 	}
 
 	render() {
