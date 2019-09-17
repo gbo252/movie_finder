@@ -32,12 +32,12 @@ class App extends React.Component {
 			searchBy: "genre",
 			genre: "X",
 
-			country: "46",
-			countryName: "United Kingdom",
-			countryPicked: true
-			// country: "X",
-			// countryName: "",
-			// countryPicked: false
+			// country: "46",
+			// countryName: "United Kingdom",
+			// countryPicked: true
+			country: "X",
+			countryName: "",
+			countryPicked: false
 		};
 		this.allGenreCodes = [];
 		this.search = this.search.bind(this);
@@ -119,7 +119,7 @@ class App extends React.Component {
 	}
 
 	toggleCountryPicked() {
-		this.setState({ countryPicked: !this.state.countryPicked, movie: {} });
+		this.setState({ countryPicked: !this.state.countryPicked, movie: {}, searchResults: {} });
 	}
 
 	clearCurrentMovie() {
