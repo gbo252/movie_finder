@@ -76,7 +76,15 @@ class SearchResults extends React.Component {
 
 	render() {
 		let results;
-		if (this.props.movie.title) {
+		if (this.props.movie.empty) {
+			results = (
+				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
+					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
+						<p className="h4">No Results Found</p>
+					</div>
+				</div>
+			);
+		} else if (this.props.movie.title) {
 			results = (
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
 					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
@@ -84,8 +92,6 @@ class SearchResults extends React.Component {
 					</div>
 				</div>
 			);
-		} else if (this.props.movie.empty) {
-			results = <p>No Results Found</p>;
 		} else {
 			results = null;
 		}

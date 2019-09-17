@@ -32,12 +32,12 @@ class App extends React.Component {
 			searchBy: "genre",
 			genre: "X",
 
-			// country: "46",
-			// countryName: "United Kingdom",
-			// countryPicked: true
-			country: "X",
-			countryName: "",
-			countryPicked: false
+			country: "46",
+			countryName: "United Kingdom",
+			countryPicked: true
+			// country: "X",
+			// countryName: "",
+			// countryPicked: false
 		};
 		this.allGenreCodes = [];
 		this.search = this.search.bind(this);
@@ -54,7 +54,11 @@ class App extends React.Component {
 
 		const setMovieState = () => {
 			if (!this.state.searchResults[input] || !this.state.searchResults[input].length) {
-				this.setState({ movie: { empty: true }, loadingResults: false });
+				this.setState({ movie: { empty: true, title: " " }, loadingResults: false }, () => {
+					setTimeout(() => {
+						this.setState({ movie: {} });
+					}, 2000);
+				});
 			} else {
 				console.log(`Found: ${this.state.searchResults[input].length} ${genre ? "" : "recent"} movies ${genre ? "for this genre" : ""}`);
 				this.setState({ movie: this.randomizeMovie(input), loadingResults: false });
