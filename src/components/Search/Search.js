@@ -68,16 +68,9 @@ class Search extends React.Component {
 	renderButton() {
 		let atts = {};
 		if (this.props.genre === "X" && this.props.searchBy === "genre") { atts.disabled = true; atts.title = "Choose genre"; }
-		if (this.props.loadingResults) {
-			return <button className="btn" type="button" disabled>
-				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-				Loading...
-			</button>;
-		} else {
-			return <span {...atts}>
-				<button onClick={this.props.handleSearch} className="btn" {...atts}>Search Netflix</button>
-			</span>;
-		}
+		return <span {...atts}>
+			<button onClick={this.props.handleSearch} className="btn" {...atts}>Search Netflix</button>
+		</span>;
 	}
 
 	render() {
@@ -104,7 +97,6 @@ class Search extends React.Component {
 }
 
 Search.propTypes = {
-	loadingResults: PropTypes.bool,
 	movie: PropTypes.object,
 	countryPicked: PropTypes.bool,
 	changeSearchBy: PropTypes.func,

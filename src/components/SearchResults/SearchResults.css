@@ -1,5 +1,6 @@
 .movie-info {
     box-shadow: 0 0 20px 20px rgba(0, 0, 0, 0.7);
+    min-height: 332px;
 }
 
 /* .search-again {
@@ -11,4 +12,8 @@
     bottom: 0;
     right: 0;
     left: 0;
+}
+
+.netflix-color {
+    color: rgb(229, 9, 20);
 }

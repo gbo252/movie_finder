@@ -60,7 +60,7 @@ class App extends React.Component {
 			}
 		};
 
-		this.setState({ movie: {}, loadingResults: true }, () => {
+		this.setState({ movie: { title: " " }, loadingResults: true }, () => {
 			if (this.state.searchResults[input]) {
 				setTimeout(() => {
 					setMovieState();
@@ -88,6 +88,7 @@ class App extends React.Component {
 		} else if (this.state.searchBy === "recent") {
 			this.search();
 		}
+
 		event.preventDefault();
 	}
 
@@ -126,7 +127,6 @@ class App extends React.Component {
 					onCountry={this.handleCountryChange} />
 				<Search
 					countryPicked={this.state.countryPicked}
-					loadingResults={this.state.loadingResults}
 					movie={this.state.movie}
 					changeSearchBy={this.handleSearchByChange}
 					searchBy={this.state.searchBy}
@@ -142,7 +142,8 @@ class App extends React.Component {
 					movie={this.state.movie}
 					genreName={this.state.genreName}
 					searchBy={this.state.searchBy}
-					handleSearch={this.handleSearch} />
+					handleSearch={this.handleSearch}
+					loadingResults={this.state.loadingResults} />
 			</div>
 		);
 	}
