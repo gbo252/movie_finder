@@ -25,7 +25,7 @@ class SearchResults extends React.Component {
 		if (!this.props.loadingResults) {
 			return <div>
 				<div className="row">
-					<button type="button" onClick={this.props.goBackToSearch} className="btn btn-link ml-n3 back-button netflix-color font-weight-bold">BACK</button>
+					<button type="button" onClick={this.props.clearCurrentMovie} className="btn btn-link ml-n3 back-button netflix-color font-weight-bold">BACK</button>
 				</div>
 				<div className="row justify-content-center">
 					<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
@@ -99,7 +99,7 @@ SearchResults.propTypes = {
 	handleSearch: PropTypes.func,
 	searchBy: PropTypes.string,
 	loadingResults: PropTypes.bool,
-	goBackToSearch: PropTypes.func
+	clearCurrentMovie: PropTypes.func
 };
 
 export default SearchResults;

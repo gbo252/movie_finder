@@ -32,12 +32,12 @@ class App extends React.Component {
 			searchBy: "genre",
 			genre: "X",
 
-			country: "46",
-			countryName: "United Kingdom",
-			countryPicked: true
-			// country: "X",
-			// countryName: "",
-			// countryPicked: false
+			// country: "46",
+			// countryName: "United Kingdom",
+			// countryPicked: true
+			country: "X",
+			countryName: "",
+			countryPicked: false
 		};
 		this.allGenreCodes = [];
 		this.search = this.search.bind(this);
@@ -46,7 +46,7 @@ class App extends React.Component {
 		this.handleSearchByChange = this.handleSearchByChange.bind(this);
 		this.handleSearch = this.handleSearch.bind(this);
 		this.handleGenreChange = this.handleGenreChange.bind(this);
-		this.goBackToSearch = this.goBackToSearch.bind(this);
+		this.clearCurrentMovie = this.clearCurrentMovie.bind(this);
 	}
 
 	search(genre) {
@@ -110,15 +110,15 @@ class App extends React.Component {
 		this.setState({ country: event.target.value, countryName: event.target.options[event.target.selectedIndex].text });
 	}
 
-	toggleCountryPicked() {
-		this.setState({ countryPicked: !this.state.countryPicked });
-	}
-
 	handleSearchByChange(searchByOption) {
 		this.setState({ searchBy: searchByOption });
 	}
 
-	goBackToSearch() {
+	toggleCountryPicked() {
+		this.setState({ countryPicked: !this.state.countryPicked, movie: {} });
+	}
+
+	clearCurrentMovie() {
 		this.setState({ movie: {} });
 	}
 
@@ -149,7 +149,7 @@ class App extends React.Component {
 					searchBy={this.state.searchBy}
 					handleSearch={this.handleSearch}
 					loadingResults={this.state.loadingResults}
-					goBackToSearch={this.goBackToSearch} />
+					clearCurrentMovie={this.clearCurrentMovie} />
 			</div>
 		);
 	}
