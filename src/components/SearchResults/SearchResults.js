@@ -35,13 +35,17 @@ class SearchResults extends React.Component {
 							<p>{this.decodeHtml(this.props.movie.synopsis || "")}</p>
 						</div>
 						<div className="row d-flex justify-content-center">
-							<div className="col-4">
-								<h5>Runtime</h5>
+							<div className="col-4" style={{ display: (this.props.movie.runtime ? "block" : "none") }}>
+								<h5 style={{ display: (this.props.movie.runtime ? "block" : "none") }}>Runtime</h5>
 								<p>{(this.props.movie.runtime || "").replace(/h/, "h ")}</p>
 							</div>
-							<div className="col-4">
-								<h5>Released</h5>
+							<div className="col-4" style={{ display: (this.props.movie.released ? "block" : "none") }}>
+								<h5 style={{ display: (this.props.movie.released ? "block" : "none") }}>Released</h5>
 								<p>{this.props.movie.released}</p>
+							</div>
+							<div className="col-4" style={{ display: (this.props.movie.rating ? "block" : "none") }}>
+								<h5 style={{ display: (this.props.movie.rating ? "block" : "none") }}>Rating</h5>
+								<p>{this.props.movie.rating}</p>
 							</div>
 						</div>
 						<form className="mx-auto">
