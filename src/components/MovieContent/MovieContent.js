@@ -10,7 +10,7 @@ const decodeHtml = (html) => {
 class MovieContent extends React.Component {
 
 	render() {
-		const { title, synopsis, runtime, released, rating } = this.props.movie;
+		const { title, synopsis, runtime, released, rating, image } = this.props.movie;
 
 		return (
 			<div>
@@ -41,7 +41,7 @@ class MovieContent extends React.Component {
 						<form className="mx-auto">
 							<button onClick={this.props.handleSearch} className="btn search-again">
                                 search {(this.props.searchBy === "genre" ? this.props.genreName : "recently added").toLowerCase()} again
-							</button>
+    						</button>
 						</form>
 					</div>
 					<div className="col-5 d-flex justify-content-center align-items-center">
@@ -51,7 +51,7 @@ class MovieContent extends React.Component {
 							</div>
 						</div>
 						<div className="position-absolute">
-							<img id="loading" src="" alt="" width="250px"></img>
+							<img src={image} alt={title} width="250px"></img>
 						</div>
 					</div>
 				</div>

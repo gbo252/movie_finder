@@ -5,18 +5,6 @@ import "./SearchResults.css";
 
 class SearchResults extends React.Component {
 
-	componentDidUpdate(prevProps) {
-		if (this.props.movie !== prevProps.movie) {
-			let image = document.getElementById("loading");
-			let moviePoster = new Image();
-			moviePoster.onload = function () {
-				image.src = this.src;
-			};
-			moviePoster.src = this.props.movie.image;
-			moviePoster.alt = this.props.movie.title;
-		}
-	}
-
 	renderContent() {
 		if (!this.props.loadingResults) {
 			return (
