@@ -15,11 +15,14 @@
 }
 
 .netflix-color {
-    color: rgb(229, 9, 20);
+    color: rgba(229, 9, 20, 0.8);
+}
+
+.back-button {
+    z-index: 1;
 }
 
 .back-button:hover {
-    z-index: 1;
     color: rgb(229, 9, 20);
 }
 

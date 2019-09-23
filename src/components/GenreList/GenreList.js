@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 
 class GenreList extends React.Component {
+
 	renderGenres() {
 		if (!this.props.genreResults || !this.props.genreResults.length) {
 			return <option value="Error" key="Error">Server Error</option>;
@@ -24,15 +25,27 @@ class GenreList extends React.Component {
 		}
 	}
 
-	render() {
+	renderAtts(section) {
 		let atts = {};
-		let atts2 = {};
-		if (this.props.searchBy === "recent") { atts.disabled = true; atts.style = { backgroundColor: "rgb(66, 66, 66)", borderColor: "rgb(66, 66, 66)", color: "rgba(0, 0, 0, 0.3)" }; atts2.style = { opacity: "0.2" }; }
+		if (this.props.searchBy === "recent") {
+			if (section === "label") {
+				atts.style = { opacity: "0.2" };
+			} else {
+				atts.disabled = true;
+				atts.style = { backgroundColor: "rgb(66, 66, 66)", borderColor: "rgb(66, 66, 66)", color: "rgba(0, 0, 0, 0.3)" };
+			}
+		}
+		return atts;
+	}
+
+	render() {
 		return (
 			<div className="form-group-row">
-				<label htmlFor="genre-list" className="col-sm-12 col-form-label col-form-label-sm" {...atts2}>Select a Genre</label>
+				<label htmlFor="genre-list" className="col-sm-12 col-form-label col-form-label-sm" {...this.renderAtts("label")}>
+					Select a Genre
+				</label>
 				<div className="col-6 mx-auto mb-3">
-					<select onChange={this.props.handleGenreChange} id="genre-list" className="custom-select custom-select-sm" {...atts}>
+					<select onChange={this.props.handleGenreChange} id="genre-list" className="custom-select custom-select-sm" {...this.renderAtts("select")}>
 						{this.renderGenres()}
 					</select>
 				</div>

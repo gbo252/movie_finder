@@ -5,16 +5,14 @@ import netflixLogo from "../App/netflix_logo.png";
 import "./Home.css";
 
 class Home extends React.Component {
-	constructor(props) {
-		super(props);
-		this.state = {
-			countries: [],
-			loadingSearchScreen: false,
-			loadingCountries: false,
-			animate: false
-		};
-		this.chooseCountry = this.chooseCountry.bind(this);
-	}
+	
+	state = {
+		countries: [],
+		loadingSearchScreen: false,
+		loadingCountries: false,
+		animate: false
+	};
+
 
 	componentDidMount() {
 		this.setState({ loadingCountries: true }, () => {
@@ -40,7 +38,7 @@ class Home extends React.Component {
 		}
 	}
 
-	chooseCountry(event) {
+	chooseCountry = (event) => {
 		this.setState({ loadingSearchScreen: true }, () => {
 			setTimeout(() => {
 				this.setState({ animate: true });
@@ -60,14 +58,18 @@ class Home extends React.Component {
 		let atts = {};
 		if (this.props.country === "X") { atts.disabled = true; atts.title = "Select a country"; }
 		if (this.state.loadingSearchScreen) {
-			return <button className="btn" type="button" disabled>
-				<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
-				Loading...
-			</button>;
+			return (
+				<button className="btn" type="button" disabled>
+					<span className="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
+					Loading...
+				</button>
+			);
 		} else {
-			return <span {...atts}>
-				<button onClick={this.chooseCountry} className="btn" {...atts}>Continue</button>
-			</span>;
+			return (
+				<span {...atts}>
+					<button onClick={this.chooseCountry} className="btn" {...atts}>Continue</button>
+				</span>
+			);
 		}
 	}
 
