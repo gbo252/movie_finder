@@ -73,8 +73,8 @@ class Search extends React.Component {
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
-				<div className="col-auto overlay touch-scroll d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+			<div className="row App text-white position-absolute text-center d-flex justify-content-center">
+				<div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 					<div className="country-logo-inc mb-2 px-4 rounded">
 						<img src={netflixLogo} alt="netflix logo" width="100px" />
 						<h5 id="country-name" className="mt-1 mb-0" onClick={this.props.toggleCountryPicked} title="click to change Country">

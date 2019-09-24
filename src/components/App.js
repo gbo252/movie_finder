@@ -31,12 +31,12 @@ class App extends React.Component {
 		searchBy: "genre",
 		genre: "X",
 
-		// country: "46",
-		// countryName: "United Kingdom",
-		// countryPicked: true
-		country: "X",
-		countryName: "",
-		countryPicked: false
+		country: "46",
+		countryName: "United Kingdom",
+		countryPicked: true
+		// country: "X",
+		// countryName: "",
+		// countryPicked: false
 	};
 
 	allGenreCodes = [];
