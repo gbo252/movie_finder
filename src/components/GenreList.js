@@ -41,7 +41,7 @@ class GenreList extends React.Component {
 	render() {
 		return (
 			<div className="form-group-row">
-				<label htmlFor="genre-list" className="col-sm-12 col-form-label col-form-label-sm" {...this.renderAtts("label")}>
+				<label htmlFor="genre-list" {...this.renderAtts("label")}>
 					Select a Genre
 				</label>
 				<div className="col-auto mx-auto mb-3">

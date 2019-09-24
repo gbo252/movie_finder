@@ -1,7 +1,8 @@
 import React from "react";
 import PropTypes from "prop-types";
-import GenreList from "../GenreList/GenreList";
-import Unogs from "../../util/Unogs";
+import GenreList from "./GenreList";
+import Unogs from "../apis/Unogs";
+import netflixLogo from "./netflix_logo.png";
 import "./Search.css";
 
 class Search extends React.Component {
@@ -52,7 +53,7 @@ class Search extends React.Component {
 			return (
 				<li
 					key={searchByOptionValue}
-					className={"search-by list-group-item w-100" + (this.props.searchBy === searchByOptionValue ? " active" : "")}
+					className={"search-by list-group-item p-1" + (this.props.searchBy === searchByOptionValue ? " active" : "")}
 					onClick={this.props.changeSearchBy.bind(this, searchByOptionValue)}>
 					{searchByOption}
 				</li>
@@ -72,11 +73,17 @@ class Search extends React.Component {
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
+			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
 				<div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+					<div className="country-logo-inc mb-2 px-4 rounded">
+						<img src={netflixLogo} alt="netflix logo" width="100px" />
+						<h5 id="country-name" className="mt-1 mb-0" onClick={this.props.toggleCountryPicked} title="click to change Country">
+							{this.props.countryName}
+						</h5>
+					</div>
 					<form className="w-100">
-						<label className="col-form-label col-form-label-sm">Search By...</label>
-						<ul className="col-9 list-group list-group-horizontal mx-auto mb-1">
+						<label htmlFor="search-by-options">Search By</label>
+						<ul id="search-by-options" className="list-group list-group-horizontal-sm mb-2">
 							{this.renderSearchByOptions()}
 						</ul>
 						<GenreList
@@ -84,7 +91,7 @@ class Search extends React.Component {
 							allGenreCodes={this.props.allGenreCodes}
 							handleGenreChange={this.props.handleGenreChange}
 							genresArray={this.genresArray}
-							genreResults={this.state.genreResults} 
+							genreResults={this.state.genreResults}
 						/>
 						{this.renderButton()}
 					</form>
@@ -102,7 +109,9 @@ Search.propTypes = {
 	handleSearch: PropTypes.func,
 	handleGenreChange: PropTypes.func,
 	allGenreCodes: PropTypes.array,
-	genre: PropTypes.string
+	genre: PropTypes.string,
+	countryName: PropTypes.string,
+	toggleCountryPicked: PropTypes.func
 };
 
 export default Search;

@@ -1,10 +1,10 @@
 import React from "react";
 import "./App.css";
-import Search from "../Search/Search";
-import Home from "../Home/Home";
-import CountryLogo from "../CountryLogo/CountryLogo";
-import SearchResults from "../SearchResults/SearchResults";
-import Unogs from "../../util/Unogs";
+import Search from "./Search";
+import Home from "./Home";
+import CountryLogo from "./CountryLogo";
+import SearchResults from "./SearchResults";
+import Unogs from "../apis/Unogs";
 
 class App extends React.Component {
 
@@ -124,7 +124,8 @@ class App extends React.Component {
 					country={this.state.country}
 					countryPicked={this.state.countryPicked}
 					toggleCountryPicked={this.toggleCountryPicked}
-					onCountry={this.handleCountryChange} />
+					onCountry={this.handleCountryChange}
+				/>
 				<Search
 					countryPicked={this.state.countryPicked}
 					movie={this.state.movie}
@@ -133,18 +134,23 @@ class App extends React.Component {
 					genre={this.state.genre}
 					handleSearch={this.handleSearch}
 					handleGenreChange={this.handleGenreChange}
-					allGenreCodes={this.allGenreCodes} />
+					allGenreCodes={this.allGenreCodes}
+					toggleCountryPicked={this.toggleCountryPicked}
+					countryName={this.state.countryName}
+				/>
 				<SearchResults
 					movie={this.state.movie}
 					genreName={this.state.genreName}
 					searchBy={this.state.searchBy}
 					handleSearch={this.handleSearch}
 					loadingResults={this.state.loadingResults}
-					clearCurrentMovie={this.clearCurrentMovie} />
+					clearCurrentMovie={this.clearCurrentMovie}
+				/>
 				<CountryLogo
 					toggleCountryPicked={this.toggleCountryPicked}
 					countryPicked={this.state.countryPicked}
-					countryName={this.state.countryName} />
+					countryName={this.state.countryName}
+				/>
 			</div>
 		);
 	}

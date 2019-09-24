@@ -1,5 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
+import Spinner from "./Spinner";
+import "./MovieContent.css";
 
 const decodeHtml = (html) => {
 	var txt = document.createElement("textarea");
@@ -14,11 +16,14 @@ class MovieContent extends React.Component {
 
 		return (
 			<div>
-				<div className="row">
-					<button type="button" onClick={this.props.clearCurrentMovie} className="btn btn-link ml-n3 back-button netflix-color font-weight-bold">BACK</button>
-				</div>
-				<div className="row justify-content-center">
-					<div className="col-7 overlay movie-info text-left d-flex flex-column justify-content-around">
+				<button
+					type="button"
+					onClick={this.props.clearCurrentMovie}
+					className="btn btn-link btn-block text-left px-0 ml-md-n3 back-button netflix-color font-weight-bold">
+					BACK
+				</button>
+				<div className="d-flex justify-content-center">
+					<div className="overlay movie-info text-left d-flex flex-column justify-content-around" style={{ maxWidth: "450px" }}>
 						<h3 className="text-center">{decodeHtml(title || "")}</h3>
 						<div>
 							<h5>Synopsis</h5>
@@ -39,20 +44,16 @@ class MovieContent extends React.Component {
 							</div>
 						</div>
 						<form className="mx-auto">
-							<button onClick={this.props.handleSearch} className="btn search-again">
-                                search {(this.props.searchBy === "genre" ? this.props.genreName : "recently added").toLowerCase()} again
+							<button onClick={this.props.handleSearch} className="btn">
+								search {(this.props.searchBy === "genre" ? this.props.genreName : "recently added").toLowerCase()} again
 							</button>
 						</form>
 					</div>
-					<div className="col-5 d-flex justify-content-center align-items-center">
-						<div className="image-spinner position-absolute d-flex justify-content-center align-items-center" width="250px" height="351px">
-							<div className="spinner-border netflix-color" role="status">
-								<span className="sr-only">Loading...</span>
-							</div>
+					<div className="d-flex justify-content-center align-items-center pl-4" style={{ minWidth: "250px" }}>
+						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+							<Spinner />
 						</div>
-						<div className="position-absolute">
-							<img src={image} alt={title} width="250px"></img>
-						</div>
+						<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
 					</div>
 				</div>
 			</div>

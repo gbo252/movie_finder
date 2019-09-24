@@ -1,0 +1,7 @@
+.back-button {
+    z-index: 0;
+}
+
+.back-button:hover {
+    color: rgb(229, 9, 20);
+}

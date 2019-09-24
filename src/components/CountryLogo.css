@@ -1,0 +1,12 @@
+#country-name:hover {
+    color: rgb(63, 63, 63);
+    cursor: pointer;
+}
+
+/* Media Queries */
+
+@media only screen and (max-height: 700px) and (max-width: 1350px) {
+    .country-logo {
+        display: none;
+    }
+}

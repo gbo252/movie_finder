@@ -1,10 +1,9 @@
 .search-by {
-  border-color: rgb(63, 63, 63);
-  border-width: 2px;
+  border: 2px solid rgb(63, 63, 63);
   background-color: transparent;
   color: rgb(124, 124, 124);
-  transition: all 100ms linear;
   white-space: nowrap;
+  min-width: 180px;
 }
 
 .search-by:hover {
@@ -13,13 +12,20 @@
   border-color: white;
 }
 
-ul.list-group li {
-  align-self: center;
-}
-
 ul.list-group li.active {
   background-color: rgba(255, 255, 255, 0.1);
   border-color: white;
   color: white;
-  font-size: 1.1rem;
+}
+
+.country-logo-inc {
+  border: 2px solid rgb(63, 63, 63);
+}
+
+/* Media Queries */
+
+@media only screen and (min-height: 701px), (min-width: 1351px) {
+  .country-logo-inc {
+      display: none;
+  }
 }

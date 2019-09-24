@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
-import Unogs from "../../util/Unogs";
-import netflixLogo from "../App/netflix_logo.png";
+import Unogs from "../apis/Unogs";
+import netflixLogo from "./netflix_logo.png";
 import "./Home.css";
 
 class Home extends React.Component {
