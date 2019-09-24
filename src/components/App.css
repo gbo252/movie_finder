@@ -13,8 +13,6 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   overflow-x: hidden;
-  overflow-y: scroll;
-  -webkit-overflow-scrolling: touch;
   width: 270px;
 }
 
@@ -63,4 +61,9 @@ form button.btn:disabled {
   right: 0;
   left: 0;
   z-index: -1;
+}
+
+.touch-scroll {
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
 }
