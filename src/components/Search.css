@@ -29,13 +29,3 @@ ul.list-group li.active {
       display: none;
   }
 }
-
-.App {
-  align-items: center;
-}
-
-@media only screen and (max-height: 350px) {
-  .App {
-      align-items: start;
-  }
-}

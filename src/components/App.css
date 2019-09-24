@@ -45,6 +45,15 @@ form button.btn:disabled {
   animation: 500ms linear 0s 1 fadeIn;
 }
 
+.App {
+  align-items: center;
+  top: 0;
+  bottom: 0;
+  right: 0;
+  left: 0;
+  z-index: -1;
+}
+
 /* Media Queries */
 
 @media only screen and (max-width: 560px) {
@@ -53,12 +62,8 @@ form button.btn:disabled {
   }
 }
 
-/* App Styles */
-
-.App {
-  top: 0;
-  bottom: 0;
-  right: 0;
-  left: 0;
-  z-index: -1;
+@media only screen and (max-height: 350px) {
+  .App {
+      align-items: start;
+  }
 }
