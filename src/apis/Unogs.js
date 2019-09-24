@@ -1,5 +1,3 @@
-let count = 0;
-
 const Unogs = {
 	handleErrors(response) {
 		if (!response.ok) {
@@ -19,8 +17,6 @@ const Unogs = {
 			.then(Unogs.handleErrors)
 			.then(response => response.json())
 			.then(jsonResponse => {
-				count++;
-				console.log(count);
 				if (!jsonResponse.ITEMS) {
 					return [];
 				} else {
@@ -60,8 +56,6 @@ const Unogs = {
 			input = "api.cgi?t=genres";
 		} else if (option === "country") {
 			input = "aaapi.cgi?t=lc&q=available";
-		} else {
-			console.log("No data request specified in getData function");
 		}
 		let url = `https://unogs-unogs-v1.p.rapidapi.com/${input}`;
 		return Unogs.fetch(url);

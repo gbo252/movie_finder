@@ -19,7 +19,7 @@ class Home extends React.Component {
 		this.setState({ loadingCountries: true }, () => {
 			Unogs.getData("country").then(response => {
 				this.setState({ countries: response.ITEMS, loadingCountries: false });
-			}).catch(e => console.log(e));
+			});
 		});
 	}
 

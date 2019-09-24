@@ -45,7 +45,7 @@ class Search extends React.Component {
 	componentDidMount() {
 		Unogs.getData("genre").then(response => {
 			this.setState({ genreResults: response.ITEMS });
-		}).catch(e => console.log(e));
+		});
 	}
 
 	renderSearchByOptions() {
