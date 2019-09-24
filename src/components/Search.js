@@ -73,7 +73,7 @@ class Search extends React.Component {
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
+			<div className="row App mb-n2 text-white position-absolute text-center d-flex justify-content-center align-items-center">
 				<div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 					<div className="country-logo-inc mb-2 px-4 rounded">
 						<img src={netflixLogo} alt="netflix logo" width="100px" />
