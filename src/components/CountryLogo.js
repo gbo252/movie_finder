@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import "./CountryLogo.css";
-import netflixLogo from "./netflix_logo.png";
+import netflixLogo from "../images/netflix_logo.png";
 
 const CountryLogo = (props) => {
 

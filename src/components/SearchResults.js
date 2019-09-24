@@ -31,7 +31,7 @@ class SearchResults extends React.Component {
 	renderAll() {
 		if (this.props.movie.empty) {
 			return (
-				<div className="row App mb-n2 text-white position-absolute text-center d-flex justify-content-center align-items-center">
+				<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
 					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						<p className="h4">No Results Found</p>
 					</div>
@@ -39,7 +39,7 @@ class SearchResults extends React.Component {
 			);
 		} else if (this.props.movie.title) {
 			return (
-				<div className="row App mb-n2 text-white position-absolute text-center d-flex justify-content-center align-items-center">
+				<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
 					<div className="col-auto overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						{this.renderContent()}
 					</div>

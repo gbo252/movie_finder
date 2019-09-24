@@ -1,7 +1,7 @@
 import React from "react";
 import PropTypes from "prop-types";
 import Unogs from "../apis/Unogs";
-import netflixLogo from "./netflix_logo.png";
+import netflixLogo from "../images/netflix_logo.png";
 import "./Home.css";
 
 class Home extends React.Component {
@@ -75,7 +75,7 @@ class Home extends React.Component {
 
 	render() {
 		return !this.props.countryPicked && (
-			<div className="row App mb-n2 text-white position-absolute text-center d-flex justify-content-center align-items-center">
+			<div className="row App text-white position-absolute text-center d-flex justify-content-center align-items-center">
 				<div className={"col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen" + (this.state.animate ? " animate-off-screen" : "")}>
 					<img src={netflixLogo} alt="netflix logo" width="175px" />
 					<h2 className="pt-1 pb-2">Random Movie Generator</h2>
