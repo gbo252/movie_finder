@@ -31,10 +31,10 @@ class MovieContent extends React.Component {
 								<p>{decodeHtml(synopsis || "")}</p>
 							</div>
 							<div className="image-column col-5 d-flex justify-content-center align-items-center mb-2" style={{}}>
-								<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+								<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
+								<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color" style={{ zIndex: "0" }}>
 									<Spinner />
 								</div>
-								<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
 							</div>
 						</div>
 						<div className="row d-flex justify-content-center">
@@ -58,10 +58,10 @@ class MovieContent extends React.Component {
 						</form>
 					</div>
 					<div className="image-section d-flex justify-content-center align-items-center pl-4" style={{ minWidth: "250px" }}>
-						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+						<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
+						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color" style={{ zIndex: "0" }}>
 							<Spinner />
 						</div>
-						<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
 					</div>
 				</div>
 			</div>
