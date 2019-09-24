@@ -3,6 +3,7 @@ import PropTypes from "prop-types";
 import GenreList from "./GenreList";
 import Unogs from "../apis/Unogs";
 import netflixLogo from "../images/netflix_logo.png";
+import AppRow from "./AppRow";
 import "./Search.css";
 
 class Search extends React.Component {
@@ -73,7 +74,7 @@ class Search extends React.Component {
 
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
-			<div className="row App text-white position-absolute text-center d-flex justify-content-center">
+			<AppRow>
 				<div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 					<div className="country-logo-inc mb-2 px-4 py-1 rounded">
 						<img src={netflixLogo} alt="netflix logo" width="100px" />
@@ -96,7 +97,7 @@ class Search extends React.Component {
 						{this.renderButton()}
 					</form>
 				</div>
-			</div>
+			</AppRow>
 		);
 	}
 }

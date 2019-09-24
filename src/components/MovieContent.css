@@ -5,3 +5,17 @@
 .back-button:hover {
     color: rgb(229, 9, 20);
 }
+
+/* Media Queries */
+
+@media only screen and (max-width: 768px) {
+    .image-section {
+        display: none !important;
+    }
+}
+
+@media only screen and (min-width: 769px) {
+    .image-column {
+        display: none !important;
+    }
+}

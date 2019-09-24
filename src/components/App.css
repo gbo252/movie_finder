@@ -62,7 +62,7 @@ form button.btn:disabled {
   }
 }
 
-@media only screen and (max-height: 350px) {
+@media only screen and (max-height: 500px) {
   .App {
       align-items: start;
   }

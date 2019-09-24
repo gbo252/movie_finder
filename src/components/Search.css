@@ -24,7 +24,7 @@ ul.list-group li.active {
 
 /* Media Queries */
 
-@media only screen and (min-height: 701px), (min-width: 1351px) {
+@media only screen and (min-height: 733px), (min-width: 1351px) {
   .country-logo-inc {
       display: none;
   }

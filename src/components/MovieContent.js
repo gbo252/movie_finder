@@ -22,12 +22,20 @@ class MovieContent extends React.Component {
 					className="btn btn-link btn-block text-left px-0 ml-md-n3 back-button netflix-color font-weight-bold">
 					BACK
 				</button>
-				<div className="d-flex justify-content-center">
+				<div className="d-flex justify-content-center px-2">
 					<div className="overlay movie-info text-left d-flex flex-column justify-content-around" style={{ maxWidth: "450px" }}>
 						<h3 className="text-center">{decodeHtml(title || "")}</h3>
-						<div>
-							<h5>Synopsis</h5>
-							<p>{decodeHtml(synopsis || "")}</p>
+						<div className="row d-flex justify-content-center align-items-center">
+							<div className="col d-flex flex-column justify-content-center">
+								<h5>Synopsis</h5>
+								<p>{decodeHtml(synopsis || "")}</p>
+							</div>
+							<div className="image-column col-5 d-flex justify-content-center align-items-center mb-2" style={{}}>
+								<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+									<Spinner />
+								</div>
+								<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
+							</div>
 						</div>
 						<div className="row d-flex justify-content-center">
 							<div className="col-4" style={{ display: (runtime ? "block" : "none") }}>
@@ -49,7 +57,7 @@ class MovieContent extends React.Component {
 							</button>
 						</form>
 					</div>
-					<div className="d-flex justify-content-center align-items-center pl-4" style={{ minWidth: "250px" }}>
+					<div className="image-section d-flex justify-content-center align-items-center pl-4" style={{ minWidth: "250px" }}>
 						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
 							<Spinner />
 						</div>

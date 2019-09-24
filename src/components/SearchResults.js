@@ -2,6 +2,7 @@ import React from "react";
 import PropTypes from "prop-types";
 import MovieContent from "./MovieContent";
 import Spinner from "./Spinner";
+import AppRow from "./AppRow";
 import "./SearchResults.css";
 
 class SearchResults extends React.Component {
@@ -31,19 +32,19 @@ class SearchResults extends React.Component {
 	renderAll() {
 		if (this.props.movie.empty) {
 			return (
-				<div className="row App text-white position-absolute text-center d-flex justify-content-center">
-					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
+				<AppRow>
+					<div className="col-auto overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						<p className="h4">No Results Found</p>
 					</div>
-				</div>
+				</AppRow>
 			);
 		} else if (this.props.movie.title) {
 			return (
-				<div className="row App text-white position-absolute text-center d-flex justify-content-center">
+				<AppRow>
 					<div className="col-auto overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						{this.renderContent()}
 					</div>
-				</div>
+				</AppRow>
 			);
 		} else {
 			return null;

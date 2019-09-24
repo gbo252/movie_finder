@@ -5,7 +5,7 @@
 
 /* Media Queries */
 
-@media only screen and (max-height: 700px) and (max-width: 1350px) {
+@media only screen and (max-height: 732px) and (max-width: 1350px) {
     .country-logo {
         display: none;
     }
