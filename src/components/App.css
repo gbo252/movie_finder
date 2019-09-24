@@ -13,7 +13,8 @@ body {
   background-repeat: no-repeat;
   background-attachment: fixed;
   overflow-x: hidden;
-  overflow-y: auto;
+  overflow-y: scroll;
+  -webkit-overflow-scrolling: touch;
   width: 270px;
 }
 
