@@ -23,7 +23,7 @@ class SearchResults extends React.Component {
 			return (
 				<div className="netflix-color p-3 mt-2 p-sm-5 m-sm-5">
 					<span className="h2 pr-3">Loading</span>
-					<Spinner />
+					<Spinner display={true} />
 				</div>
 			);
 		}

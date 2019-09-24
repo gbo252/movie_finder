@@ -11,6 +11,14 @@ const decodeHtml = (html) => {
 
 class MovieContent extends React.Component {
 
+	state = { imageLoaded: false };
+
+	imageRef = React.createRef();
+
+	componentDidMount() {
+		this.imageRef.current.addEventListener("load", () => this.setState({ imageLoaded: true }));
+	}
+
 	render() {
 		const { title, synopsis, runtime, released, rating, image } = this.props.movie;
 
@@ -19,7 +27,7 @@ class MovieContent extends React.Component {
 				<button
 					type="button"
 					onClick={this.props.clearCurrentMovie}
-					className="btn btn-link btn-block text-left px-0 ml-md-n3 back-button netflix-color font-weight-bold">
+					className="btn btn-lg btn-link btn-block text-left px-0 ml-md-n3 back-button netflix-color font-weight-bold">
 					BACK
 				</button>
 				<div className="d-flex justify-content-center px-2">
@@ -30,10 +38,16 @@ class MovieContent extends React.Component {
 								<h5>Synopsis</h5>
 								<p>{decodeHtml(synopsis || "")}</p>
 							</div>
-							<div className="image-column col-5 d-flex justify-content-center align-items-center mb-2" style={{}}>
-								<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
-								<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color" style={{ zIndex: "0" }}>
-									<Spinner />
+							<div className="image-column col-5 d-flex justify-content-center align-items-center mb-2">
+								<img
+									ref={this.imageRef}
+									className="w-100"
+									style={this.state.imageLoaded ? { display: "block" } : { display: "none" }}
+									src={image}
+									alt={title}
+								/>
+								<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+									<Spinner display={!this.state.imageLoaded} />
 								</div>
 							</div>
 						</div>
@@ -58,9 +72,15 @@ class MovieContent extends React.Component {
 						</form>
 					</div>
 					<div className="image-section d-flex justify-content-center align-items-center pl-4" style={{ minWidth: "250px" }}>
-						<img className="w-100" src={image} alt={title} style={{ zIndex: "2" }}></img>
-						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color" style={{ zIndex: "0" }}>
-							<Spinner />
+						<img
+							ref={this.imageRef}
+							className="w-100"
+							style={this.state.imageLoaded ? { display: "block" } : { display: "none" }}
+							src={image}
+							alt={title}
+						/>
+						<div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
+							<Spinner display={!this.state.imageLoaded} />
 						</div>
 					</div>
 				</div>
