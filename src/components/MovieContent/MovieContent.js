@@ -41,7 +41,7 @@ class MovieContent extends React.Component {
 						<form className="mx-auto">
 							<button onClick={this.props.handleSearch} className="btn search-again">
                                 search {(this.props.searchBy === "genre" ? this.props.genreName : "recently added").toLowerCase()} again
-    						</button>
+							</button>
 						</form>
 					</div>
 					<div className="col-5 d-flex justify-content-center align-items-center">

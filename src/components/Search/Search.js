@@ -73,7 +73,7 @@ class Search extends React.Component {
 	render() {
 		return this.props.countryPicked && !this.props.movie.title && (
 			<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-				<div className="col-4 overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+				<div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
 					<form className="w-100">
 						<label className="col-form-label col-form-label-sm">Search By...</label>
 						<ul className="col-9 list-group list-group-horizontal mx-auto mb-1">

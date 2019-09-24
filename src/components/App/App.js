@@ -119,7 +119,7 @@ class App extends React.Component {
 
 	render() {
 		return (
-			<div>
+			<div className="container">
 				<Home
 					country={this.state.country}
 					countryPicked={this.state.countryPicked}

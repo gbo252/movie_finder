@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  background-image: url("background_tiles.jpg");
+  background-image: url("./background_tiles.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;

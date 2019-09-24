@@ -45,7 +45,7 @@ class SearchResults extends React.Component {
 		} else if (this.props.movie.title) {
 			return (
 				<div className="row App text-white position-absolute text-center d-flex flex-column justify-content-center align-items-center">
-					<div className="col-5 overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
+					<div className="col-auto overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
 						{this.renderContent()}
 					</div>
 				</div>
