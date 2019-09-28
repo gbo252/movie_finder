@@ -1,11 +1,4 @@
 const Unogs = {
-	handleErrors(response) {
-		if (!response.ok) {
-			console.log(`Bad Request: ${response.statusText}`);
-		}
-		return response;
-	},
-
 	fetch(url) {
 		return fetch(url,
 			{
@@ -14,7 +7,12 @@ const Unogs = {
 					"x-rapidapi-key": process.env.REACT_APP_UNOGS_API_KEY
 				}
 			})
-			.then(Unogs.handleErrors)
+			.then(response => {
+				if (!response.ok) {
+					console.log(`Bad Request: ${response.statusText}`);
+				}
+				return response;
+			})
 			.then(response => response.json())
 			.then(jsonResponse => {
 				if (!jsonResponse.ITEMS) {

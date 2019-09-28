@@ -24,55 +24,46 @@ class App extends React.Component {
 
 	handleSearch = (event) => {
 
-		const search = (genre) => {
-			const searchResults = this.state.searchResults;
-			let input = genre ? genre : this.state.countryName;
+		const { searchResults, countryName, genreName, country, searchBy, genre } = this.state;
 
-			const randomizeMovie = (input) => {
-				let moviesArr = searchResults[input];
-				return moviesArr[Math.floor(Math.random() * moviesArr.length)];
-			};
+		let input;
+		if (searchBy === "genre") {
+			input = (genre === "random" ? this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)] : genre);
+		} else if (searchBy === "recent") {
+			input = countryName;
+		}
 
-			const setMovieState = () => {
-				if (!searchResults[input] || !searchResults[input].length) {
-					this.setState({ movie: { empty: true, title: " " }, loadingResults: false }, () => {
-						setTimeout(() => {
-							this.setState({ movie: {} });
-						}, 2000);
-					});
-				} else {
-					console.log(`Found: ${searchResults[input].length} ${genre ? this.state.genreName : "recent"} movies`);
-					this.setState({ movie: randomizeMovie(input), loadingResults: false });
-				}
-			};
-
-			this.setState({ movie: { title: " " }, loadingResults: true }, () => {
-				if (searchResults[input]) {
+		const setMovieState = () => {
+			if (!searchResults[input] || !searchResults[input].length) {
+				this.setState({ movie: { empty: true, title: " " }, loadingResults: false }, () => {
 					setTimeout(() => {
-						setMovieState();
-					}, 1500);
-				} else {
-					Unogs.search(this.state.country, genre ? genre : null).then(response => {
-						let searchObj = searchResults;
-						searchObj[input] = response;
-						this.setState({ searchResults: searchObj }, () => {
-							setMovieState();
-						});
-					});
-				}
-			});
+						this.setState({ movie: {} });
+					}, 2000);
+				});
+			} else {
+				console.log(`Found: ${searchResults[input].length} ${searchBy === "genre" ? genreName : "recent"} movies`);
+				this.setState({
+					movie: searchResults[input][Math.floor(Math.random() * searchResults[input].length)],
+					loadingResults: false
+				});
+			}
 		};
 
-		if (this.state.searchBy === "genre") {
-			if (this.state.genre === "random") {
-				let code = this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)];
-				search(code);
+		this.setState({ movie: { title: " " }, loadingResults: true }, () => {
+			if (searchResults[input]) {
+				setTimeout(() => {
+					setMovieState();
+				}, 1500);
 			} else {
-				search(this.state.genre);
+				Unogs.search(country, (searchBy === "genre" ? input : null)).then(response => {
+					let searchObj = searchResults;
+					searchObj[input] = response;
+					this.setState({ searchResults: searchObj }, () => {
+						setMovieState();
+					});
+				});
 			}
-		} else if (this.state.searchBy === "recent") {
-			search();
-		}
+		});
 
 		event.preventDefault();
 
