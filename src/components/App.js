@@ -61,7 +61,7 @@ class App extends React.Component {
 
 	handleSearch = (event) => {
 
-		const { searchResults, countryName, genreName, country, searchBy, genre } = this.state;
+		const { countryName, genreName, country, searchBy, genre } = this.state;
 
 		let input;
 		if (searchBy === "genre") {
@@ -71,31 +71,29 @@ class App extends React.Component {
 		}
 
 		const setMovieState = () => {
-			if (!searchResults[input] || !searchResults[input].length) {
+			if (!this.state.searchResults[input] || !this.state.searchResults[input].length) {
 				this.setState({ movie: { empty: true, title: " " }, loadingResults: false }, () => {
 					setTimeout(() => {
 						this.setState({ movie: {} });
 					}, 2000);
 				});
 			} else {
-				console.log(`Found: ${searchResults[input].length} ${searchBy === "genre" ? genreName : "recent"} movies`);
+				console.log(`Found: ${this.state.searchResults[input].length} ${searchBy === "genre" ? genreName : "recent"} movies`);
 				this.setState({
-					movie: searchResults[input][Math.floor(Math.random() * searchResults[input].length)],
+					movie: this.state.searchResults[input][Math.floor(Math.random() * this.state.searchResults[input].length)],
 					loadingResults: false
 				});
 			}
 		};
 
 		this.setState({ movie: { title: " " }, loadingResults: true }, () => {
-			if (searchResults[input]) {
+			if (this.state.searchResults[input]) {
 				setTimeout(() => {
 					setMovieState();
 				}, 1500);
 			} else {
 				Unogs.search(country, (searchBy === "genre" ? input : null)).then(response => {
-					let searchObj = searchResults;
-					searchObj[input] = response;
-					this.setState({ searchResults: searchObj }, () => {
+					this.setState({ searchResults: { ...this.state.searchResults, [input]: response } }, () => {
 						setMovieState();
 					});
 				});
