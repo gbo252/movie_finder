@@ -3,7 +3,7 @@ import PropTypes from "prop-types";
 import Unogs from "../apis/Unogs";
 import netflixLogo from "../images/netflix_logo.png";
 import AppRow from "./AppRow";
-import "./Home.css";
+import "../css/Home.css";
 
 class Home extends React.Component {
 

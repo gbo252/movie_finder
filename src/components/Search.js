@@ -1,52 +1,15 @@
 import React from "react";
 import PropTypes from "prop-types";
-import GenreList from "./GenreList";
-import Unogs from "../apis/Unogs";
 import netflixLogo from "../images/netflix_logo.png";
 import AppRow from "./AppRow";
-import "./Search.css";
+import "../css/Search.css";
 
 class Search extends React.Component {
-
-	state = { genreResults: [] };
 
 	searchByOptions = {
 		"Genre": "genre",
 		"Recently Added": "recent"
 	};
-
-	genresArray = [
-		"All Action",
-		"Adventures",
-		"All Anime",
-		"All Childrens",
-		"All Classics",
-		"All Comedies",
-		"Crime Documentaries",
-		"Crime Films",
-		"All Cult",
-		"All Documentaries",
-		"All Dramas",
-		"All Faith and Spirituality",
-		"Fantasy Movies",
-		"All Gay and Lesbian",
-		"All Horror",
-		"All Independent",
-		"All International",
-		"All Music",
-		"All Musicals",
-		"Mysteries",
-		"All Romance",
-		"All Sci-Fi",
-		"All Sports",
-		"Stand-up Comedy",
-		"All Thrillers"];
-
-	componentDidMount() {
-		Unogs.getData("genre").then(response => {
-			this.setState({ genreResults: response.ITEMS });
-		});
-	}
 
 	renderSearchByOptions() {
 		return Object.keys(this.searchByOptions).map(searchByOption => {
@@ -87,13 +50,7 @@ class Search extends React.Component {
 						<ul id="search-by-options" className="list-group list-group-horizontal-sm mb-2">
 							{this.renderSearchByOptions()}
 						</ul>
-						<GenreList
-							searchBy={this.props.searchBy}
-							allGenreCodes={this.props.allGenreCodes}
-							handleGenreChange={this.props.handleGenreChange}
-							genresArray={this.genresArray}
-							genreResults={this.state.genreResults}
-						/>
+						{this.props.children}
 						{this.renderButton()}
 					</form>
 				</div>
@@ -108,11 +65,10 @@ Search.propTypes = {
 	changeSearchBy: PropTypes.func,
 	searchBy: PropTypes.string,
 	handleSearch: PropTypes.func,
-	handleGenreChange: PropTypes.func,
-	allGenreCodes: PropTypes.array,
 	genre: PropTypes.string,
 	countryName: PropTypes.string,
-	toggleCountryPicked: PropTypes.func
+	toggleCountryPicked: PropTypes.func,
+	children: PropTypes.object
 };
 
 export default Search;

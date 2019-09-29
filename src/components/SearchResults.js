@@ -1,29 +1,19 @@
 import React from "react";
 import PropTypes from "prop-types";
-import MovieContent from "./MovieContent";
 import Spinner from "./Spinner";
 import AppRow from "./AppRow";
-import "./SearchResults.css";
+import "../css/SearchResults.css";
 
 class SearchResults extends React.Component {
 
 	renderContent() {
 		if (!this.props.loadingResults) {
-			return (
-				<MovieContent
-					movie={this.props.movie}
-					loadingResults={this.props.loadingResults}
-					clearCurrentMovie={this.props.clearCurrentMovie}
-					handleSearch={this.props.handleSearch}
-					searchBy={this.props.searchBy}
-					genreName={this.props.genreName}
-				/>
-			);
+			return this.props.children;
 		} else {
 			return (
 				<div className="netflix-color p-3 mt-2 p-sm-5 m-sm-5">
 					<span className="h2 pr-3">Loading</span>
-					<Spinner display={true} />
+					<Spinner display />
 				</div>
 			);
 		}
@@ -58,11 +48,8 @@ class SearchResults extends React.Component {
 
 SearchResults.propTypes = {
 	movie: PropTypes.object,
-	genreName: PropTypes.string,
-	handleSearch: PropTypes.func,
-	searchBy: PropTypes.string,
 	loadingResults: PropTypes.bool,
-	clearCurrentMovie: PropTypes.func
+	children: PropTypes.object
 };
 
 export default SearchResults;
