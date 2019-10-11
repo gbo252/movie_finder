@@ -5,7 +5,7 @@ html {
 }
 
 body {
-  background-image: url("../images/background_tiles.jpg");
+  background-image: url("../images/background_large.jpg");
   -webkit-background-size: cover;
   -moz-background-size: cover;
   -o-background-size: cover;
@@ -55,6 +55,18 @@ form button.btn:disabled {
 }
 
 /* Media Queries */
+
+@media only screen and (max-width: 1000px) {
+  body {
+    background-image: url("../images/background_medium.jpg");
+  }
+}
+
+@media only screen and (max-width: 700px) {
+  body {
+    background-image: url("../images/background_small.jpg");
+  }
+}
 
 @media only screen and (max-width: 560px) {
   html {
