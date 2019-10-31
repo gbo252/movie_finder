@@ -79,9 +79,8 @@ class App extends React.Component {
 				});
 			} else {
 				console.log(`Found: ${this.state.searchResults[input].length} ${searchBy === "genre" ? genreName : "recent"} movies`);
-				this.setState({
-					movie: this.state.searchResults[input][Math.floor(Math.random() * this.state.searchResults[input].length)],
-					loadingResults: false
+				this.setState(prevState => {
+					return { movie: prevState.searchResults[input][Math.floor(Math.random() * prevState.searchResults[input].length)], loadingResults: false };
 				});
 			}
 		};
@@ -93,9 +92,9 @@ class App extends React.Component {
 				}, 1500);
 			} else {
 				Unogs.search(country, (searchBy === "genre" ? input : null)).then(response => {
-					this.setState({ searchResults: { ...this.state.searchResults, [input]: response } }, () => {
-						setMovieState();
-					});
+					this.setState(prevState => {
+						return { searchResults: { ...prevState.searchResults, [input]: response } };
+					}, () => { setMovieState(); });
 				});
 			}
 		});
@@ -117,7 +116,9 @@ class App extends React.Component {
 	}
 
 	toggleCountryPicked = () => {
-		this.setState({ countryPicked: !this.state.countryPicked, movie: {}, searchResults: {} });
+		this.setState(prevState => {
+			return ({ countryPicked: !prevState.countryPicked, movie: {}, searchResults: {}});
+		});
 	}
 
 	clearCurrentMovie = () => {
