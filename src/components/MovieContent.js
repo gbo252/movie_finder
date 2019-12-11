@@ -15,10 +15,16 @@ class MovieContent extends React.Component {
 
 	imageRef = React.createRef();
 
+	setLoadingTrue = () => {
+		this.setState({ imageLoaded: true });
+	};
+
 	componentDidMount() {
-		this.imageRef.current.addEventListener("load", () =>
-			this.setState({ imageLoaded: true })
-		);
+		this.imageRef.current.addEventListener("load", this.setLoadingTrue);
+	}
+
+	componentWillUnmount() {
+		this.imageRef.current.removeEventListener("load", this.setLoadingTrue);
 	}
 
 	renderInfoItems() {
