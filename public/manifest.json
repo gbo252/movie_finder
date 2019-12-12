@@ -1,6 +1,6 @@
 {
-  "short_name": "React App",
-  "name": "Create React App Sample",
+  "short_name": "Netflix Random Movie",
+  "name": "Netflix Random Movie Generator",
   "icons": [
     {
       "src": "favicon.ico",

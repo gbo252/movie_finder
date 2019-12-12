@@ -17,7 +17,7 @@ The **Netflix Random Movie Generator** is a web application that queries an API 
 This project aims to make choosing a film from Netflix easier, by displaying one film at a time. This removes the issue of "too much choice" when scanning through the hundreds of available films on Netflix.
 
 ## Features
-* search by chosen Country
+* search by Country
 * search by recently added
 * search by genre (or a generic "all genres" search)
 * a "search again" button, repeating the last search
