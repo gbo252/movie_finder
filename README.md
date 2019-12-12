@@ -1,12 +1,12 @@
 # Netflix Random Movie Generator
-> Can't choose which movie to watch on Netflix tonight? Use our random movie generator to help with the choice!
+> Can't decide which movie to watch on Netflix tonight? Use our random movie generator to help with that choice!
 
 ## Table of contents
-* [General Info] (#general-info)
-* [Screenshots] (#screenshots)
-* [Technologies] (#technologies)
-* [Features] (#features)
-* [Contact] (#contact)
+* [General Info](#general-info)
+* [Screenshots](#screenshots)
+* [Technologies](#technologies)
+* [Features](#features)
+* [Contact](#contact)
 
 ## General Info
 Longer description........
