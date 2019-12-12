@@ -1,6 +1,6 @@
 {
-  "name": "netflix_movie_finder",
-  "version": "0.1.0",
+  "name": "netflix_random_movie_generator",
+  "version": "1.0.0",
   "private": true,
   "engines": {
     "node": "10.16.0",
@@ -14,8 +14,6 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test",
-    "eject": "react-scripts eject",
     "lint": "eslint .",
     "lint:fix": "eslint --fix ."
   },
