@@ -9,7 +9,6 @@ import MovieContent from "./MovieContent";
 import Unogs from "../apis/Unogs";
 
 class App extends React.Component {
-
 	state = {
 		searchResults: {},
 		movie: {},
@@ -53,84 +52,138 @@ class App extends React.Component {
 
 	allGenreCodes = [];
 
-	componentDidMount() {
-		Unogs.getData("genre").then(response => {
-			this.setState({ genreResults: response.ITEMS });
-		});
+	async componentDidMount() {
+		const response = await Unogs.getData("genre");
+		this.setState({ genreResults: response });
 	}
 
-	handleSearch = (event) => {
-
+	handleSearch = event => {
 		const { countryName, genreName, country, searchBy, genre } = this.state;
 
 		let input;
 		if (searchBy === "genre") {
-			input = (genre === "random" ? this.allGenreCodes[Math.floor(Math.random() * this.allGenreCodes.length)] : genre);
+			input =
+				genre === "random"
+					? this.allGenreCodes[
+						Math.floor(
+							Math.random() * this.allGenreCodes.length
+						)
+					]
+					: genre;
 		} else if (searchBy === "recent") {
 			input = countryName;
 		}
 
 		const setMovieState = () => {
-			if (!this.state.searchResults[input] || !this.state.searchResults[input].length) {
-				this.setState({ movie: { empty: true, title: " " }, loadingResults: false }, () => {
-					setTimeout(() => {
-						this.setState({ movie: {} });
-					}, 2000);
-				});
+			if (
+				!this.state.searchResults[input] ||
+				!this.state.searchResults[input].length
+			) {
+				this.setState(
+					{
+						movie: { empty: true, title: " " },
+						loadingResults: false
+					},
+					() => {
+						setTimeout(() => {
+							this.setState({ movie: {} });
+						}, 2000);
+					}
+				);
 			} else {
-				console.log(`Found: ${this.state.searchResults[input].length} ${searchBy === "genre" ? genreName : "recent"} movies`);
+				console.log(
+					`Found: ${this.state.searchResults[input].length} ${
+						searchBy === "genre" ? genreName : "recent"
+					} movies`
+				);
 				this.setState(prevState => {
-					return { movie: prevState.searchResults[input][Math.floor(Math.random() * prevState.searchResults[input].length)], loadingResults: false };
+					return {
+						movie:
+							prevState.searchResults[input][
+								Math.floor(
+									Math.random() *
+										prevState.searchResults[input].length
+								)
+							],
+						loadingResults: false
+					};
 				});
 			}
 		};
 
-		this.setState({ movie: { title: " " }, loadingResults: true }, () => {
-			if (this.state.searchResults[input]) {
-				setTimeout(() => {
-					setMovieState();
-				}, 1500);
-			} else {
-				Unogs.search(country, (searchBy === "genre" ? input : null)).then(response => {
-					this.setState(prevState => {
-						return { searchResults: { ...prevState.searchResults, [input]: response } };
-					}, () => { setMovieState(); });
-				});
+		this.setState(
+			{ movie: { title: " " }, loadingResults: true },
+			async () => {
+				if (this.state.searchResults[input]) {
+					setTimeout(() => setMovieState(), 1500);
+				} else {
+					const response = await Unogs.search(
+						country,
+						searchBy === "genre" ? input : null
+					);
+					this.setState(
+						prevState => ({
+							searchResults: {
+								...prevState.searchResults,
+								[input]: response
+							}
+						}),
+						() => setMovieState()
+					);
+				}
 			}
-		});
+		);
 
 		event.preventDefault();
+	};
 
-	}
+	handleGenreChange = event => {
+		this.setState({
+			genre: event.target.value,
+			genreName: event.target.options[event.target.selectedIndex].text
+		});
+	};
 
-	handleGenreChange = (event) => {
-		this.setState({ genre: event.target.value, genreName: event.target.options[event.target.selectedIndex].text });
-	}
+	handleCountryChange = event => {
+		this.setState({
+			country: event.target.value,
+			countryName: event.target.options[event.target.selectedIndex].text
+		});
+	};
 
-	handleCountryChange = (event) => {
-		this.setState({ country: event.target.value, countryName: event.target.options[event.target.selectedIndex].text });
-	}
-
-	handleSearchByChange = (searchByOption) => {
+	handleSearchByChange = searchByOption => {
 		this.setState({ searchBy: searchByOption });
-	}
+	};
 
 	toggleCountryPicked = () => {
 		this.setState(prevState => {
-			return ({ countryPicked: !prevState.countryPicked, movie: {}, searchResults: {}});
+			return {
+				countryPicked: !prevState.countryPicked,
+				movie: {},
+				searchResults: {}
+			};
 		});
-	}
+	};
 
 	clearCurrentMovie = () => {
 		this.setState({ movie: {}, genre: "X" });
-	}
+	};
 
 	render() {
-		const { country, countryName, countryPicked, movie, searchBy, genre, genreName, genreResults, loadingResults } = this.state;
+		const {
+			country,
+			countryName,
+			countryPicked,
+			movie,
+			searchBy,
+			genre,
+			genreName,
+			genreResults,
+			loadingResults
+		} = this.state;
 
 		return (
 			<div className="container">
-
 				<Home
 					country={country}
 					countryPicked={countryPicked}
@@ -157,10 +210,7 @@ class App extends React.Component {
 					/>
 				</Search>
 
-				<SearchResults
-					movie={movie}
-					loadingResults={loadingResults}
-				>
+				<SearchResults movie={movie} loadingResults={loadingResults}>
 					<MovieContent
 						movie={movie}
 						loadingResults={loadingResults}
@@ -176,7 +226,6 @@ class App extends React.Component {
 					countryPicked={countryPicked}
 					countryName={countryName}
 				/>
-
 			</div>
 		);
 	}
