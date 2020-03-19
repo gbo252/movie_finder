@@ -12,11 +12,15 @@
     "react-dom": "^16.9.0",
     "react-scripts": "^3.3.0"
   },
+  "devDependencies": {
+    "@testing-library/jest-dom": "^5.1.1",
+    "@testing-library/react": "^10.0.1",
+    "@testing-library/user-event": "^10.0.0"
+  },
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "lint": "eslint .",
-    "lint:fix": "eslint --fix ."
+    "test": "react-scripts test"
   },
   "eslintConfig": {
     "extends": "react-app"

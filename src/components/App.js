@@ -213,7 +213,6 @@ class App extends React.Component {
 				<SearchResults movie={movie} loadingResults={loadingResults}>
 					<MovieContent
 						movie={movie}
-						loadingResults={loadingResults}
 						clearCurrentMovie={this.clearCurrentMovie}
 						handleSearch={this.handleSearch}
 						searchBy={searchBy}
@@ -230,5 +229,6 @@ class App extends React.Component {
 		);
 	}
 }
+
 
 export default App;

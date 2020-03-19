@@ -1,16 +1,21 @@
-import React from "react";
-import PropTypes from "prop-types";
+import React from 'react';
+import PropTypes from 'prop-types';
 
-const Spinner = ({display}) => {
-	return (
-		<div className="spinner-border" role="status" style={(display ? {display: "inline-block"} : {display: "none"})}>
-			<span className="sr-only">Loading...</span>
-		</div>
-	);
+const Spinner = ({ display }) => {
+  return (
+    <div
+      className="spinner-border"
+      role="status"
+      style={display ? { display: 'inline-block' } : { display: 'none' }}
+      data-testid="loading"
+    >
+      <span className="sr-only">Loading...</span>
+    </div>
+  );
 };
 
 Spinner.propTypes = {
-	display: PropTypes.bool
+  display: PropTypes.bool
 };
 
 export default Spinner;

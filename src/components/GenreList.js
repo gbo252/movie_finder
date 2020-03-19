@@ -8,9 +8,7 @@ class GenreList extends React.Component {
 			return <option value="Error" key="Error">Server Error</option>;
 		} else {
 			let optionsArr = [<option value="X" key="X">Choose genre...</option>, <option value="random" key="random">All Genres</option>];
-			// eslint-disable-next-line no-unused-vars
 			for (let genre of this.props.genresArray) {
-				// eslint-disable-next-line no-unused-vars
 				for (let genreObj of this.props.genreResults) {
 					if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
 						let genreCode = genreObj[genre];
