@@ -1,21 +1,21 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const MovieContentItem = ({ item, text }) => {
+const MovieContentItem = ({ keyName, val }) => {
   return (
     <div
       data-testid="movie-content-item"
       className="col-4"
-      style={{ display: item ? 'block' : 'none' }}
+      style={{ display: val ? 'block' : 'none' }}
     >
       <h5
-        data-testid="movie-content-title"
-        style={{ display: item ? 'block' : 'none' }}
+        data-testid="movie-content-keyName"
+        style={{ display: val ? 'block' : 'none' }}
       >
-        {text}
+        {keyName}
       </h5>
-      <p data-testid="movie-content-text">
-        {text === 'Runtime' ? (item || '').replace(/h/, 'h ') : item}
+      <p data-testid="movie-content-val">
+        {keyName === 'Runtime' ? (val || '').replace(/h/, 'h ') : val}
       </p>
     </div>
   );

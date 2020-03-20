@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Spinner from './Spinner';
 import '../css/MovieContent.css';
 import MovieContentItem from './MovieContentItem';
+import MovieContentImage from './MovieContentImage';
 
 const decodeHtml = html => {
   var txt = document.createElement('textarea');
@@ -11,22 +11,6 @@ const decodeHtml = html => {
 };
 
 class MovieContent extends React.Component {
-  state = { imageLoaded: false };
-
-  imageRef = React.createRef();
-
-  setLoadingTrue = () => {
-    this.setState({ imageLoaded: true });
-  };
-
-  componentDidMount() {
-    this.imageRef.current.addEventListener('load', this.setLoadingTrue);
-  }
-
-  componentWillUnmount() {
-    this.imageRef.current.removeEventListener('load', this.setLoadingTrue);
-  }
-
   renderInfoItems() {
     const infoItems = {
       Runtime: this.props.movie.runtime,
@@ -34,9 +18,9 @@ class MovieContent extends React.Component {
       Rating: this.props.movie.rating
     };
 
-    return Object.keys(infoItems).map(item => {
-      let itemValue = infoItems[item];
-      return <MovieContentItem key={item} item={itemValue} text={item} />;
+    return Object.keys(infoItems).map(keyName => {
+      let val = infoItems[keyName];
+      return <MovieContentItem key={keyName} keyName={keyName} val={val} />;
     });
   }
 
@@ -49,6 +33,7 @@ class MovieContent extends React.Component {
           type="button"
           onClick={this.props.clearCurrentMovie}
           className="btn btn-lg btn-link btn-block text-left px-0 ml-md-n3 back-button netflix-color font-weight-bold"
+          data-testid="back-button"
         >
           BACK
         </button>
@@ -57,34 +42,27 @@ class MovieContent extends React.Component {
             className="overlay movie-info text-left d-flex flex-column justify-content-around"
             style={{ maxWidth: '450px' }}
           >
-            <h3 className="text-center">{decodeHtml(title || '')}</h3>
+            <h3 className="text-center" data-testid="movie-title">
+              {decodeHtml(title || '')}
+            </h3>
             <div className="row d-flex justify-content-center align-items-center">
               <div className="col d-flex flex-column justify-content-center">
                 <h5>Synopsis</h5>
-                <p>{decodeHtml(synopsis || '')}</p>
+                <p data-testid="movie-synopsis">{decodeHtml(synopsis || '')}</p>
               </div>
               <div className="image-column col-5 d-flex justify-content-center align-items-center mb-2">
-                <img
-                  ref={this.imageRef}
-                  className="w-100"
-                  style={
-                    this.state.imageLoaded
-                      ? { display: 'block' }
-                      : { display: 'none' }
-                  }
-                  src={image}
-                  alt={title}
-                />
-                <div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
-                  <Spinner display={!this.state.imageLoaded} />
-                </div>
+                <MovieContentImage image={image} title={title} />
               </div>
             </div>
             <div className="row d-flex justify-content-center">
               {this.renderInfoItems()}
             </div>
             <form className="mx-auto">
-              <button onClick={this.props.handleSearch} className="btn">
+              <button
+                onClick={this.props.handleSearch}
+                className="btn"
+                data-testid="search-again-button"
+              >
                 search{' '}
                 {(this.props.searchBy === 'genre'
                   ? this.props.genreName
@@ -98,20 +76,7 @@ class MovieContent extends React.Component {
             className="image-section d-flex justify-content-center align-items-center pl-4"
             style={{ minWidth: '250px' }}
           >
-            <img
-              ref={this.imageRef}
-              className="w-100"
-              style={
-                this.state.imageLoaded
-                  ? { display: 'block' }
-                  : { display: 'none' }
-              }
-              src={image}
-              alt={title}
-            />
-            <div className="position-absolute w-100 d-flex justify-content-center align-items-center netflix-color">
-              <Spinner display={!this.state.imageLoaded} />
-            </div>
+            <MovieContentImage image={image} title={title} />
           </div>
         </div>
       </div>

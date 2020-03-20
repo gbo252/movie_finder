@@ -14,24 +14,17 @@ const trueProps = {
   countryName: 'United Kingdom'
 };
 
-test('<CountryLogo /> no props', () => {
-  const { queryByTestId } = render(<CountryLogo />);
-
-  expect(queryByTestId('country-logo')).toBeNull();
-});
-
-test('<CountryLogo /> with no country picked', () => {
+test('no country picked', () => {
   const { queryByTestId } = render(<CountryLogo {...falseProps} />);
 
   expect(queryByTestId('country-logo')).toBeNull();
 });
 
-test('<CountryLogo /> with country picked', () => {
+test('country picked', () => {
   const { toggleCountryPicked, countryName } = trueProps;
   const { getByTestId } = render(<CountryLogo {...trueProps} />);
 
   expect(getByTestId('country-logo-name')).toHaveTextContent(countryName);
   fireEvent.click(getByTestId('country-logo-name'));
   expect(toggleCountryPicked).toHaveBeenCalledTimes(1);
-  toggleCountryPicked.mockClear();
 });
