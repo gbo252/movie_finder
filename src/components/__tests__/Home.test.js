@@ -1,6 +1,6 @@
 import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
-import Unogs from '../../apis/Unogs';
+import unogs from '../../apis/unogs';
 import Home from '../Home';
 
 const props = {
@@ -17,7 +17,7 @@ const mockCountries = [
 ];
 
 test('renderCountries()', async () => {
-  Unogs.getData = jest.fn(() => Promise.resolve(mockCountries));
+  unogs.getData = jest.fn(() => Promise.resolve(mockCountries));
   const { getByTestId, getAllByTestId, findByTestId, queryByTestId } = render(
     <Home {...props} />
   );
@@ -27,8 +27,8 @@ test('renderCountries()', async () => {
   expect(queryByTestId('server-error')).toBeNull();
 
   await findByTestId('choose-country-option');
-  expect(Unogs.getData).toBeCalledTimes(1);
-  expect(Unogs.getData).toBeCalledWith('country');
+  expect(unogs.getData).toBeCalledTimes(1);
+  expect(unogs.getData).toBeCalledWith('country');
   expect(getByTestId('choose-country-option')).toBeInTheDocument();
   expect(queryByTestId('loading-options')).toBeNull();
   expect(queryByTestId('server-error')).toBeNull();
@@ -43,7 +43,7 @@ test('renderCountries()', async () => {
 });
 
 test('renderCountries() no countries returned', async () => {
-  Unogs.getData = jest.fn(() => Promise.resolve([]));
+  unogs.getData = jest.fn(() => Promise.resolve([]));
   const { getByTestId, queryByTestId, findByTestId } = render(
     <Home {...props} />
   );
@@ -55,7 +55,7 @@ test('renderCountries() no countries returned', async () => {
 });
 
 test('renderButton() no Country selected', () => {
-  Unogs.getData = jest.fn();
+  unogs.getData = jest.fn();
   const { getByTestId, queryByTestId } = render(<Home {...props} />);
 
   expect(getByTestId('continue-button')).toBeInTheDocument();
@@ -68,7 +68,7 @@ test('renderButton() no Country selected', () => {
 });
 
 test('renderButton() with Country selected', async () => {
-  Unogs.getData = jest.fn();
+  unogs.getData = jest.fn();
   const { getByTestId, queryByTestId } = render(
     <Home {...props} country={mockCountries[0][0]} />
   );
@@ -94,7 +94,7 @@ test('renderButton() with Country selected', async () => {
 });
 
 test('handleCountryChange is called', () => {
-  Unogs.getData = jest.fn();
+  unogs.getData = jest.fn();
   const { getByTestId } = render(<Home {...props} />);
 
   fireEvent.change(getByTestId('country-select'), {

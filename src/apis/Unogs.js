@@ -1,6 +1,6 @@
 import axios from 'axios';
 
-const Unogs = {
+const unogs = {
   fetchData(url) {
     return axios.get(url, {
       headers: {
@@ -27,13 +27,17 @@ const Unogs = {
           promiseArr.push(this.getMovies('', genre, 100, country, i));
         }
         const genreMovies = await Promise.all(promiseArr);
-        return genreMovies.map(res => res.data.ITEMS).flat();
+        return genreMovies
+          .map(res => res.data.ITEMS)
+          .reduce((acc, curr) => {
+            return acc.concat(curr);
+          }, []);
       } else {
         const response = await this.getMovies('get:new30', 0, 0, country, 1);
         return response.data.ITEMS;
       }
-    } catch (error) {
-      console.log(error);
+    } catch (e) {
+      return [];
     }
   },
 
@@ -52,4 +56,4 @@ const Unogs = {
   }
 };
 
-export default Unogs;
+export default unogs;

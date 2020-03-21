@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import Unogs from '../apis/Unogs';
+import unogs from '../apis/unogs';
 import netflixLogo from '../images/netflix_logo.png';
 import AppRow from './AppRow';
 import '../css/Home.css';
@@ -15,7 +15,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.setState({ loadingCountries: true }, async () => {
-      const response = await Unogs.getData('country');
+      const response = await unogs.getData('country');
       this.setState({ countries: response, loadingCountries: false });
     });
   }

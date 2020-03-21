@@ -6,7 +6,7 @@ import Home from "./Home";
 import CountryLogo from "./CountryLogo";
 import SearchResults from "./SearchResults";
 import MovieContent from "./MovieContent";
-import Unogs from "../apis/Unogs";
+import unogs from "../apis/unogs";
 
 class App extends React.Component {
 	state = {
@@ -53,7 +53,7 @@ class App extends React.Component {
 	allGenreCodes = [];
 
 	async componentDidMount() {
-		const response = await Unogs.getData("genre");
+		const response = await unogs.getData("genre");
 		this.setState({ genreResults: response });
 	}
 
@@ -117,7 +117,7 @@ class App extends React.Component {
 				if (this.state.searchResults[input]) {
 					setTimeout(() => setMovieState(), 1500);
 				} else {
-					const response = await Unogs.search(
+					const response = await unogs.search(
 						country,
 						searchBy === "genre" ? input : null
 					);
