@@ -188,7 +188,7 @@ class App extends React.Component {
 					country={country}
 					countryPicked={countryPicked}
 					toggleCountryPicked={this.toggleCountryPicked}
-					onCountry={this.handleCountryChange}
+					handleCountryChange={this.handleCountryChange}
 				/>
 
 				<Search
