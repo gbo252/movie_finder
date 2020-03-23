@@ -122,6 +122,7 @@ class Home extends React.Component {
             'col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen' +
             (this.state.animate ? ' animate-off-screen' : '')
           }
+          data-testid="Home"
         >
           <img src={netflixLogo} alt="netflix logo" width="175px" />
           <h2 className="pt-1 pb-2">Random Movie Generator</h2>

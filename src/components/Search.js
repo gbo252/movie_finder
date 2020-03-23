@@ -53,15 +53,18 @@ class Search extends React.Component {
     if (this.props.countryPicked && !this.props.movie.title) {
       return (
         <AppRow>
-          <div className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in">
+          <div
+            className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in"
+            data-testid="Search"
+          >
             <div className="country-logo-inc mb-2 px-4 py-1 rounded">
               <img src={netflixLogo} alt="netflix logo" width="100px" />
               <h5
                 id="country-name"
                 className="mt-1 mb-0"
                 onClick={this.props.toggleCountryPicked}
-				title="click to change Country"
-				data-testid="country-name-btn"
+                title="click to change Country"
+                data-testid="country-name-btn"
               >
                 {this.props.countryName}
               </h5>

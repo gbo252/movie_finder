@@ -17,13 +17,14 @@ const trueProps = {
 test('no country picked', () => {
   const { queryByTestId } = render(<CountryLogo {...falseProps} />);
 
-  expect(queryByTestId('country-logo')).toBeNull();
+  expect(queryByTestId('CountryLogo')).toBeNull();
 });
 
 test('country picked', () => {
   const { toggleCountryPicked, countryName } = trueProps;
   const { getByTestId } = render(<CountryLogo {...trueProps} />);
 
+  expect(getByTestId('CountryLogo')).toBeInTheDocument();
   expect(getByTestId('country-logo-name')).toHaveTextContent(countryName);
   fireEvent.click(getByTestId('country-logo-name'));
   expect(toggleCountryPicked).toHaveBeenCalledTimes(1);

@@ -28,7 +28,7 @@ class MovieContent extends React.Component {
     const { title, synopsis, image } = this.props.movie;
 
     return (
-      <div>
+      <div data-testid="MovieContent">
         <button
           type="button"
           onClick={this.props.clearCurrentMovie}

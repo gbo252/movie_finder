@@ -1,234 +1,222 @@
-import React from "react";
-import "../css/App.css";
-import Search from "./Search";
-import GenreList from "./GenreList";
-import Home from "./Home";
-import CountryLogo from "./CountryLogo";
-import SearchResults from "./SearchResults";
-import MovieContent from "./MovieContent";
-import unogs from "../apis/unogs";
+import React from 'react';
+import '../css/App.css';
+import Search from './Search';
+import GenreList from './GenreList';
+import Home from './Home';
+import CountryLogo from './CountryLogo';
+import SearchResults from './SearchResults';
+import MovieContent from './MovieContent';
+import unogs from '../apis/unogs';
 
 class App extends React.Component {
-	state = {
-		searchResults: {},
-		movie: {},
-		loadingResults: false,
-		searchBy: "genre",
-		genreName: "",
-		genre: "X",
-		genreResults: [],
-		country: "X",
-		countryName: "",
-		countryPicked: false
-	};
+  state = {
+    searchResults: {},
+    movie: {},
+    loadingResults: false,
+    searchBy: 'genre',
+    genreName: '',
+    genre: 'X',
+    genreResults: [],
+    country: 'X',
+    countryName: '',
+    countryPicked: false
+  };
 
-	genresArray = [
-		"All Action",
-		"Adventures",
-		"All Anime",
-		"All Childrens",
-		"All Classics",
-		"All Comedies",
-		"Crime Documentaries",
-		"Crime Films",
-		"All Cult",
-		"All Documentaries",
-		"All Dramas",
-		"All Faith and Spirituality",
-		"Fantasy Movies",
-		"All Gay and Lesbian",
-		"All Horror",
-		"All Independent",
-		"All International",
-		"All Music",
-		"All Musicals",
-		"Mysteries",
-		"All Romance",
-		"All Sci-Fi",
-		"All Sports",
-		"Stand-up Comedy",
-		"All Thrillers"
-	];
+  genresArray = [
+    'All Action',
+    'Adventures',
+    'All Anime',
+    'All Childrens',
+    'All Classics',
+    'All Comedies',
+    'Crime Documentaries',
+    'Crime Films',
+    'All Cult',
+    'All Documentaries',
+    'All Dramas',
+    'All Faith and Spirituality',
+    'Fantasy Movies',
+    'All Gay and Lesbian',
+    'All Horror',
+    'All Independent',
+    'All International',
+    'All Music',
+    'All Musicals',
+    'Mysteries',
+    'All Romance',
+    'All Sci-Fi',
+    'All Sports',
+    'Stand-up Comedy',
+    'All Thrillers'
+  ];
 
-	allGenreCodes = [];
+  allGenreCodes = [];
 
-	async componentDidMount() {
-		const response = await unogs.getData("genre");
-		this.setState({ genreResults: response });
-	}
+  async componentDidMount() {
+    const response = await unogs.getData('genre');
+    this.setState({ genreResults: response });
+  }
 
-	handleSearch = event => {
-		const { countryName, genreName, country, searchBy, genre } = this.state;
+  handleSearch = event => {
+    const { countryName, country, searchBy, genre } = this.state;
 
-		let input;
-		if (searchBy === "genre") {
-			input =
-				genre === "random"
-					? this.allGenreCodes[
-						Math.floor(
-							Math.random() * this.allGenreCodes.length
-						)
-					]
-					: genre;
-		} else if (searchBy === "recent") {
-			input = countryName;
-		}
+    let input;
+    if (searchBy === 'genre') {
+      input =
+        genre === 'random'
+          ? this.allGenreCodes[
+              Math.floor(Math.random() * this.allGenreCodes.length)
+            ]
+          : genre;
+    } else {
+      input = countryName;
+    }
 
-		const setMovieState = () => {
-			if (
-				!this.state.searchResults[input] ||
-				!this.state.searchResults[input].length
-			) {
-				this.setState(
-					{
-						movie: { empty: true, title: " " },
-						loadingResults: false
-					},
-					() => {
-						setTimeout(() => {
-							this.setState({ movie: {} });
-						}, 2000);
-					}
-				);
-			} else {
-				console.log(
-					`Found: ${this.state.searchResults[input].length} ${
-						searchBy === "genre" ? genreName : "recent"
-					} movies`
-				);
-				this.setState(prevState => {
-					return {
-						movie:
-							prevState.searchResults[input][
-								Math.floor(
-									Math.random() *
-										prevState.searchResults[input].length
-								)
-							],
-						loadingResults: false
-					};
-				});
-			}
-		};
+    const setMovieState = () => {
+      if (
+        !this.state.searchResults[input] ||
+        !this.state.searchResults[input].length
+      ) {
+        this.setState(
+          {
+            movie: { empty: true, title: ' ' },
+            loadingResults: false
+          },
+          () => {
+            setTimeout(() => {
+              this.setState({ movie: {} });
+            }, 2000);
+          }
+        );
+      } else {
+        this.setState(prevState => {
+          return {
+            movie:
+              prevState.searchResults[input][
+                Math.floor(
+                  Math.random() * prevState.searchResults[input].length
+                )
+              ],
+            loadingResults: false
+          };
+        });
+      }
+    };
 
-		this.setState(
-			{ movie: { title: " " }, loadingResults: true },
-			async () => {
-				if (this.state.searchResults[input]) {
-					setTimeout(() => setMovieState(), 1500);
-				} else {
-					const response = await unogs.search(
-						country,
-						searchBy === "genre" ? input : null
-					);
-					this.setState(
-						prevState => ({
-							searchResults: {
-								...prevState.searchResults,
-								[input]: response
-							}
-						}),
-						() => setMovieState()
-					);
-				}
-			}
-		);
+    this.setState({ movie: { title: ' ' }, loadingResults: true }, async () => {
+      if (this.state.searchResults[input]) {
+        setTimeout(() => setMovieState(), 1500);
+      } else {
+        const response = await unogs.search(
+          country,
+          searchBy === 'genre' ? input : null
+        );
+        this.setState(
+          prevState => ({
+            searchResults: {
+              ...prevState.searchResults,
+              [input]: response
+            }
+          }),
+          () => setMovieState()
+        );
+      }
+    });
 
-		event.preventDefault();
-	};
+    event.preventDefault();
+  };
 
-	handleGenreChange = event => {
-		this.setState({
-			genre: event.target.value,
-			genreName: event.target.options[event.target.selectedIndex].text
-		});
-	};
+  handleGenreChange = event => {
+    this.setState({
+      genre: event.target.value,
+      genreName: event.target.options[event.target.selectedIndex].text
+    });
+  };
 
-	handleCountryChange = event => {
-		this.setState({
-			country: event.target.value,
-			countryName: event.target.options[event.target.selectedIndex].text
-		});
-	};
+  handleCountryChange = event => {
+    this.setState({
+      country: event.target.value,
+      countryName: event.target.options[event.target.selectedIndex].text
+    });
+  };
 
-	handleSearchByChange = searchByOption => {
-		this.setState({ searchBy: searchByOption });
-	};
+  handleSearchByChange = searchByOption => {
+    this.setState({ searchBy: searchByOption });
+  };
 
-	toggleCountryPicked = () => {
-		this.setState(prevState => {
-			return {
-				countryPicked: !prevState.countryPicked,
-				movie: {},
-				searchResults: {}
-			};
-		});
-	};
+  toggleCountryPicked = () => {
+    this.setState(prevState => {
+      return {
+        countryPicked: !prevState.countryPicked,
+        movie: {},
+        searchResults: {}
+      };
+    });
+  };
 
-	clearCurrentMovie = () => {
-		this.setState({ movie: {}, genre: "X" });
-	};
+  clearCurrentMovie = () => {
+    this.setState({ movie: {}, genre: 'X' });
+  };
 
-	render() {
-		const {
-			country,
-			countryName,
-			countryPicked,
-			movie,
-			searchBy,
-			genre,
-			genreName,
-			genreResults,
-			loadingResults
-		} = this.state;
+  render() {
+    const {
+      country,
+      countryName,
+      countryPicked,
+      movie,
+      searchBy,
+      genre,
+      genreName,
+      genreResults,
+      loadingResults
+    } = this.state;
 
-		return (
-			<div className="container">
-				<Home
-					country={country}
-					countryPicked={countryPicked}
-					toggleCountryPicked={this.toggleCountryPicked}
-					handleCountryChange={this.handleCountryChange}
-				/>
+    return (
+      <div className="container">
+        <Home
+          country={country}
+          countryPicked={countryPicked}
+          toggleCountryPicked={this.toggleCountryPicked}
+          handleCountryChange={this.handleCountryChange}
+        />
 
-				<Search
-					countryPicked={countryPicked}
-					movie={movie}
-					changeSearchBy={this.handleSearchByChange}
-					searchBy={searchBy}
-					genre={genre}
-					handleSearch={this.handleSearch}
-					toggleCountryPicked={this.toggleCountryPicked}
-					countryName={countryName}
-				>
-					<GenreList
-						searchBy={searchBy}
-						allGenreCodes={this.allGenreCodes}
-						handleGenreChange={this.handleGenreChange}
-						genresArray={this.genresArray}
-						genreResults={genreResults}
-					/>
-				</Search>
+        <Search
+          countryPicked={countryPicked}
+          movie={movie}
+          changeSearchBy={this.handleSearchByChange}
+          searchBy={searchBy}
+          genre={genre}
+          handleSearch={this.handleSearch}
+          toggleCountryPicked={this.toggleCountryPicked}
+          countryName={countryName}
+        >
+          <GenreList
+            searchBy={searchBy}
+            allGenreCodes={this.allGenreCodes}
+            handleGenreChange={this.handleGenreChange}
+            genresArray={this.genresArray}
+            genreResults={genreResults}
+          />
+        </Search>
 
-				<SearchResults movie={movie} loadingResults={loadingResults}>
-					<MovieContent
-						movie={movie}
-						clearCurrentMovie={this.clearCurrentMovie}
-						handleSearch={this.handleSearch}
-						searchBy={searchBy}
-						genreName={genreName}
-					/>
-				</SearchResults>
+        <SearchResults movie={movie} loadingResults={loadingResults}>
+          <MovieContent
+            movie={movie}
+            clearCurrentMovie={this.clearCurrentMovie}
+            handleSearch={this.handleSearch}
+            searchBy={searchBy}
+            genreName={genreName}
+          />
+        </SearchResults>
 
-				<CountryLogo
-					toggleCountryPicked={this.toggleCountryPicked}
-					countryPicked={countryPicked}
-					countryName={countryName}
-				/>
-			</div>
-		);
-	}
+        <CountryLogo
+          toggleCountryPicked={this.toggleCountryPicked}
+          countryPicked={countryPicked}
+          countryName={countryName}
+        />
+      </div>
+    );
+  }
 }
-
 
 export default App;

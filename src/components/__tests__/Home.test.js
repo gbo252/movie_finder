@@ -2,6 +2,7 @@ import React from 'react';
 import { render, fireEvent, waitFor } from '@testing-library/react';
 import unogs from '../../apis/unogs';
 import Home from '../Home';
+import { mockCountries } from '../../mockData';
 
 const props = {
   country: 'X',
@@ -9,12 +10,6 @@ const props = {
   toggleCountryPicked: jest.fn(),
   handleCountryChange: jest.fn()
 };
-
-const mockCountries = [
-  ['100', null, 'United Kingdom'],
-  ['101', null, 'France'],
-  ['102', null, 'Spain']
-];
 
 test('renderCountries()', async () => {
   unogs.getData = jest.fn(() => Promise.resolve(mockCountries));

@@ -1,16 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import MovieContent from '../MovieContent';
-
-const movie = {
-  title: 'Zo&euml; Comes To Town',
-  synopsis: 'Film synopsis paragraph &divide;',
-  image:
-    'https://occ-0-114-116.1.nflxso.net/dnm/api/v6/evlCitJPPCVCry0BZlEFb5-QjKc/AAAABQ3zPpA6iqBMD41_IqZnI5juS3Na_Cz9rM-rtMBfnNqB-G60M1XmUvpZpvE_r_nsHTk_3Hx3CBsU3oI9Decm6evnw5F5EM7yR3dtI5ydZ9ud8E-154ashW_mYKU.jpg?r=298',
-  runtime: '1h50m',
-  released: '2019',
-  rating: '6.4'
-};
+import { movie } from '../../mockData';
 
 const props = {
   movie,

@@ -1,6 +1,7 @@
 import React from 'react';
 import { render, fireEvent } from '@testing-library/react';
 import GenreList from '../GenreList';
+import { genreResults } from '../../mockData';
 
 const props = {
   searchBy: 'recent',
@@ -12,16 +13,7 @@ const props = {
     'Fantasy Movies',
     'All Musicals'
   ],
-  genreResults: [
-    { 'All Action': [1, 2, 3, 4, 5] },
-    { Adventures: [6, 7, 8, 9] },
-    { 'Crime Films': [10, 11] },
-    { 'All Documentaries': [12, 13, 14, 15, 16] },
-    { 'All Dramas': [17, 18, 19] },
-    { 'Fantasy Movies': [20, 21, 22, 23, 24] },
-    { 'Football Movies': [25, 26, 27] },
-    { 'All Musicals': [28, 29] }
-  ],
+  genreResults,
   allGenreCodes: [],
   handleGenreChange: jest.fn()
 };

@@ -9,7 +9,7 @@ const CountryLogo = ({ countryPicked, toggleCountryPicked, countryName }) => {
     <div
       className="country-logo overlay text-white text-center ml-1 mt-3 py-3 animate-fade-in"
       style={{ width: '250px' }}
-      data-testid="country-logo"
+      data-testid="CountryLogo"
     >
       <img src={netflixLogo} alt="netflix logo" width="175px" />
       <h5

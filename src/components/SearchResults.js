@@ -10,7 +10,10 @@ class SearchResults extends React.Component {
       return this.props.children;
     } else {
       return (
-        <div className="netflix-color p-3 mt-2 p-sm-5 m-sm-5">
+        <div
+          className="netflix-color p-3 mt-2 p-sm-5 m-sm-5"
+          data-testid="results-spinner"
+        >
           <span className="h2 pr-3">Loading</span>
           <Spinner display />
         </div>
@@ -22,7 +25,10 @@ class SearchResults extends React.Component {
     if (this.props.movie.empty) {
       return (
         <AppRow>
-          <div className="col-auto overlay netflix-color p-5 animate-fade-in">
+          <div
+            className="col-auto overlay netflix-color p-5 animate-fade-in"
+            data-testid="no-results-found"
+          >
             <p className="h4">No Results Found</p>
           </div>
         </AppRow>
