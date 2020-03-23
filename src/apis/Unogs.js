@@ -36,7 +36,7 @@ const unogs = {
         const response = await this.getMovies('get:new30', 0, 0, country, 1);
         return response.data.ITEMS;
       }
-    } catch (e) {
+    } catch (err) {
       return [];
     }
   },
@@ -50,7 +50,7 @@ const unogs = {
     try {
       const response = await this.fetchData(url);
       return response.data.ITEMS;
-    } catch (e) {
+    } catch (err) {
       return [];
     }
   }
