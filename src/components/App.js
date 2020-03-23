@@ -6,7 +6,7 @@ import Home from './Home';
 import CountryLogo from './CountryLogo';
 import SearchResults from './SearchResults';
 import MovieContent from './MovieContent';
-import unogs from '../../apis/unogs';
+import unogs from '../apis/unogs';
 
 class App extends React.Component {
   state = {
