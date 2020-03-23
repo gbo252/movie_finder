@@ -21,7 +21,8 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jest-environment-jsdom-sixteen"
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "heroku-postbuild": "npm run build"
   },
   "browserslist": {
     "production": [
