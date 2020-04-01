@@ -17,8 +17,8 @@ type Props = {
 
 class Search extends React.Component<Props> {
   searchByOptions: { [key: string]: string } = {
-    Genre: 'genre',
-    'Recently Added': 'recent'
+    Genre: SearchBy.genre,
+    'Recently Added': SearchBy.recent
   };
 
   renderSearchByOptions() {
@@ -42,7 +42,7 @@ class Search extends React.Component<Props> {
 
   renderButton() {
     let atts: { disabled?: boolean; title?: string } = {};
-    if (this.props.genre === 'X' && this.props.searchBy === 'genre') {
+    if (this.props.genre === 'X' && this.props.searchBy === SearchBy.genre) {
       atts.disabled = true;
       atts.title = 'Choose genre';
     }

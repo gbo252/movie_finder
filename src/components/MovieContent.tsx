@@ -74,7 +74,7 @@ class MovieContent extends React.Component<Props> {
                 data-testid="search-again-button"
               >
                 search{' '}
-                {(this.props.searchBy === 'genre'
+                {(this.props.searchBy === SearchBy.genre
                   ? this.props.genreName
                   : 'recently added'
                 ).toLowerCase()}{' '}

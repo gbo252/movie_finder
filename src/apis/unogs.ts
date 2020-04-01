@@ -1,5 +1,5 @@
 import axios, { AxiosPromise, AxiosResponse } from 'axios';
-import { Movie, TGenreResults } from '../types';
+import { Movie, TGenreResults, SearchBy } from '../types';
 
 const unogs = {
   fetchData(url: string): AxiosPromise {
@@ -50,7 +50,7 @@ const unogs = {
 
   async getData(option: string): Promise<TGenreResults | string[][]> {
     let input =
-      option === 'genre' ? 'api.cgi?t=genres' : 'aaapi.cgi?t=lc&q=available';
+      option === SearchBy.genre ? 'api.cgi?t=genres' : 'aaapi.cgi?t=lc&q=available';
 
     let url = `https://unogs-unogs-v1.p.rapidapi.com/${input}`;
 

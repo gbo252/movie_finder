@@ -67,7 +67,7 @@ class App extends React.Component<{}, State> {
   allGenreCodes = [];
 
   async componentDidMount() {
-    const response = (await unogs.getData('genre')) as TGenreResults;
+    const response = (await unogs.getData(SearchBy.genre)) as TGenreResults;
     this.setState({ genreResults: response });
   }
 
@@ -75,7 +75,7 @@ class App extends React.Component<{}, State> {
     const { countryName, country, searchBy, genre } = this.state;
 
     let input: string;
-    if (searchBy === 'genre') {
+    if (searchBy === SearchBy.genre) {
       input =
         genre === 'random'
           ? this.allGenreCodes[
@@ -123,7 +123,7 @@ class App extends React.Component<{}, State> {
       } else {
         const response = (await unogs.search(
           country,
-          searchBy === 'genre' ? input : null
+          searchBy === SearchBy.genre ? input : null
         )) as Movie[];
         this.setState(
           prevState => ({

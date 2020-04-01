@@ -52,7 +52,7 @@ class GenreList extends React.Component<Props> {
 
   renderAtts(section: string) {
     const atts: { disabled?: boolean; style?: { [key: string]: string } } = {};
-    if (this.props.searchBy === 'recent') {
+    if (this.props.searchBy === SearchBy.recent) {
       switch (section) {
         case 'label':
           atts.style = { opacity: '0.2' };
