@@ -1,18 +1,29 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import netflixLogo from '../images/netflix_logo.png';
 import AppRow from './AppRow';
+import { Movie, SearchBy } from '../types';
 import '../css/Search.css';
 
-class Search extends React.Component {
-  searchByOptions = {
+type Props = {
+  movie: Movie;
+  countryPicked: boolean;
+  changeSearchBy: (searchByOption: SearchBy) => void;
+  searchBy: SearchBy;
+  handleSearch: (event: React.MouseEvent<HTMLButtonElement>) => void;
+  genre: string;
+  countryName: string;
+  toggleCountryPicked: () => void;
+};
+
+class Search extends React.Component<Props> {
+  searchByOptions: { [key: string]: string } = {
     Genre: 'genre',
     'Recently Added': 'recent'
   };
 
   renderSearchByOptions() {
     return Object.keys(this.searchByOptions).map(searchByOption => {
-      let searchByOptionValue = this.searchByOptions[searchByOption];
+      const searchByOptionValue = this.searchByOptions[searchByOption] as SearchBy;
       return (
         <li
           key={searchByOptionValue}
@@ -30,7 +41,7 @@ class Search extends React.Component {
   }
 
   renderButton() {
-    let atts = {};
+    let atts: { disabled?: boolean; title?: string } = {};
     if (this.props.genre === 'X' && this.props.searchBy === 'genre') {
       atts.disabled = true;
       atts.title = 'Choose genre';
@@ -88,17 +99,5 @@ class Search extends React.Component {
     return null;
   }
 }
-
-Search.propTypes = {
-  movie: PropTypes.object,
-  countryPicked: PropTypes.bool,
-  changeSearchBy: PropTypes.func,
-  searchBy: PropTypes.string,
-  handleSearch: PropTypes.func,
-  genre: PropTypes.string,
-  countryName: PropTypes.string,
-  toggleCountryPicked: PropTypes.func,
-  children: PropTypes.object
-};
 
 export default Search;

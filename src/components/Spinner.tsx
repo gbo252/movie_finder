@@ -1,7 +1,10 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const Spinner = ({ display }) => {
+type Props = {
+  display: boolean;
+};
+
+const Spinner = ({ display }: Props) => {
   return (
     <div
       className="spinner-border"
@@ -12,10 +15,6 @@ const Spinner = ({ display }) => {
       <span className="sr-only">Loading...</span>
     </div>
   );
-};
-
-Spinner.propTypes = {
-  display: PropTypes.bool
 };
 
 export default Spinner;

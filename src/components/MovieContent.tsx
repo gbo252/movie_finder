@@ -1,27 +1,37 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../css/MovieContent.css';
 import MovieContentItem from './MovieContentItem';
 import MovieContentImage from './MovieContentImage';
+import { Movie, SearchBy } from '../types';
 
-const decodeHtml = html => {
-  var txt = document.createElement('textarea');
+const decodeHtml = (html: string): string => {
+  const txt = document.createElement('textarea');
   txt.innerHTML = html;
   return txt.value;
 };
 
-class MovieContent extends React.Component {
+type Props = {
+  movie: Movie;
+  clearCurrentMovie: () => void;
+  handleSearch: (e: React.MouseEvent<HTMLButtonElement>) => void;
+  searchBy: SearchBy;
+  genreName: string;
+};
+
+class MovieContent extends React.Component<Props> {
   renderInfoItems() {
-    const infoItems = {
-      Runtime: this.props.movie.runtime,
-      Released: this.props.movie.released,
-      Rating: this.props.movie.rating
+    const infoItems: { [key: string]: string } = {
+      Runtime: this.props.movie.runtime!,
+      Released: this.props.movie.released!,
+      Rating: this.props.movie.rating!
     };
 
-    return Object.keys(infoItems).map(keyName => {
-      let val = infoItems[keyName];
-      return <MovieContentItem key={keyName} keyName={keyName} val={val} />;
-    });
+    return Object.keys(infoItems).map(
+      (keyName) => {
+        const val = infoItems[keyName];
+        return <MovieContentItem key={keyName} keyName={keyName} val={val} />;
+      }
+    );
   }
 
   render() {
@@ -51,7 +61,7 @@ class MovieContent extends React.Component {
                 <p data-testid="movie-synopsis">{decodeHtml(synopsis || '')}</p>
               </div>
               <div className="image-column col-5 d-flex justify-content-center align-items-center mb-2">
-                <MovieContentImage image={image} title={title} />
+                <MovieContentImage image={image!} title={title!} />
               </div>
             </div>
             <div className="row d-flex justify-content-center">
@@ -76,20 +86,12 @@ class MovieContent extends React.Component {
             className="image-section d-flex justify-content-center align-items-center pl-4"
             style={{ minWidth: '250px' }}
           >
-            <MovieContentImage image={image} title={title} />
+            <MovieContentImage image={image!} title={title!} />
           </div>
         </div>
       </div>
     );
   }
 }
-
-MovieContent.propTypes = {
-  movie: PropTypes.object,
-  clearCurrentMovie: PropTypes.func,
-  handleSearch: PropTypes.func,
-  searchBy: PropTypes.string,
-  genreName: PropTypes.string
-};
 
 export default MovieContent;

@@ -7,13 +7,29 @@ import CountryLogo from './CountryLogo';
 import SearchResults from './SearchResults';
 import MovieContent from './MovieContent';
 import unogs from '../apis/unogs';
+import { Movie, SearchBy } from '../types';
 
-class App extends React.Component {
+type TSearchResults = { [key: string]: Movie[] };
+
+type State = {
+  searchResults: TSearchResults;
+  movie: Movie;
+  loadingResults: boolean;
+  searchBy: SearchBy;
+  genreName: string;
+  genre: string;
+  genreResults: { [key: string]: number[] }[];
+  country: string;
+  countryName: string;
+  countryPicked: boolean;
+};
+
+class App extends React.Component<{}, State> {
   state = {
     searchResults: {},
     movie: {},
     loadingResults: false,
-    searchBy: 'genre',
+    searchBy: SearchBy.genre,
     genreName: '',
     genre: 'X',
     genreResults: [],
@@ -53,14 +69,14 @@ class App extends React.Component {
   allGenreCodes = [];
 
   async componentDidMount() {
-    const response = await unogs.getData('genre');
+    const response: { [key: string]: number[] }[] = await unogs.getData('genre');
     this.setState({ genreResults: response });
   }
 
-  handleSearch = event => {
+  handleSearch = (event: React.MouseEvent<HTMLButtonElement>) => {
     const { countryName, country, searchBy, genre } = this.state;
 
-    let input;
+    let input: string;
     if (searchBy === 'genre') {
       input =
         genre === 'random'
@@ -74,8 +90,8 @@ class App extends React.Component {
 
     const setMovieState = () => {
       if (
-        !this.state.searchResults[input] ||
-        !this.state.searchResults[input].length
+        !(this.state.searchResults as TSearchResults)[input] ||
+        !(this.state.searchResults as TSearchResults)[input].length
       ) {
         this.setState(
           {
@@ -104,7 +120,7 @@ class App extends React.Component {
     };
 
     this.setState({ movie: { title: ' ' }, loadingResults: true }, async () => {
-      if (this.state.searchResults[input]) {
+      if ((this.state.searchResults as TSearchResults)[input]) {
         setTimeout(() => setMovieState(), 1500);
       } else {
         const response = await unogs.search(
@@ -126,21 +142,21 @@ class App extends React.Component {
     event.preventDefault();
   };
 
-  handleGenreChange = event => {
+  handleGenreChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       genre: event.target.value,
       genreName: event.target.options[event.target.selectedIndex].text
     });
   };
 
-  handleCountryChange = event => {
+  handleCountryChange = (event: React.ChangeEvent<HTMLSelectElement>) => {
     this.setState({
       country: event.target.value,
       countryName: event.target.options[event.target.selectedIndex].text
     });
   };
 
-  handleSearchByChange = searchByOption => {
+  handleSearchByChange = (searchByOption: SearchBy) => {
     this.setState({ searchBy: searchByOption });
   };
 

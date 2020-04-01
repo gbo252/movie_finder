@@ -104,4 +104,4 @@ test('<App /> integration test', async () => {
   expect(queryByTestId('Search')).toBeNull();
   expect(queryByTestId('MovieContent')).toBeNull();
   expect(getByTestId('Home')).toBeInTheDocument();
-}, 10000);
+}, 15000);

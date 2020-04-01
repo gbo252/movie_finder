@@ -1,7 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
+import { SearchBy } from '../types';
 
-class GenreList extends React.Component {
+type Props = {
+  handleGenreChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+  searchBy: SearchBy;
+  allGenreCodes: number[][];
+  genresArray: string[];
+  genreResults: { [key: string]: number[] }[];
+};
+
+class GenreList extends React.Component<Props> {
   renderGenres() {
     if (!this.props.genreResults || !this.props.genreResults.length) {
       return (
@@ -21,12 +29,12 @@ class GenreList extends React.Component {
       for (let genre of this.props.genresArray) {
         for (let genreObj of this.props.genreResults) {
           if (Object.prototype.hasOwnProperty.call(genreObj, genre)) {
-            let genreCode = genreObj[genre];
+            const genreCode = genreObj[genre];
             this.props.allGenreCodes.push(genreCode);
             optionsArr.push(
               <option
-                value={genreCode}
-                key={genreCode}
+                value={genreCode.toString()}
+                key={genreCode.toString()}
                 data-testid="genre-options"
               >
                 {genre
@@ -42,8 +50,8 @@ class GenreList extends React.Component {
     }
   }
 
-  renderAtts(section) {
-    let atts = {};
+  renderAtts(section: string) {
+    const atts: { disabled?: boolean; style?: { [key: string]: string } } = {};
     if (this.props.searchBy === 'recent') {
       switch (section) {
         case 'label':
@@ -85,13 +93,5 @@ class GenreList extends React.Component {
     );
   }
 }
-
-GenreList.propTypes = {
-  handleGenreChange: PropTypes.func,
-  searchBy: PropTypes.string,
-  allGenreCodes: PropTypes.array,
-  genresArray: PropTypes.array,
-  genreResults: PropTypes.array
-};
 
 export default GenreList;

@@ -1,11 +1,24 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import unogs from '../apis/unogs';
 import netflixLogo from '../images/netflix_logo.png';
 import AppRow from './AppRow';
 import '../css/Home.css';
 
-class Home extends React.Component {
+type Props = {
+  country: string;
+  countryPicked: boolean;
+  toggleCountryPicked: () => void;
+  handleCountryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
+};
+
+type State = {
+  countries: string[][];
+  loadingSearchScreen: boolean;
+  loadingCountries: boolean;
+  animate: boolean;
+};
+
+class Home extends React.Component<Props, State> {
   state = {
     countries: [],
     loadingSearchScreen: false,
@@ -15,7 +28,7 @@ class Home extends React.Component {
 
   componentDidMount() {
     this.setState({ loadingCountries: true }, async () => {
-      const response = await unogs.getData('country');
+      const response: string[][] = await unogs.getData('country');
       this.setState({ countries: response, loadingCountries: false });
     });
   }
@@ -59,7 +72,7 @@ class Home extends React.Component {
     }
   }
 
-  chooseCountry = event => {
+  chooseCountry = (event: React.MouseEvent<HTMLButtonElement>) => {
     this.setState({ loadingSearchScreen: true }, () => {
       setTimeout(() => {
         this.setState({ animate: true });
@@ -76,7 +89,7 @@ class Home extends React.Component {
   };
 
   renderButton() {
-    let atts = {};
+    let atts: { disabled?: boolean; title?: string } = {};
     if (this.props.country === 'X') {
       atts.disabled = true;
       atts.title = 'Select a country';
@@ -146,12 +159,5 @@ class Home extends React.Component {
     );
   }
 }
-
-Home.propTypes = {
-  toggleCountryPicked: PropTypes.func,
-  country: PropTypes.string,
-  handleCountryChange: PropTypes.func,
-  countryPicked: PropTypes.bool
-};
 
 export default Home;

@@ -1,7 +1,11 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 
-const MovieContentItem = ({ keyName, val }) => {
+type Props = {
+  keyName: string;
+  val: string;
+};
+
+const MovieContentItem = ({ keyName, val }: Props) => {
   return (
     <div
       data-testid="movie-content-item"
@@ -19,11 +23,6 @@ const MovieContentItem = ({ keyName, val }) => {
       </p>
     </div>
   );
-};
-
-MovieContentItem.propTypes = {
-  item: PropTypes.string,
-  text: PropTypes.string
 };
 
 export default MovieContentItem;

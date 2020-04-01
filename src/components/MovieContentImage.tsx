@@ -1,8 +1,16 @@
 import React from 'react';
 import Spinner from './Spinner';
-import PropTypes from 'prop-types';
 
-class MovieContentImage extends React.Component {
+type Props = {
+  title: string;
+  image: string;
+};
+
+type State = {
+  imageLoaded: boolean
+};
+
+class MovieContentImage extends React.Component<Props, State> {
   state = { imageLoaded: false };
 
   render() {
@@ -27,10 +35,5 @@ class MovieContentImage extends React.Component {
     );
   }
 }
-
-MovieContentImage.propTypes = {
-  title: PropTypes.string,
-  image: PropTypes.string
-};
 
 export default MovieContentImage;

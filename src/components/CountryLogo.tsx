@@ -1,9 +1,18 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import '../css/CountryLogo.css';
 import netflixLogo from '../images/netflix_logo.png';
 
-const CountryLogo = ({ countryPicked, toggleCountryPicked, countryName }) => {
+type Props = {
+  countryPicked: boolean;
+  toggleCountryPicked: () => void;
+  countryName: string;
+};
+
+const CountryLogo = ({
+  countryPicked,
+  toggleCountryPicked,
+  countryName
+}: Props) => {
   if (!countryPicked) return null;
   return (
     <div
@@ -23,12 +32,6 @@ const CountryLogo = ({ countryPicked, toggleCountryPicked, countryName }) => {
       </h5>
     </div>
   );
-};
-
-CountryLogo.propTypes = {
-  countryName: PropTypes.string,
-  toggleCountryPicked: PropTypes.func,
-  countryPicked: PropTypes.bool
 };
 
 export default CountryLogo;

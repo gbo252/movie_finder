@@ -1,10 +1,15 @@
 import React from 'react';
-import PropTypes from 'prop-types';
 import Spinner from './Spinner';
 import AppRow from './AppRow';
 import '../css/SearchResults.css';
+import { Movie } from '../types';
 
-class SearchResults extends React.Component {
+type Props = {
+  movie: Movie;
+  loadingResults: boolean;
+};
+
+class SearchResults extends React.Component<Props> {
   renderContent() {
     if (!this.props.loadingResults) {
       return this.props.children;
@@ -46,11 +51,5 @@ class SearchResults extends React.Component {
     }
   }
 }
-
-SearchResults.propTypes = {
-  movie: PropTypes.object,
-  loadingResults: PropTypes.bool,
-  children: PropTypes.object
-};
 
 export default SearchResults;
