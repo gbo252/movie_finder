@@ -12,3 +12,7 @@ export interface Movie {
   runtime?: string;
   empty?: boolean;
 }
+
+export type TSearchResults = { [key: string]: Movie[] };
+
+export type TGenreResults = { [key: string]: number[] }[];
