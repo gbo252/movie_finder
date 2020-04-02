@@ -38,10 +38,15 @@ This project aims to make choosing a film from Netflix easier, by displaying one
 * HTML
 * CSS
 * JavaScript
+* TypeScript - 3.8.3
 * Bootstrap - 4.3.1
 * React - 16.9.0
 * Node - 10.16.0
 * npm - 6.9.0
+
+## Tested With
+* Jest
+* React Testing Library
 
 ## Contact
 Created by Guy Owen - guy.owen@virginmedia.com
