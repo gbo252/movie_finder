@@ -28,7 +28,8 @@
     "start": "serve -s build",
     "dev": "react-scripts start",
     "build": "react-scripts build",
-    "test": "react-scripts test --env=jest-environment-jsdom-sixteen"
+    "test": "react-scripts test --env=jest-environment-jsdom-sixteen",
+    "build+open": "npm run build && start http://localhost:5000 && npm run start"
   },
   "browserslist": {
     "production": [
