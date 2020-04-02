@@ -19,7 +19,7 @@ type State = {
 };
 
 class Home extends React.Component<Props, State> {
-  state = {
+  state: State = {
     countries: [],
     loadingSearchScreen: false,
     loadingCountries: false,

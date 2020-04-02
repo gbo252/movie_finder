@@ -20,7 +20,7 @@ type Props = {
 
 class MovieContent extends React.Component<Props> {
   renderInfoItems() {
-    const infoItems: { [key: string]: string } = {
+    const infoItems: Record<string, string> = {
       Runtime: this.props.movie.runtime!,
       Released: this.props.movie.released!,
       Rating: this.props.movie.rating!

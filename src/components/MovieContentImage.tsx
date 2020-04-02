@@ -11,7 +11,7 @@ type State = {
 };
 
 class MovieContentImage extends React.Component<Props, State> {
-  state = { imageLoaded: false };
+  state: State = { imageLoaded: false };
 
   render() {
     const { image, title } = this.props;

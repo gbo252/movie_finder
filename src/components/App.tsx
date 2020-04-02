@@ -23,7 +23,7 @@ type State = {
 };
 
 class App extends React.Component<{}, State> {
-  state = {
+  state: State = {
     searchResults: {},
     movie: {},
     loadingResults: false,
@@ -36,7 +36,7 @@ class App extends React.Component<{}, State> {
     countryPicked: false
   };
 
-  genresArray = [
+  genresArray: string[] = [
     'All Action',
     'Adventures',
     'All Anime',
@@ -64,7 +64,7 @@ class App extends React.Component<{}, State> {
     'All Thrillers'
   ];
 
-  allGenreCodes = [];
+  allGenreCodes: number[][] = [];
 
   async componentDidMount() {
     const response = (await unogs.getData(SearchBy.genre)) as TGenreResults;
@@ -80,7 +80,7 @@ class App extends React.Component<{}, State> {
         genre === 'random'
           ? this.allGenreCodes[
               Math.floor(Math.random() * this.allGenreCodes.length)
-            ]
+            ].toString()
           : genre;
     } else {
       input = countryName;
