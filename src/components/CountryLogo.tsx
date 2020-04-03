@@ -4,7 +4,7 @@ import netflixLogo from '../images/netflix_logo.png';
 
 type Props = {
   countryPicked: boolean;
-  toggleCountryPicked: () => void;
+  toggleCountryPicked: (countryPicked: boolean) => void;
   countryName: string;
 };
 
@@ -24,7 +24,7 @@ const CountryLogo = ({
       <h5
         id="country-name"
         className="mt-1 mb-0"
-        onClick={toggleCountryPicked}
+        onClick={() => toggleCountryPicked(false)}
         title="click to change Country"
         data-testid="country-logo-name"
       >

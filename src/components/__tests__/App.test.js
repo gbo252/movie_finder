@@ -33,12 +33,15 @@ test('<App /> integration test', async () => {
   expect(queryByTestId('Search')).toBeNull();
   await findByTestId('choose-country-option');
   expect(unogs.getData).toHaveBeenCalledTimes(2);
-
+  expect(getByTestId('continue-button')).toBeDisabled();
+  
   fireEvent.change(getByTestId('country-select'), {
     target: {
       value: '100'
     }
   });
+
+  expect(getByTestId('continue-button')).not.toBeDisabled();
   expect(getByTestId('country-select').value).toBe('100');
   fireEvent.click(getByTestId('continue-button'));
 
@@ -100,8 +103,11 @@ test('<App /> integration test', async () => {
   expect(queryByTestId('no-results-found')).toBeNull();
 
   fireEvent.click(getByTestId('country-logo-name'));
+  expect(getByTestId('Home')).toBeInTheDocument();
+  expect(getByTestId('country-select').value).toBe('X');
+  expect(getByTestId('continue-button')).toBeDisabled();
+
   expect(queryByTestId('CountryLogo')).toBeNull();
   expect(queryByTestId('Search')).toBeNull();
   expect(queryByTestId('MovieContent')).toBeNull();
-  expect(getByTestId('Home')).toBeInTheDocument();
 }, 15000);

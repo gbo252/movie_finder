@@ -12,7 +12,7 @@ type Props = {
   handleSearch: (event: React.MouseEvent<HTMLButtonElement>) => void;
   genre: string;
   countryName: string;
-  toggleCountryPicked: () => void;
+  toggleCountryPicked: (countryPicked: boolean) => void;
 };
 
 class Search extends React.Component<Props> {
@@ -23,7 +23,9 @@ class Search extends React.Component<Props> {
 
   renderSearchByOptions() {
     return Object.keys(this.searchByOptions).map(searchByOption => {
-      const searchByOptionValue = this.searchByOptions[searchByOption] as SearchBy;
+      const searchByOptionValue = this.searchByOptions[
+        searchByOption
+      ] as SearchBy;
       return (
         <li
           key={searchByOptionValue}
@@ -73,7 +75,7 @@ class Search extends React.Component<Props> {
               <h5
                 id="country-name"
                 className="mt-1 mb-0"
-                onClick={this.props.toggleCountryPicked}
+                onClick={() => this.props.toggleCountryPicked(false)}
                 title="click to change Country"
                 data-testid="country-name-btn"
               >

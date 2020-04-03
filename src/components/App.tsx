@@ -158,14 +158,20 @@ class App extends React.Component<{}, State> {
     this.setState({ searchBy: searchByOption });
   };
 
-  toggleCountryPicked = () => {
-    this.setState(prevState => {
-      return {
-        countryPicked: !prevState.countryPicked,
+  toggleCountryPicked = (countryPicked: boolean): void => {
+    if (countryPicked) {
+      this.setState({ countryPicked: true });
+    } else {
+      this.setState({
+        countryPicked: false,
         movie: {},
-        searchResults: {}
-      };
-    });
+        searchResults: {},
+        country: 'X',
+        countryName: '',
+        genre: 'X',
+        genreName: ''
+      });
+    }
   };
 
   clearCurrentMovie = () => {

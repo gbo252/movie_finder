@@ -7,7 +7,7 @@ import '../css/Home.css';
 type Props = {
   country: string;
   countryPicked: boolean;
-  toggleCountryPicked: () => void;
+  toggleCountryPicked: (countryPicked: boolean) => void;
   handleCountryChange: (e: React.ChangeEvent<HTMLSelectElement>) => void;
 };
 
@@ -75,7 +75,7 @@ class Home extends React.Component<Props, State> {
         this.setState({ animate: true });
       }, 1500);
       setTimeout(() => {
-        this.props.toggleCountryPicked();
+        this.props.toggleCountryPicked(true);
         this.setState({ loadingSearchScreen: false });
       }, 2400);
       setTimeout(() => {
