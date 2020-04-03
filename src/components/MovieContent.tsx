@@ -19,7 +19,7 @@ type Props = {
 };
 
 class MovieContent extends React.Component<Props> {
-  renderInfoItems() {
+  renderInfoItems(): JSX.Element[] {
     const infoItems: Record<string, string> = {
       Runtime: this.props.movie.runtime!,
       Released: this.props.movie.released!,
@@ -27,7 +27,7 @@ class MovieContent extends React.Component<Props> {
     };
 
     return Object.keys(infoItems).map(
-      (keyName) => {
+      (keyName: string): JSX.Element => {
         const val = infoItems[keyName];
         return <MovieContentItem key={keyName} keyName={keyName} val={val} />;
       }

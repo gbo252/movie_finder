@@ -31,7 +31,7 @@ class SearchResults extends React.Component<Props> {
       return (
         <AppRow>
           <div
-            className="col-auto overlay netflix-color p-5 animate-fade-in"
+            className="col-auto overlay netflix-color p-5 my-auto animate-fade-in"
             data-testid="no-results-found"
           >
             <p className="h4">No Results Found</p>
@@ -41,7 +41,7 @@ class SearchResults extends React.Component<Props> {
     } else if (this.props.movie.title) {
       return (
         <AppRow>
-          <div className="col-auto overlay d-flex flex-column px-4 pb-4 justify-content-center align-items-center animate-fade-in">
+          <div className="col-auto overlay d-flex flex-column px-4 pb-4 my-auto justify-content-center align-items-center animate-fade-in">
             {this.renderContent()}
           </div>
         </AppRow>

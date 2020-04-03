@@ -65,7 +65,7 @@ class Search extends React.Component<Props> {
       return (
         <AppRow>
           <div
-            className="col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-fade-in"
+            className="col-auto overlay d-flex flex-column p-4 my-auto justify-content-center align-items-center animate-fade-in"
             data-testid="Search"
           >
             <div className="country-logo-inc mb-2 px-4 py-1 rounded">

@@ -28,21 +28,18 @@ class Home extends React.Component<Props, State> {
 
   componentDidMount() {
     this.setState({ loadingCountries: true }, async () => {
-      const response = await unogs.getData('country') as string[][];
+      const response = (await unogs.getData('country')) as string[][];
       this.setState({ countries: response, loadingCountries: false });
     });
   }
 
   renderCountries() {
     if (this.state.loadingCountries) {
-      return [
+      return (
         <option value="loading" key="loading" data-testid="loading-options">
           Loading...
-        </option>,
-        <option value="sizer" key="sizer">
-          Czech eepublica..
         </option>
-      ];
+      );
     } else {
       if (!this.state.countries || !this.state.countries.length) {
         return (
@@ -132,14 +129,14 @@ class Home extends React.Component<Props, State> {
       <AppRow>
         <div
           className={
-            'col-auto overlay d-flex flex-column p-4 justify-content-center align-items-center animate-on-screen' +
+            'col-auto overlay d-flex flex-column p-4 my-auto justify-content-center align-items-center animate-on-screen' +
             (this.state.animate ? ' animate-off-screen' : '')
           }
           data-testid="Home"
         >
           <img src={netflixLogo} alt="netflix logo" width="175px" />
           <h2 className="pt-1 pb-2">Random Movie Generator</h2>
-          <form>
+          <form style={{ width: '100%' }}>
             <div className="form-group pb-2">
               <label htmlFor="country-list">Select a Country</label>
               <select
