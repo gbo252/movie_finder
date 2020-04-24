@@ -7,16 +7,16 @@ import CountryLogo from './CountryLogo';
 import SearchResults from './SearchResults';
 import MovieContent from './MovieContent';
 import unogs from '../apis/unogs';
-import { Movie, SearchBy, TSearchResults, TGenreResults } from '../types';
+import { Movie, SearchBy, SearchResult, GenreCodes } from '../types';
 
 type State = {
-  searchResults: TSearchResults;
+  searchResults: SearchResult;
   movie: Movie;
   loadingResults: boolean;
   searchBy: SearchBy;
   genreName: string;
   genre: string;
-  genreResults: TGenreResults;
+  genreResults: GenreCodes[];
   country: string;
   countryName: string;
   countryPicked: boolean;
@@ -67,7 +67,7 @@ class App extends React.Component<{}, State> {
   allGenreCodes: number[][] = [];
 
   async componentDidMount() {
-    const response = (await unogs.getData(SearchBy.genre)) as TGenreResults;
+    const response = await unogs.getData<GenreCodes[]>(SearchBy.genre);
     this.setState({ genreResults: response });
   }
 
@@ -88,8 +88,8 @@ class App extends React.Component<{}, State> {
 
     const setMovieState = () => {
       if (
-        !(this.state.searchResults as TSearchResults)[input] ||
-        !(this.state.searchResults as TSearchResults)[input].length
+        !(this.state.searchResults)[input] ||
+        !(this.state.searchResults)[input].length
       ) {
         this.setState(
           {
@@ -118,13 +118,13 @@ class App extends React.Component<{}, State> {
     };
 
     this.setState({ movie: { title: ' ' }, loadingResults: true }, async () => {
-      if ((this.state.searchResults as TSearchResults)[input]) {
+      if ((this.state.searchResults)[input]) {
         setTimeout(() => setMovieState(), 1500);
       } else {
-        const response = (await unogs.search(
+        const response = await unogs.search(
           country,
           searchBy === SearchBy.genre ? input : null
-        )) as Movie[];
+        );
         this.setState(
           prevState => ({
             searchResults: {

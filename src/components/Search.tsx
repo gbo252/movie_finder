@@ -16,7 +16,7 @@ type Props = {
 };
 
 class Search extends React.Component<Props> {
-  searchByOptions: { [key: string]: string } = {
+  searchByOptions: { [option: string]: SearchBy } = {
     Genre: SearchBy.genre,
     'Recently Added': SearchBy.recent
   };
@@ -25,7 +25,7 @@ class Search extends React.Component<Props> {
     return Object.keys(this.searchByOptions).map(searchByOption => {
       const searchByOptionValue = this.searchByOptions[
         searchByOption
-      ] as SearchBy;
+      ];
       return (
         <li
           key={searchByOptionValue}

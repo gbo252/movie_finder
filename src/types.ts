@@ -13,6 +13,6 @@ export interface Movie {
   empty?: boolean;
 }
 
-export type TSearchResults = { [key: string]: Movie[] };
+export type SearchResult = { [genreCodes: string]: Movie[] };
 
-export type TGenreResults = { [key: string]: number[] }[];
+export type GenreCodes = { [genre: string]: number[] };

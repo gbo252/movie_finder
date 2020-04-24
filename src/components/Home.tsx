@@ -28,7 +28,7 @@ class Home extends React.Component<Props, State> {
 
   componentDidMount() {
     this.setState({ loadingCountries: true }, async () => {
-      const response = (await unogs.getData('country')) as string[][];
+      const response = await unogs.getData<string[][]>('country');
       this.setState({ countries: response, loadingCountries: false });
     });
   }
